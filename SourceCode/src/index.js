@@ -5,6 +5,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Route,Switch } from "react-router-dom";
 import LoginAndReg from './Raj/components/loginReg';
+import {FooterCus} from './Jigar/Components/Footer/Footer';
 
 import NavbarTemplate from './Raj/components/navbarTemplate'
 
@@ -13,12 +14,10 @@ import NavbarTemplate from './Raj/components/navbarTemplate'
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-    
       <Route exact path="/login" component={LoginAndReg}></Route>
-      
-      <Route component={NavbarTemplate} />
-      
+        <Route component={NavbarTemplate} />
     </Switch>
+      <FooterCus />
   </BrowserRouter>,
   document.getElementById('root')
 );

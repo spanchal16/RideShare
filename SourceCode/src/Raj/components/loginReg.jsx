@@ -25,6 +25,7 @@ class LoginAndReg extends Component {
                     </Col>
                     
                 </Row>
+                <br/>
             </div>
         );
     }
