@@ -4,7 +4,7 @@
 /SourceCode/node_modules
 /.pnp
 .pnp.js
-/.idea
+.idea/
 
 # testing
 /SourceCode/coverage
