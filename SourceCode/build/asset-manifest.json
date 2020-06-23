@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7d0ef0a9.chunk.css",
+    "main.js": "/static/js/main.b94c3eb7.chunk.js",
+    "main.js.map": "/static/js/main.b94c3eb7.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.8fd84bac.js",
+    "runtime-main.js.map": "/static/js/runtime-main.8fd84bac.js.map",
+    "static/css/2.a1b7a17e.chunk.css": "/static/css/2.a1b7a17e.chunk.css",
+    "static/js/2.eaad5757.chunk.js": "/static/js/2.eaad5757.chunk.js",
+    "static/js/2.eaad5757.chunk.js.map": "/static/js/2.eaad5757.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.13f0c2b3ead22807767d26d4bbe43dcb.js": "/precache-manifest.13f0c2b3ead22807767d26d4bbe43dcb.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.a1b7a17e.chunk.css.map": "/static/css/2.a1b7a17e.chunk.css.map",
+    "static/css/main.7d0ef0a9.chunk.css.map": "/static/css/main.7d0ef0a9.chunk.css.map",
+    "static/js/2.eaad5757.chunk.js.LICENSE.txt": "/static/js/2.eaad5757.chunk.js.LICENSE.txt",
+    "static/media/A2FooterFb.png": "/static/media/A2FooterFb.465faff2.png",
+    "static/media/A2FooterInsta.png": "/static/media/A2FooterInsta.7742981d.png",
+    "static/media/A2FooterTwitter.png": "/static/media/A2FooterTwitter.0452ac38.png",
+    "static/media/logo.png": "/static/media/logo.b6440551.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8fd84bac.js",
+    "static/css/2.a1b7a17e.chunk.css",
+    "static/js/2.eaad5757.chunk.js",
+    "static/css/main.7d0ef0a9.chunk.css",
+    "static/js/main.b94c3eb7.chunk.js"
+  ]
+}
