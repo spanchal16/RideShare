@@ -162,12 +162,12 @@ class CreateEvent extends Component {
     const myStyle = {
       width: "100%",
       height: "100%",
-      backgroundColor: "#c3c6d8",
-      //   backgroundColor: "#ffffff",
+      // backgroundColor: "#c3c6d8",
+      backgroundColor: "#ffffff",
       borderRadius: "7px",
-      //   borderLeft: "0.6rem solid #2B85FD",
-      //   boxShadow:
-      // "0 4.8px 4.2px rgba(0, 0, 0, 0.034), 0 8.7px 7.3px rgba(0, 0, 0, 0.048), 0 14.5px 12px rgba(0, 0, 0, 0.06), 0 24.3px 19.9px rgba(0, 0, 0, 0.072), 0 43.8px 35.4px rgba(0, 0, 0, 0.086), 0 102px 82px rgba(0, 0, 0, 0.12)",
+      borderLeft: "0.6rem solid #2B85FD",
+      boxShadow:
+        "0 4.8px 4.2px rgba(0, 0, 0, 0.034), 0 8.7px 7.3px rgba(0, 0, 0, 0.048), 0 14.5px 12px rgba(0, 0, 0, 0.06), 0 24.3px 19.9px rgba(0, 0, 0, 0.072), 0 43.8px 35.4px rgba(0, 0, 0, 0.086), 0 102px 82px rgba(0, 0, 0, 0.12)",
     };
 
     let buttonText = this.props.isCreate
