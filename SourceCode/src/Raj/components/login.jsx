@@ -47,27 +47,18 @@ class Login extends Component {
             <Navbar className="navbg">
                 <Col >
                     <Navbar.Brand href="login">
-
                         <img src={logo} alt="logo" style={{ height: "135px" }} />
-
-
-
                         <MediaQuery  maxWidth="690px" >
-
                             {(matches) =>
                                 matches
                                     ? null
                                     : <strong style={{ fontFamily: "unset", fontSize: "xxx-large" }}>EventGo</strong>
                             }
                         </MediaQuery>
-
-
                     </Navbar.Brand>
                 </Col>
                 <Col >
-
                     <Form onSubmit={this.mySubmitHandler} className="loginForm">
-
                         <Form.Group as={Row} controlId="usr">
                             <Form.Label column sm="3.5" className="loginLabel" style={{ color: "white" }}>Username:</Form.Label>
                             <Col sm="5">
@@ -78,8 +69,6 @@ class Login extends Component {
                                 />
                             </Col>
                         </Form.Group>
-
-
                         <Form.Group as={Row} controlId="pwd">
                             <Form.Label column sm="3.5" className="loginLabel" style={{ color: "white" }}>Password:</Form.Label>
                             <Col sm="5">
@@ -88,6 +77,7 @@ class Login extends Component {
                                               value={this.state.password}
                                               onChange={this.onFieldChange}
                                 />
+                                {errMsg}
                             </Col>
                         </Form.Group>
                         <div style={{ paddingLeft: "27%" }}>
@@ -100,9 +90,6 @@ class Login extends Component {
                                 </Col>
                                 <Col>
                                     <a href="/forgotpassword">Forgot Password?</a>
-                                </Col>
-                                <Col>
-                                    {errMsg}
                                 </Col>
                             </Row>
                         </div>
