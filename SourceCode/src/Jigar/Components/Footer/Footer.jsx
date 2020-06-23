@@ -31,7 +31,7 @@ export class FooterCus extends Component {
               <ul></ul>
               <ul>
                 <Nav.Link className="footer-info" href="/aboutus">
-                  About US
+                  About Us
                 </Nav.Link>
                 {/* <Nav.Link className="footer-info" href="/underimplementation">
                   FAQs
