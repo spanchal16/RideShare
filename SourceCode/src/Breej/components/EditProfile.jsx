@@ -10,12 +10,7 @@ class EditProfile extends Component {
           <div className="row">
             <div className="col-md-2">
               <a href="profile">
-                <input
-                  type="submit"
-                  className="myButton"
-                  name="btnAddMore"
-                  value="Go Back"
-                />
+                <input className="myButton" name="btnAddMore" value="Go Back" />
               </a>
             </div>
             <div className="col-md-2"></div>
