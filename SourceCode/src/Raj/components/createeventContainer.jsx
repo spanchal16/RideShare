@@ -97,6 +97,7 @@ class CreateEventContainer extends Component {
                 isUpdate: false,
                 isValidated: false
             });
+            
         }
         
     }
@@ -113,6 +114,7 @@ class CreateEventContainer extends Component {
         if (value >= 0) {
             this.setState({ [name]: value });
         }
+        
     }
 
     onDescriptionEnter = (event) => {
@@ -129,6 +131,8 @@ class CreateEventContainer extends Component {
         this.setState({ eventTypeVal: event.target.value })
         
     }
+
+    
 
     handleDateChange = date => {
         console.log(date)
@@ -238,6 +242,7 @@ class CreateEventContainer extends Component {
                             toAddress={this.state.toAddress}
                             seats={this.state.seats}
                             journeyDate={this.state.journeyDate}
+                            journeyOnlyDate={this.state.dateToDisplay}
                             estPrice={this.state.estPrice}
                             description={this.state.description}
                             isUpdate={this.state.isUpdate}
@@ -256,7 +261,7 @@ class CreateEventContainer extends Component {
                                 searchBy={this.state.searchBy}
                                 sorthBy={this.state.sorthBy}
                                 isCreate={true}
-                            />
+                            />  
                         </Row>
                         <Row className="justify-content-center align-items-center">
                             {this.renderPostEventHistory()}

@@ -3,6 +3,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Form, Button, InputGroup, Col, Row } from "react-bootstrap";
 import './events.css'
+import jsPDF from 'jspdf'
+import { AiFillFilePdf } from "react-icons/ai";
+
+
+
 
  
 
@@ -86,6 +91,63 @@ class CreateEvent extends Component {
 
     rengerOptionalinLabel = () => {
         return this.props.isCreate ? <span className="fstyle">(Optional)</span> : null;
+    }
+
+    pdfGeneratorFun = () => {
+        console.log("Type = ", this.props.eventTypeVal )
+        console.log("From = ", this.props.fromAddress )
+        console.log("To = ", this.props.toAddress )
+        console.log("Date of Journey = ", this.props.journeyDate )
+        console.log("Description = ", this.props.description )
+
+        
+        let myData = new jsPDF('p', 'pt')
+
+        myData.text("Your Information", 244, 60);
+     
+        myData.text(210, 90, "Event Type:");
+        if(this.props.eventTypeVal === "cj"){
+            myData.text(300, 90, "Car Journey");
+            
+            myData.text(20,310,"Seats:")
+            myData.text(80, 310, this.props.seats);
+
+            myData.text(20,350,"Estimated Price:")
+            myData.text(140, 350, this.props.estPrice);
+        }
+
+        else if(this.props.eventTypeVal === "oe"){
+            myData.text(300, 90, "Organizing Event");    
+        }
+
+        else {
+            myData.text(300, 90, "Flight Journey");    
+        }
+
+        myData.text(20,140,"From: ")  
+        myData.text(65, 140, this.props.fromAddress);
+        
+        myData.text(20,180,"To:")
+        myData.text(50, 180, this.props.toAddress);
+
+        
+    
+        myData.text(20,220,"Date of Journey:")
+        myData.text(145, 220, this.props.journeyOnlyDate);
+
+        myData.text(20,260,"Description:")
+        myData.text(110, 260, this.props.description);
+        
+        myData.save("PDFFile.pdf");
+
+    }
+
+    renderPDFButton = () =>{
+
+        return this.props.isCreate ?  <Button style = {{backgroundColor : " #ed5c3d "}} onClick = {this.pdfGeneratorFun}>
+        <AiFillFilePdf/> Generate PDF
+        </Button> : null;
+
     }
 
     render() {
@@ -177,12 +239,23 @@ class CreateEvent extends Component {
                             {this.renderDescription()}
                             <div style={{paddingBottom:"10px"}}>
 
-                            
+                            <Row>
+                                <Col>
                             <Button variant="primary" type="submit">
                                 {buttonText}
                                 </Button>
+                                </Col>
+                                <Col>
+
+                         {this.renderPDFButton()}  
+                         </Col>                            
+                         </Row>
+                        
                                 </div>
+
+                        
                         </Form>
+                        
                     </Col>
                     
                 
