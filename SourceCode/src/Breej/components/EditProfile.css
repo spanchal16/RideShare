@@ -8,6 +8,7 @@
     0 24.3px 19.9px rgba(0, 0, 0, 0.172), 0 43.8px 35.4px rgba(0, 0, 0, 0.186),
     0 102px 82px rgba(0, 0, 0, 0.22);
   background: #fff;
+  border-left: 0.8rem solid #014180;
 }
 
 .edit-profile .edit-profile-head input {
@@ -89,4 +90,8 @@
 .myButton:active {
   position: relative;
   top: 1px;
+}
+
+.content {
+  padding-bottom: 3rem;
 }

@@ -331,7 +331,7 @@ class FindEventContainer extends Component {
       return <Redirect to="/bookingdetails" />;
     }
     return (
-      <div>
+      <div className="pb-5">
         <Container>
           <Row>
             <Col>

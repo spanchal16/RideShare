@@ -37,7 +37,7 @@ class booking_details extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="pb-5">
         <Row>
           <Col className="col-lg-7 col-md-7 col-sm-11 col-xs-11 col-11">
             <Card
