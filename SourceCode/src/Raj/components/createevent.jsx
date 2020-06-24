@@ -175,7 +175,7 @@ class CreateEvent extends Component {
         ? "Update"
         : "Create"
       : "Find Event";
-    let hedingText = this.props.isCreate ? "Create Event" : "Find Event";
+    let hedingText = this.props.isCreate ? "Offer a Ride" : "Find a Ride";
 
     return (
       <div>

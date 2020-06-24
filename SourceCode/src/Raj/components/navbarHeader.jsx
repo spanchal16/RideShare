@@ -56,7 +56,7 @@ class NavbarHeader extends Component {
             <Navbar.Brand href="home">
               <img src={logo} alt="logo" style={{ height: "35px" }} />
               <strong style={{ fontFamily: "unset", fontSize: "medium" }}>
-                EventGo
+                RideShare
               </strong>
             </Navbar.Brand>
           </section>
@@ -71,7 +71,7 @@ class NavbarHeader extends Component {
                   to="/createevent"
                   style={{ color: "white" }}
                 >
-                  CreateEvent
+                  Offer a Ride
                 </NavLink>
                 <NavLink
                   exact
@@ -80,7 +80,7 @@ class NavbarHeader extends Component {
                   to="/findevent"
                   style={{ color: "white" }}
                 >
-                  FindEvent
+                  Find a Ride
                 </NavLink>
               </Nav>
             </ul>

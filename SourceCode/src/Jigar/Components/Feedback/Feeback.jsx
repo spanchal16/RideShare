@@ -70,7 +70,7 @@ export class Feedback extends Component {
                                     {(matches) =>
                                         matches
                                             ? null
-                                            : <strong style={{ fontFamily: "unset", fontSize: "xxx-large" }}>EventGo</strong>
+                                            : <strong style={{ fontFamily: "unset", fontSize: "xxx-large" }}>RideShare</strong>
                                     }
                                 </MediaQuery>
                             </Navbar.Brand>
