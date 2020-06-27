@@ -10,11 +10,11 @@ import twit from "../Images/A2FooterTwitter.png";
 export class FooterCus extends Component {
   render() {
     return (
-      <footer className={Footer}>
+      <footer>
         <section>
           <br />
           <Navbar
-            classname="footer"
+            className="footer"
             bg="dark"
             variant="dark"
             expand="lg"
@@ -51,7 +51,7 @@ export class FooterCus extends Component {
                   <img
                     src={fb}
                     id="fb-link"
-                    class="img-fluid"
+                    className="img-fluid"
                     width="50"
                     height="50"
                     alt=""

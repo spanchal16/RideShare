@@ -4,6 +4,7 @@ import CreateEvent from "./createevent";
 import SortAndSearch from "./sortAndSearch";
 import PostEventHistory from "./posteventhist";
 import { Redirect } from "react-router-dom";
+import axios from 'axios';
 
 class CreateEventContainer extends Component {
   constructor(props) {
@@ -30,44 +31,36 @@ class CreateEventContainer extends Component {
       searchBy: "fromAddress",
       isValidated: false,
       sortyBy: "id",
-      eventHistoryToDisplay: [
-        {
-          id: 7,
-          eventTypeVal: "fj",
-          fromAddress: "Halifax",
-          toAddress: "India",
-          dateToDisplay: "07/23/2020",
-          seats: 2,
-          estPrice: 100,
-          description: "Hello",
-        },
-      ],
-      eventHistory: [
-        {
-          id: 7,
-          eventTypeVal: "fj",
-          fromAddress: "Halifax",
-          toAddress: "India",
-          dateToDisplay: "07/23/2020",
-          seats: 2,
-          estPrice: 100,
-          description: "Hello",
-        },
-      ],
+      eventHistoryToDisplay: [],
+      eventHistory: [],
     };
   }
 
+  async componentDidMount() {
+    //https://eventgoapi.herokuapp.com/createevent/getHistory/1
+    //http://localhost:8080/createevent/getHistory/2/
+    await axios.get(`https://eventgoapi.herokuapp.com/createevent/getHistory/1`)
+    .then(res => {
+        
+      const data = res.data;
+
+      this.state.eventHistory.push(data);
+      this.setState({eventHistory:this.state.eventHistory[0],eventHistoryToDisplay:this.state.eventHistory[0]})
+    }).catch(err =>  {
+        console.log(err);
+        //this.setState({ data:"error" });
+    })
+}
+    
   mySubmitHandler = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    console.log(form.checkValidity());
     if (form.checkValidity() === false) {
       this.setState({ isValidated: true });
       event.stopPropagation();
     } else {
       if (this.state.isUpdate) {
         const { eventHistory, updateItemId } = this.state;
-        console.log(updateItemId);
         eventHistory.map((item) => {
           if (item.id === this.state.updateItemId) {
             item.eventTypeVal = this.state.eventTypeVal;
@@ -132,7 +125,6 @@ class CreateEventContainer extends Component {
     let name = event.target.name;
     let value = event.target.value;
     if (value.length <= 100) {
-      console.log(value.length);
       this.setState({ [name]: value });
     }
   };
@@ -174,7 +166,6 @@ class CreateEventContainer extends Component {
   };
 
   onPostedEvetClicked = (history) => {
-    console.log(history);
     const {
       id,
       eventTypeVal,
@@ -205,7 +196,6 @@ class CreateEventContainer extends Component {
   };
 
   onSearchTermChange = (event) => {
-    console.log(event.target.value);
     let name = event.target.name;
     let value = event.target.value;
     this.setState({ [name]: value });
@@ -222,7 +212,6 @@ class CreateEventContainer extends Component {
     } else {
       filteredEventHistory = this.state.eventHistory;
     }
-    console.log(filteredEventHistory);
     this.setState({ eventHistoryToDisplay: filteredEventHistory });
   };
 
@@ -243,7 +232,6 @@ class CreateEventContainer extends Component {
 
   onDeleteEvetClicked = (history) => {
     let { eventHistory } = this.state;
-    console.log(history.id);
     let filteredevents = eventHistory.filter((item) => item.id != history.id);
     this.setState({
       eventHistory: filteredevents,
