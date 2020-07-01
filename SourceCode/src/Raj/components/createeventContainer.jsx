@@ -289,9 +289,9 @@ class CreateEventContainer extends Component {
   onDeleteEvetClicked = async (history) => {
     let { eventHistory } = this.state;
     //put to API
-    //https://eventgoapi.herokuapp.com/deleteevent/updateEvent/1/
+    //https://eventgoapi.herokuapp.com/createevent/deleteevent/1/
     //http://localhost:8080/createevent/deleteevent/1/
-    await axios.delete(`https://eventgoapi.herokuapp.com/deleteevent/updateEvent/1/` + history.eventid)
+    await axios.delete(`https://eventgoapi.herokuapp.com/createevent/deleteevent/1/` + history.eventid)
       .then(res => {
         if (res.data) {
           let filteredevents = eventHistory.filter((item) => item.eventid != history.eventid);
