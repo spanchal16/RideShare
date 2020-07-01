@@ -38,12 +38,12 @@ class CreateEventContainer extends Component {
 
   async componentDidMount() {
     //https://eventgoapi.herokuapp.com/createevent/getHistory/1
-    //http://localhost:8080/createevent/getHistory/2/
+    //http://localhost:8080/createevent/getHistory/1/
     await axios.get(`https://eventgoapi.herokuapp.com/createevent/getHistory/1`)
     .then(res => {
         
       const data = res.data;
-
+      //console.log(data);
       this.state.eventHistory.push(data);
       this.setState({eventHistory:this.state.eventHistory[0],eventHistoryToDisplay:this.state.eventHistory[0]})
     }).catch(err =>  {
@@ -52,7 +52,7 @@ class CreateEventContainer extends Component {
     })
 }
     
-  mySubmitHandler = (event) => {
+  mySubmitHandler = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -62,7 +62,7 @@ class CreateEventContainer extends Component {
       if (this.state.isUpdate) {
         const { eventHistory, updateItemId } = this.state;
         eventHistory.map((item) => {
-          if (item.id === this.state.updateItemId) {
+          if (item.eventid === this.state.updateItemId) {
             item.eventTypeVal = this.state.eventTypeVal;
             item.fromAddress = this.state.fromAddress;
             item.toAddress = this.state.toAddress;
@@ -73,37 +73,50 @@ class CreateEventContainer extends Component {
           }
         });
       } else {
-        let id = this.state.eventId + 1;
-
-        this.setState({ eventId: id });
-        let newItem1 = {
-          id: this.state.eventId,
+        
+        let newItem = {
           eventTypeVal: this.state.eventTypeVal,
           fromAddress: this.state.fromAddress,
           toAddress: this.state.toAddress,
           seats: this.state.seats,
           estPrice: this.state.estPrice,
           dateToDisplay: this.state.dateToDisplay,
+          journeyDate: this.state.journeyDate,
           description: this.state.description,
         };
 
-        this.state.eventHistory.push(newItem1);
+        //push to API
+        //https://eventgoapi.herokuapp.com/createevent/postEvent/1
+        //http://localhost:8080/createevent/postEvent/1
+        await axios.post(`https://eventgoapi.herokuapp.com/createevent/postEvent/1`, { newItem })
+          .then(res => {
+            
+            const data = res.data;
+            //console.log(data)
+            
+            this.setState({
+              eventHistory: data,
+              eventHistoryToDisplay: data,
+              eventTypeVal: "",
+              fromAddress: "",
+              toAddress: "",
+              seats: 0,
+              journeyDate: "",
+              dateToDisplay: "",
+              estPrice: 0,
+              description: "",
+              isUpdate: false,
+              isValidated: false,
+            });
+            
+          }).catch(err => {
+            console.log(err);
+            //this.setState({ data:"error" });
+          })
+        
       }
 
-      this.setState({
-        eventHistory: this.state.eventHistory,
-        eventHistoryToDisplay: this.state.eventHistory,
-        eventTypeVal: "",
-        fromAddress: "",
-        toAddress: "",
-        seats: 0,
-        journeyDate: "",
-        dateToDisplay: "",
-        estPrice: 0,
-        description: "",
-        isUpdate: false,
-        isValidated: false,
-      });
+      
     }
   };
 
@@ -134,7 +147,7 @@ class CreateEventContainer extends Component {
   };
 
   handleDateChange = (date) => {
-    console.log(date);
+    //console.log(date);
     let dateString = "";
     if (date != null) {
       let x = date.toString().split(" ");
@@ -166,20 +179,21 @@ class CreateEventContainer extends Component {
   };
 
   onPostedEvetClicked = (history) => {
+    //console.log(history)
     const {
-      id,
+      eventid,
       eventTypeVal,
       fromAddress,
       toAddress,
       seats,
       estPrice,
-      dateToDisplay,
+      doj,
       description,
     } = history;
     let dateToDisplay1 =
-      dateToDisplay == undefined || dateToDisplay.length == 0
+      doj == undefined || doj.length == 0
         ? ""
-        : new Date(dateToDisplay);
+        : new Date(doj);
 
     this.setState({
       eventTypeVal: eventTypeVal,
@@ -187,11 +201,11 @@ class CreateEventContainer extends Component {
       toAddress: toAddress,
       seats: seats,
       estPrice: estPrice,
-      dateToDisplay: dateToDisplay,
+      dateToDisplay: doj,
       journeyDate: dateToDisplay1,
       description: description,
       isUpdate: true,
-      updateItemId: id,
+      updateItemId: eventid,
     });
   };
 
@@ -232,7 +246,7 @@ class CreateEventContainer extends Component {
 
   onDeleteEvetClicked = (history) => {
     let { eventHistory } = this.state;
-    let filteredevents = eventHistory.filter((item) => item.id != history.id);
+    let filteredevents = eventHistory.filter((item) => item.eventid != history.eventid);
     this.setState({
       eventHistory: filteredevents,
       eventHistoryToDisplay: filteredevents,
@@ -243,7 +257,7 @@ class CreateEventContainer extends Component {
     return this.state.eventHistoryToDisplay.length > 0 ? (
       this.state.eventHistoryToDisplay.map((item) => (
         <PostEventHistory
-          key={item.id}
+          key={item.eventid}
           eventHistory={item}
           onPostedEvetClicked={this.onPostedEvetClicked}
           onDeleteEvetClicked={this.onDeleteEvetClicked}

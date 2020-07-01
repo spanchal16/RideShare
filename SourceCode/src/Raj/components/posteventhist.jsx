@@ -68,7 +68,7 @@ class PostEventHistory extends Component {
                 >
                   From <strong>{this.props.eventHistory.fromAddress}</strong> to{" "}
                   <strong>{this.props.eventHistory.toAddress}</strong> on{" "}
-                  <strong>{this.props.eventHistory.dateToDisplay}</strong> Seats
+                  <strong>{this.props.eventHistory.doj}</strong> Seats
                   available: <strong>{this.props.eventHistory.seats} </strong>
                   Estimated price:{" "}
                   <strong>{this.props.eventHistory.estPrice} </strong>

@@ -13,7 +13,6 @@ class ResponsesReceived extends Component {
                 {
                     eventDetailId: 2, fromAddress: "Moncton", toAddress: "Halifax", dateToDisplay: "07/12/2020", seats: 1, estPrice: 250, description: "sample desc",status:1
                 },
-                ,
 
                 {
                     eventDetailId: 3, fromAddress: "Moncton", toAddress: "Quebic", dateToDisplay: "07/12/2020", seats: 1, estPrice: 250, description: "sample desc",status:-1
