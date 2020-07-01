@@ -74,9 +74,9 @@ class CreateEventContainer extends Component {
         };
 
         //put to API
-        //https://eventgoapi.herokuapp.com/updateEvent/updateEvent/1
+        //https://eventgoapi.herokuapp.com/createevent/updateEvent/1
         //http://localhost:8080/createevent/updateEvent/1
-        await axios.put(`https://eventgoapi.herokuapp.com/updateEvent/updateEvent/1`, { updatedItem })
+        await axios.put(`https://eventgoapi.herokuapp.com/createevent/updateEvent/1`, { updatedItem })
           .then(res => {
             const { eventHistory } = this.state;
             if (res.data) {
