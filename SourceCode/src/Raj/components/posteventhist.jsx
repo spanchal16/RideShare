@@ -16,37 +16,67 @@ class PostEventHistory extends Component {
   };
 
   toggleHoverDelete = () => {
-    this.setState({ hoverDelete: !this.state.hoverDelete });
+    this.setState({ hoverDelete: true });
+  };
+  toggleHoverDeleteLeave = () => {
+    this.setState({ hoverDelete: false });
   };
 
   render() {
     let myStyle = {
+      // borderRadius: "7px",
+      // cursor: "pointer",
+      // backgroundColor: "#ffffff",
+      // borderStyle: "outset",
+      // borderColor: "#c3c6d8",
       borderRadius: "7px",
       cursor: "pointer",
-      backgroundColor: "#ffffff",
-      borderStyle: "outset",
-      borderColor: "#c3c6d8",
+      backgroundColor: "rgb(255, 255, 255)",
+      borderTopStyle: "outset",
+      borderRightStyle: "outset",
+      borderBottomStyle: "outset",
+      borderTopColor: "rgb(195, 198, 216)",
+      borderRightColor: "rgb(195, 198, 216)",
+      borderBottomColor: "rgb(195, 198, 216)"
     };
-    let myStyleDelete = {
-      backgroundColor: "yellow",
-      borderRadius: "7px",
-      cursor: "pointer",
-    };
+    
     if (this.state.hover) {
       myStyle = {
         // background: "linear-gradient(180deg,#c3c6d8,transparent)",
-        backgroundColor: "#f2f2f2",
+        // backgroundColor: "white",
+        // borderRadius: "7px",
+        // cursor: "pointer",
+        // borderLeft: "0.6rem solid green",
+        borderLeftColor: "green",
+        borderLeftWidth: "0.6rem",
         borderRadius: "7px",
         cursor: "pointer",
-        borderLeft: "0.6rem solid green",
+        backgroundColor: "rgb(255, 255, 255)",
+        borderTopStyle: "outset",
+        borderRightStyle: "outset",
+        borderLeftStyle: "outset",
+        borderBottomStyle: "outset",
+        borderTopColor: "rgb(195, 198, 216)",
+        borderRightColor: "rgb(195, 198, 216)",
+        borderBottomColor: "rgb(195, 198, 216)"
+        
       };
     }
 
     if (this.state.hoverDelete) {
-      myStyleDelete = {
-        backgroundColor: "red",
+      myStyle = {
+        borderLeftColor: "red",
+        borderLeftWidth: "0.6rem",
         borderRadius: "7px",
         cursor: "pointer",
+        backgroundColor: "rgb(255, 255, 255)",
+        borderTopStyle: "outset",
+        borderRightStyle: "outset",
+        borderLeftStyle: "outset",
+        borderBottomStyle: "outset",
+        borderTopColor: "rgb(195, 198, 216)",
+        borderRightColor: "rgb(195, 198, 216)",
+        borderBottomColor: "rgb(195, 198, 216)"
       };
     }
 
@@ -54,7 +84,7 @@ class PostEventHistory extends Component {
       <div style={{ width: "100%" }}>
         <br />
 
-        <div style={myStyle}>
+        <div style={myStyle} >
           <Col>
             <Row>
               <Col sm={10}>
@@ -81,6 +111,8 @@ class PostEventHistory extends Component {
                   type="button"
                   className="close"
                   aria-label="Close"
+                  onMouseEnter={this.toggleHoverDelete}
+                  onMouseLeave={this.toggleHoverDeleteLeave}
                   onClick={() =>
                     this.props.onDeleteEvetClicked(this.props.eventHistory)
                   }

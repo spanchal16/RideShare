@@ -60,18 +60,60 @@ class CreateEventContainer extends Component {
       event.stopPropagation();
     } else {
       if (this.state.isUpdate) {
-        const { eventHistory, updateItemId } = this.state;
-        eventHistory.map((item) => {
-          if (item.eventid === this.state.updateItemId) {
-            item.eventTypeVal = this.state.eventTypeVal;
-            item.fromAddress = this.state.fromAddress;
-            item.toAddress = this.state.toAddress;
-            item.seats = this.state.seats;
-            item.estPrice = this.state.estPrice;
-            item.dateToDisplay = this.state.dateToDisplay;
-            item.description = this.state.description;
-          }
-        });
+
+        let updatedItem = {
+          eventid: this.state.updateItemId,
+          eventTypeVal: this.state.eventTypeVal,
+          fromAddress: this.state.fromAddress,
+          toAddress: this.state.toAddress,
+          seats: this.state.seats,
+          estPrice: this.state.estPrice,
+          dateToDisplay: this.state.dateToDisplay,
+          journeyDate: this.state.journeyDate,
+          description: this.state.description,
+        };
+
+        //put to API
+        //https://eventgoapi.herokuapp.com/updateEvent/updateEvent/1
+        //http://localhost:8080/createevent/updateEvent/1
+        await axios.put(`https://eventgoapi.herokuapp.com/updateEvent/updateEvent/1`, { updatedItem })
+          .then(res => {
+            const { eventHistory } = this.state;
+            if (res.data) {
+              eventHistory.map((item) => {
+                if (item.eventid === this.state.updateItemId) {
+                  item.eventTypeVal = this.state.eventTypeVal;
+                  item.fromAddress = this.state.fromAddress;
+                  item.toAddress = this.state.toAddress;
+                  item.seats = this.state.seats;
+                  item.estPrice = this.state.estPrice;
+                  item.doj = this.state.dateToDisplay;
+                  item.description = this.state.description;
+                }
+              });
+            }
+            
+            this.setState({
+              eventHistory: eventHistory,
+              eventHistoryToDisplay: eventHistory,
+              eventTypeVal: "",
+              fromAddress: "",
+              toAddress: "",
+              seats: 0,
+              journeyDate: "",
+              dateToDisplay: "",
+              estPrice: 0,
+              description: "",
+              isUpdate: false,
+              isValidated: false,
+            });
+            
+          }).catch(err => {
+            console.log(err);
+            //this.setState({ data:"error" });
+          })
+
+        
       } else {
         
         let newItem = {
@@ -244,13 +286,24 @@ class CreateEventContainer extends Component {
     this.setState({ eventHistoryToDisplay: eventHistoryToDisplay });
   };
 
-  onDeleteEvetClicked = (history) => {
+  onDeleteEvetClicked = async (history) => {
     let { eventHistory } = this.state;
-    let filteredevents = eventHistory.filter((item) => item.eventid != history.eventid);
-    this.setState({
-      eventHistory: filteredevents,
-      eventHistoryToDisplay: filteredevents,
-    });
+    //put to API
+    //https://eventgoapi.herokuapp.com/deleteevent/updateEvent/1/
+    //http://localhost:8080/createevent/deleteevent/1/
+    await axios.delete(`https://eventgoapi.herokuapp.com/deleteevent/updateEvent/1/` + history.eventid)
+      .then(res => {
+        if (res.data) {
+          let filteredevents = eventHistory.filter((item) => item.eventid != history.eventid);
+          this.setState({
+            eventHistory: filteredevents,
+            eventHistoryToDisplay: filteredevents,
+          });
+        }
+      }).catch(err => {
+        console.log(err);
+        //this.setState({ data:"error" });
+      })
   };
 
   renderPostEventHistory = () => {

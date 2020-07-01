@@ -68,7 +68,7 @@ class SortAndSearch extends Component {
                   <option value="id">Event added</option>
                   <option value="fromAddress">From</option>
                   <option value="toAddress">To</option>
-                  <option value="journeyDate">Date of Journey</option>
+                  <option value="doj">Date of Journey</option>
                   <option value="seats">Seats</option>
                   <option value="estPrice">Price</option>
                   <option value="description">Description</option>
