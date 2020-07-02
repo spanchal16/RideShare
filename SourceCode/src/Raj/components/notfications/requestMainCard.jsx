@@ -13,7 +13,7 @@ class RequestMainCard extends Component {
                 <Card border="secondary" >
                     <Card.Header style={{padding:"0"}}>
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                            From <strong>{this.props.eventDetail.fromAddress}</strong> to <strong>{this.props.eventDetail.toAddress}</strong> on <strong>{this.props.eventDetail.dateToDisplay}</strong> Seats available: <strong>{this.props.eventDetail.seats} </strong>
+                            From <strong>{this.props.eventDetail.fromAddress}</strong> to <strong>{this.props.eventDetail.toAddress}</strong> on <strong>{this.props.eventDetail.doj}</strong> Seats available: <strong>{this.props.eventDetail.seats} </strong>
                             Estimated price: <strong>$ {this.props.eventDetail.estPrice} </strong>
                             Description: <strong>{this.props.eventDetail.description}</strong>
                         </Accordion.Toggle>
