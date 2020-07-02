@@ -8,7 +8,8 @@ class SubReqDetails extends Component {
         super(props);
         this.state = { 
             status: ''
-         }
+        }
+        //console.log(props.data)
     }
 
     onClickInfo = () => {

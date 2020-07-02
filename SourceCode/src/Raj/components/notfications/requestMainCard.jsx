@@ -21,7 +21,8 @@ class RequestMainCard extends Component {
                     <Accordion.Collapse eventKey="0">
                         <Card.Body>
                             {this.props.eventDetail.requests.map(item => <SubReqDetails
-                                key={item.requestId}
+                                key={item.requesteventId}
+                                data={item}
                             />)}
                         </Card.Body>
                     </Accordion.Collapse>
