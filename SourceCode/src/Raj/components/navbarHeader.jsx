@@ -104,6 +104,15 @@ class NavbarHeader extends Component {
               </NavLink>
               &nbsp; &nbsp;
               <Button
+                  variant="primary"
+                  type="submit"
+                  //onClick={this.onButtonClick}
+                  style={{ backgroundColor: "transparent" }}
+              >
+                Go Premium
+              </Button>
+              &nbsp; &nbsp;
+              <Button
                 variant="primary"
                 type="submit"
                 onClick={this.onButtonClick}

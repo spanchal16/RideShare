@@ -6,14 +6,14 @@ import { FcOk } from "react-icons/fc";
 class SubReqDetails extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             status: ''
         }
         //console.log(props.data)
     }
 
     onClickInfo = () => {
-        
+
     }
 
     onClickAccept = () => {
@@ -24,13 +24,13 @@ class SubReqDetails extends Component {
         this.setState({status:"reject",showAlert:true})
     }
 
-    render() { 
+    render() {
         let icon = ''
         if (this.state.status == "accept") {
             icon = <div><FcOk /> <span style={{fontStyle: "italic"}}>Accepted </span></div>
         }
         else if (this.state.status == "reject") {
-            icon = <div><BsFillXCircleFill style={{color:"#dc3545"}}/> <span style={{fontStyle: "italic"}}>Rejected </span></div>
+            icon = <div><BsFillXCircleFill style={{color:"#dc3545"}}/> <span style={{fontStyle: "italic"}}>Declined </span></div>
         }
         else {
             icon=<span style={{fontStyle: "italic"}}>No action taken </span>
@@ -40,9 +40,9 @@ class SubReqDetails extends Component {
         return (<div>
             <br />
             <Card border="secondary">
-    
+
                 <Card.Body style={{ backgroundColor: "#c3c6d8" }}>
-      
+
                     <Row  md={3} sm={2} xs={1}>
                         <Col>
                             <Button className="btn btn-info" type="button"
@@ -59,7 +59,7 @@ class SubReqDetails extends Component {
                         <Col>
                             <Button className="btn btn-danger" type="button"
                                 onClick={this.onClickReject}>
-                                Reject
+                                Decline
                     </Button>
                         </Col>
                     </Row>
@@ -75,9 +75,9 @@ class SubReqDetails extends Component {
                     </Row>
                 </Card.Footer>
             </Card>
-            
+
         </div>);
     }
 }
- 
+
 export default SubReqDetails;
