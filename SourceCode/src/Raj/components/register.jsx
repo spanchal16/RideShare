@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import { Redirect } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import './events.css'
+import Cookies from "js-cookie";
 
 class Register extends Component {
     constructor(props) {
@@ -74,7 +75,8 @@ class Register extends Component {
             event.stopPropagation();
         }
         else {
-            sessionStorage.setItem( "username", username );
+            //sessionStorage.setItem( "username", username );
+            Cookies.set("username", username);
             this.setState({ isValid: true });
         }
 

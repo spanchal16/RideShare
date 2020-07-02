@@ -3,6 +3,7 @@ import MediaQuery from 'react-responsive'
 import { Navbar, Nav } from "react-bootstrap";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import Cookies from "js-cookie";
 import './events.css';
 import logo from '../images/logo.png'
 
@@ -23,7 +24,9 @@ class Login extends Component {
         const { username, password } = this.state;
 
         if (username.length > 0 && password.length > 0) {
-            sessionStorage.setItem( "username", username );
+            //sessionStorage.setItem( "username", username );
+            Cookies.remove("username");
+            Cookies.set("username", username);
             this.setState({ isLoggedIn: true, isInvalidCred: false });
         }
         else {

@@ -3,12 +3,14 @@ import RequestsReceived from './notfications/requestsReceived'
 import ResponsesReceived from './notfications/responsesReceived'
 import { Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import Cookies from "js-cookie";
 
 class Home extends Component {
     constructor(props) {
         super(props);
         let isLoggedin = true;
-        const username = sessionStorage.getItem("username");
+        //const username = sessionStorage.getItem("username");
+        const username = Cookies.get("username")
         if (username == null) {
             isLoggedin = false;
         }

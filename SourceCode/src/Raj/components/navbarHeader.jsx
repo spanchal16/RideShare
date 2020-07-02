@@ -4,13 +4,15 @@ import { Redirect, NavLink } from "react-router-dom";
 import logo from "../images/logo.png";
 import { MdNotificationsActive } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 class NavbarHeader extends Component {
   constructor(props) {
     super(props);
 
     let isLoggedin = true;
-    const username = sessionStorage.getItem("username");
+    //const username = sessionStorage.getItem("username");
+    const username = Cookies.get("username")
     if (username == null) {
       isLoggedin = false;
     }
@@ -24,7 +26,8 @@ class NavbarHeader extends Component {
 
   onButtonClick = () => {
     if (this.state.isLoggedin) {
-      sessionStorage.clear();
+      //sessionStorage.clear();
+      Cookies.remove("username");
       this.setState({ isLoggedin: false, isLogoutClicked: true });
     } else {
       this.setState({ isLoggedin: false, isLogoutClicked: true });

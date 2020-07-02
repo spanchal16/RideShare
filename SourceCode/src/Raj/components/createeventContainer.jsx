@@ -5,12 +5,14 @@ import SortAndSearch from "./sortAndSearch";
 import PostEventHistory from "./posteventhist";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
+import Cookies from "js-cookie";
 
 class CreateEventContainer extends Component {
   constructor(props) {
     super(props);
     let isLoggedin = true;
-    const username = sessionStorage.getItem("username");
+    //const username = sessionStorage.getItem("username");
+    const username = Cookies.get("username")
     if (username == null) {
       isLoggedin = false;
     }
