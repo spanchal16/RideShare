@@ -4,7 +4,7 @@ import ResponseMainCard from './responseMainCard'
 class ResponsesReceived extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             eventDetails: [
                 {
                     eventDetailId: 1, fromAddress: "Halifax", toAddress: "Moncton", dateToDisplay: "07/02/2020", seats: 4, estPrice: 200, description: "sample desc",status:0
@@ -20,19 +20,20 @@ class ResponsesReceived extends Component {
             ]
          }
     }
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
-                <h5>Responses received for requested events</h5>
+                <h5 style={{textAlign: "center"}}>Responses received for requested events</h5>
+                <br/>
                 {this.state.eventDetails.map(item =>
                     <ResponseMainCard
                         key={item.eventDetailId}
                         eventDetail = {item}
                     />)}
-                
+
             </div>
          );
     }
 }
- 
+
 export default ResponsesReceived;

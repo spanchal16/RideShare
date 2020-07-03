@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import { Footer } from "react-materialize";
+import { TestCarousels} from "../TestCarousels/TestCarousels";
 import "./Footer.css";
 import fb from "../Images/A2FooterFb.png";
 import insta from "../Images/A2FooterInsta.png";
@@ -47,6 +47,7 @@ export class FooterCus extends Component {
                 <Nav.Link
                   className="footer-info"
                   href="https://www.facebook.com/"
+                    //href="/carousel"
                 >
                   <img
                     src={fb}

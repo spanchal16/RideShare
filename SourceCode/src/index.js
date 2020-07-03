@@ -9,6 +9,7 @@ import { FooterCus } from "./Jigar/Components/Footer/Footer";
 import { ForgotPassword } from "./Jigar/Components/ForgotPasword/ForgotPassword";
 import { Feedback } from "./Jigar/Components/Feedback/Feeback";
 import NavbarTemplate from "./Raj/components/navbarTemplate";
+import { TestCarousels} from "./Jigar/Components/TestCarousels/TestCarousels";
 
 // import 'bootstrap/dist/css/bootstrap.css';
 
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route exact path="/login" component={LoginAndReg}></Route>
       <Route exact path="/forgotpassword" component={ForgotPassword}></Route>
       <Route exact path="/feedback" component={Feedback}></Route>
+        <Route exact path="/carousel" component={TestCarousels}></Route>
       <Route component={NavbarTemplate} />
     </Switch>
     <FooterCus />

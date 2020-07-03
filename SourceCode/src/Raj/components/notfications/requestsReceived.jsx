@@ -6,7 +6,7 @@ import axios from 'axios';
 class RequestsReceived extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
             eventDetails:[],
             eventDetails1: [
                 {
@@ -41,9 +41,9 @@ class RequestsReceived extends Component {
         //http://localhost:8080/requestsreceived/getrequests/1
         await axios.get(`https://eventgoapi.herokuapp.com/requestsreceived/getrequests/1`)
         .then(res => {
-            
+
             const data = res.data;
-            
+
             //console.log(data);
             data.events.forEach(function (item, index) {
                 item.requests = [];
@@ -51,7 +51,7 @@ class RequestsReceived extends Component {
                 let e = data.requests.filter((request) => request.eventid == item.eventid);
                 console.log(e);
                 item.requests = item.requests.concat(e)
-                
+
             })
             console.log(data.events);
           //this.state.eventHistory.push(data);
@@ -62,19 +62,20 @@ class RequestsReceived extends Component {
         })
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
-                <h5>Requests received for posted events</h5>
+                <h5 style={{textAlign: "center"}}>Requests received for posted events</h5>
+                <br/>
                 {this.state.eventDetails.map(item =>
                     <ReqMainCard
                         key={item.eventid}
                         eventDetail = {item}
                     />)}
-                
+
             </div>
          );
-    } 
+    }
 }
- 
+
 export default RequestsReceived;
