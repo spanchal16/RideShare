@@ -23,7 +23,7 @@ class ResponsesReceived extends Component {
     render() {
         return (
             <div>
-                <h5 style={{textAlign: "center"}}>Responses received for requested events</h5>
+                <h4 style={{textAlign: "center"}}>Responses received for requested Rides</h4>
                 <br/>
                 {this.state.eventDetails.map(item =>
                     <ResponseMainCard

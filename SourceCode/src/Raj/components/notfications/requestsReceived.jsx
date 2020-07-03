@@ -65,7 +65,7 @@ class RequestsReceived extends Component {
     render() {
         return (
             <div>
-                <h5 style={{textAlign: "center"}}>Requests received for posted events</h5>
+                <h4 style={{textAlign: "center"}}>Requests received for created Rides</h4>
                 <br/>
                 {this.state.eventDetails.map(item =>
                     <ReqMainCard
