@@ -7,6 +7,9 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from 'axios';
+import "./events.css"; 
+import Loader from './loader'
+
 class FindEventContainer extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +20,7 @@ class FindEventContainer extends Component {
       isLoggedin = false;
     }
     this.state = {
+      loader: false,
       eventSelected: false,
       isLoggedin,
       eventTypeVal: "",
@@ -42,6 +46,7 @@ class FindEventContainer extends Component {
   }
 
   mySubmitHandler = async (event) => {
+    this.setState({ loader: true });
     event.preventDefault();
     const {
       id,
@@ -56,74 +61,75 @@ class FindEventContainer extends Component {
     let { eventsHistory } = this.state;
     let isFiltered = false;
 
-        //https://eventgoapi.herokuapp.com/findevents/findevents/2
-        //http://localhost:8080/findevents/findevents/2
-        await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/2`)
-        .then(res => {
+    
+    //https://eventgoapi.herokuapp.com/findevents/findevents/2
+    //http://localhost:8080/findevents/findevents/2
+    await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/2`)
+          
+      .then(res => {
 
-            let eventsHistory = res.data;
+        let eventsHistory = res.data;
 
-            if (eventsHistory.length > 0) {
-              if (eventTypeVal.length > 0) {
-                eventsHistory = eventsHistory.filter(
-                  (item) =>
-                    item["eventTypeVal"].toLowerCase() == eventTypeVal.toLowerCase()
-                );
-                isFiltered = true;
-              }
-              if (fromAddress.length > 0) {
-                eventsHistory = eventsHistory.filter(
-                  (item) =>
-                    item["fromAddress"].toLowerCase() == fromAddress.toLowerCase()
-                );
-                isFiltered = true;
-              }
-              if (toAddress.length > 0) {
-                eventsHistory = eventsHistory.filter(
-                  (item) => item["toAddress"].toLowerCase() == toAddress.toLowerCase()
-                );
-                isFiltered = true;
-              }
-              if (dateToDisplay.length > 0 && dateToDisplay2.length > 0) {
-                eventsHistory = eventsHistory.filter(
-                  (item) =>
-                    item["dateToDisplay"] >= dateToDisplay &&
-                    item["dateToDisplay"] <= dateToDisplay2
-                );
-                isFiltered = true;
-              } else if (dateToDisplay.length > 0) {
-                console.log(dateToDisplay);
-                eventsHistory = eventsHistory.filter(
-                  (item) => item["dateToDisplay"] == dateToDisplay
-                );
-                isFiltered = true;
-              }
-            }
-            if (!isFiltered) {
-              eventsHistory = [];
-            }
-            console.log(eventsHistory);
-        
-            this.setState({
-              searchResults: eventsHistory,
-              searchResultsToDisplay: eventsHistory,
-              eventTypeVal: "",
-              fromAddress: "",
-              toAddress: "",
-              seats: 0,
-              journeyDate: "",
-              dateToDisplay: "",
-              journeyDate2: "",
-              dateToDisplay2: "",
-              estPrice: 0,
-              isValidated: false,
-            });
-        }).catch(err =>  {
-            console.log(err);
-            //this.setState({ data:"error" });
-        })
-
-   
+        if (eventsHistory.length > 0) {
+          if (eventTypeVal.length > 0) {
+            eventsHistory = eventsHistory.filter(
+              (item) =>
+                item["eventTypeVal"].toLowerCase() == eventTypeVal.toLowerCase()
+            );
+            isFiltered = true;
+          }
+          if (fromAddress.length > 0) {
+            eventsHistory = eventsHistory.filter(
+              (item) =>
+                item["fromAddress"].toLowerCase() == fromAddress.toLowerCase()
+            );
+            isFiltered = true;
+          }
+          if (toAddress.length > 0) {
+            eventsHistory = eventsHistory.filter(
+              (item) => item["toAddress"].toLowerCase() == toAddress.toLowerCase()
+            );
+            isFiltered = true;
+          }
+          if (dateToDisplay.length > 0 && dateToDisplay2.length > 0) {
+            eventsHistory = eventsHistory.filter(
+              (item) =>
+                item["dateToDisplay"] >= dateToDisplay &&
+                item["dateToDisplay"] <= dateToDisplay2
+            );
+            isFiltered = true;
+          } else if (dateToDisplay.length > 0) {
+            console.log(dateToDisplay);
+            eventsHistory = eventsHistory.filter(
+              (item) => item["dateToDisplay"] == dateToDisplay
+            );
+            isFiltered = true;
+          }
+        }
+        if (!isFiltered) {
+          eventsHistory = [];
+        }
+        console.log(eventsHistory);
+    
+        this.setState({
+          loader: false,
+          searchResults: eventsHistory,
+          searchResultsToDisplay: eventsHistory,
+          eventTypeVal: "",
+          fromAddress: "",
+          toAddress: "",
+          seats: 0,
+          journeyDate: "",
+          dateToDisplay: "",
+          journeyDate2: "",
+          dateToDisplay2: "",
+          estPrice: 0,
+          isValidated: false,
+        });
+      }).catch(err => {
+        console.log(err);
+        //this.setState({ data:"error" });
+      })
   };
 
   onFromToEnter = (event) => {
@@ -319,7 +325,7 @@ class FindEventContainer extends Component {
                 />
               </Row>
               <Row className="justify-content-center align-items-center">
-                {this.renderSearchResults()}
+                {this.state.loader ? <Loader/> : this.renderSearchResults()}
               </Row>
             </Col>
           </Row>

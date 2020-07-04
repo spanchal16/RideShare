@@ -6,6 +6,8 @@ import PostEventHistory from "./posteventhist";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
 import Cookies from "js-cookie";
+import "./events.css"; 
+import Loader from './loader'
 
 class CreateEventContainer extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class CreateEventContainer extends Component {
       isLoggedin = false;
     }
     this.state = {
+      loader: false,
       isLoggedin,
       eventTypeVal: "",
       fromAddress: "",
@@ -39,6 +42,7 @@ class CreateEventContainer extends Component {
   }
 
   async componentDidMount() {
+    this.setState({ loader: true });
     //https://eventgoapi.herokuapp.com/createevent/getHistory/1
     //http://localhost:8080/createevent/getHistory/1/
     await axios.get(`https://eventgoapi.herokuapp.com/createevent/getHistory/1`)
@@ -47,7 +51,7 @@ class CreateEventContainer extends Component {
       const data = res.data;
       //console.log(data);
       this.state.eventHistory.push(data);
-      this.setState({eventHistory:this.state.eventHistory[0],eventHistoryToDisplay:this.state.eventHistory[0]})
+      this.setState({loader: false,eventHistory:this.state.eventHistory[0],eventHistoryToDisplay:this.state.eventHistory[0]})
     }).catch(err =>  {
         console.log(err);
         //this.setState({ data:"error" });
@@ -366,7 +370,7 @@ class CreateEventContainer extends Component {
                 />
               </Row>
               <Row className="justify-content-center align-items-center">
-                {this.renderPostEventHistory()}
+              {this.state.loader ? <Loader/> : this.renderPostEventHistory()}
               </Row>
             </Col>
           </Row>
