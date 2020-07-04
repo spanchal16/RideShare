@@ -6,6 +6,7 @@ import PostEventHistory from "./posteventhist";
 import { Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
+import axios from 'axios';
 class FindEventContainer extends Component {
   constructor(props) {
     super(props);
@@ -36,82 +37,11 @@ class FindEventContainer extends Component {
       sortyBy: "id",
       searchResults: [],
       searchResultsToDisplay: [],
-      eventsHistory: [
-        {
-          id: 7,
-          eventTypeVal: "cj",
-          fromAddress: "Halifax",
-          toAddress: "Toronto",
-          dateToDisplay: "07/02/2020",
-          seats: 2,
-          estPrice: 100,
-          description: "new car",
-        },
-        {
-          id: 11,
-          eventTypeVal: "cj",
-          fromAddress: "Halifax",
-          toAddress: "Toronto",
-          dateToDisplay: "07/03/2020",
-          seats: 2,
-          estPrice: 100,
-          description: "new car",
-        },
-        {
-          id: 12,
-          eventTypeVal: "cj",
-          fromAddress: "Halifax",
-          toAddress: "Toronto",
-          dateToDisplay: "07/05/2020",
-          seats: 2,
-          estPrice: 100,
-          description: "new car",
-        },
-        {
-          id: 13,
-          eventTypeVal: "cj",
-          fromAddress: "Halifax",
-          toAddress: "Toronto",
-          dateToDisplay: "07/23/2020",
-          seats: 2,
-          estPrice: 100,
-          description: "new car",
-        },
-        {
-          id: 8,
-          eventTypeVal: "cj",
-          fromAddress: "Toronto",
-          toAddress: "Vancour",
-          dateToDisplay: "07/23/2020",
-          seats: 2,
-          estPrice: 100,
-          description: "new car",
-        },
-        {
-          id: 9,
-          eventTypeVal: "cj",
-          fromAddress: "Halifax",
-          toAddress: "PEI",
-          dateToDisplay: "07/23/2020",
-          seats: 2,
-          estPrice: 100,
-          description: "new car",
-        },
-        {
-          id: 10,
-          eventTypeVal: "cj",
-          fromAddress: "India",
-          toAddress: "Toronto",
-          dateToDisplay: "07/23/2020",
-          seats: 2,
-          estPrice: 100,
-          description: "new car",
-        },
-      ],
+      eventsHistory:[]
     };
   }
 
-  mySubmitHandler = (event) => {
+  mySubmitHandler = async (event) => {
     event.preventDefault();
     const {
       id,
@@ -125,61 +55,75 @@ class FindEventContainer extends Component {
     } = this.state;
     let { eventsHistory } = this.state;
     let isFiltered = false;
-    if (eventsHistory.length > 0) {
-      if (eventTypeVal.length > 0) {
-        eventsHistory = eventsHistory.filter(
-          (item) =>
-            item["eventTypeVal"].toLowerCase() == eventTypeVal.toLowerCase()
-        );
-        isFiltered = true;
-      }
-      if (fromAddress.length > 0) {
-        eventsHistory = eventsHistory.filter(
-          (item) =>
-            item["fromAddress"].toLowerCase() == fromAddress.toLowerCase()
-        );
-        isFiltered = true;
-      }
-      if (toAddress.length > 0) {
-        eventsHistory = eventsHistory.filter(
-          (item) => item["toAddress"].toLowerCase() == toAddress.toLowerCase()
-        );
-        isFiltered = true;
-      }
-      if (dateToDisplay.length > 0 && dateToDisplay2.length > 0) {
-        eventsHistory = eventsHistory.filter(
-          (item) =>
-            item["dateToDisplay"] >= dateToDisplay &&
-            item["dateToDisplay"] <= dateToDisplay2
-        );
-        isFiltered = true;
-      } else if (dateToDisplay.length > 0) {
-        console.log(dateToDisplay);
-        eventsHistory = eventsHistory.filter(
-          (item) => item["dateToDisplay"] == dateToDisplay
-        );
-        isFiltered = true;
-      }
-    }
-    if (!isFiltered) {
-      eventsHistory = [];
-    }
-    console.log(eventsHistory);
 
-    this.setState({
-      searchResults: eventsHistory,
-      searchResultsToDisplay: eventsHistory,
-      eventTypeVal: "",
-      fromAddress: "",
-      toAddress: "",
-      seats: 0,
-      journeyDate: "",
-      dateToDisplay: "",
-      journeyDate2: "",
-      dateToDisplay2: "",
-      estPrice: 0,
-      isValidated: false,
-    });
+        //https://eventgoapi.herokuapp.com/findevents/findevents/2
+        //http://localhost:8080/findevents/findevents/2
+        await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/2`)
+        .then(res => {
+
+            let eventsHistory = res.data;
+
+            if (eventsHistory.length > 0) {
+              if (eventTypeVal.length > 0) {
+                eventsHistory = eventsHistory.filter(
+                  (item) =>
+                    item["eventTypeVal"].toLowerCase() == eventTypeVal.toLowerCase()
+                );
+                isFiltered = true;
+              }
+              if (fromAddress.length > 0) {
+                eventsHistory = eventsHistory.filter(
+                  (item) =>
+                    item["fromAddress"].toLowerCase() == fromAddress.toLowerCase()
+                );
+                isFiltered = true;
+              }
+              if (toAddress.length > 0) {
+                eventsHistory = eventsHistory.filter(
+                  (item) => item["toAddress"].toLowerCase() == toAddress.toLowerCase()
+                );
+                isFiltered = true;
+              }
+              if (dateToDisplay.length > 0 && dateToDisplay2.length > 0) {
+                eventsHistory = eventsHistory.filter(
+                  (item) =>
+                    item["dateToDisplay"] >= dateToDisplay &&
+                    item["dateToDisplay"] <= dateToDisplay2
+                );
+                isFiltered = true;
+              } else if (dateToDisplay.length > 0) {
+                console.log(dateToDisplay);
+                eventsHistory = eventsHistory.filter(
+                  (item) => item["dateToDisplay"] == dateToDisplay
+                );
+                isFiltered = true;
+              }
+            }
+            if (!isFiltered) {
+              eventsHistory = [];
+            }
+            console.log(eventsHistory);
+        
+            this.setState({
+              searchResults: eventsHistory,
+              searchResultsToDisplay: eventsHistory,
+              eventTypeVal: "",
+              fromAddress: "",
+              toAddress: "",
+              seats: 0,
+              journeyDate: "",
+              dateToDisplay: "",
+              journeyDate2: "",
+              dateToDisplay2: "",
+              estPrice: 0,
+              isValidated: false,
+            });
+        }).catch(err =>  {
+            console.log(err);
+            //this.setState({ data:"error" });
+        })
+
+   
   };
 
   onFromToEnter = (event) => {
@@ -304,7 +248,7 @@ class FindEventContainer extends Component {
   onDeleteEvetClicked = (history) => {
     let { searchResultsToDisplay } = this.state;
     let filteredevents = searchResultsToDisplay.filter(
-      (item) => item.id != history.id
+      (item) => item.eventid != history.eventid
     );
     this.setState({ searchResultsToDisplay: filteredevents });
   };
@@ -313,7 +257,7 @@ class FindEventContainer extends Component {
     return this.state.searchResultsToDisplay.length > 0 ? (
       this.state.searchResultsToDisplay.map((item) => (
         <PostEventHistory
-          key={item.id}
+          key={item.eventid}
           eventHistory={item}
           onPostedEvetClicked={this.onPostedEvetClicked}
           onDeleteEvetClicked={this.onDeleteEvetClicked}
@@ -322,6 +266,13 @@ class FindEventContainer extends Component {
     ) : (
       <div>No items to display</div>
     );
+  };
+  onNumInputChange = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    if (value >= 0) {
+      this.setState({ [name]: value });
+    }
   };
 
   render() {
@@ -343,6 +294,7 @@ class FindEventContainer extends Component {
                 handleDateChange={this.handleDateChange}
                 handleDateChange2={this.handleDateChange2}
                 onDescriptionEnter={this.onDescriptionEnter}
+                onNumInputChange={this.onNumInputChange}
                 eventTypeVal={this.state.eventTypeVal}
                 fromAddress={this.state.fromAddress}
                 toAddress={this.state.toAddress}

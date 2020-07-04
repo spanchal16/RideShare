@@ -32,21 +32,21 @@ class ResponseMainCard extends Component {
             return <div><FcOk /> <span style={{fontStyle: "italic"}}>Accepted </span></div>
         }
         else if (this.props.eventDetail.status == 0) {
-            return <div><BsFillXCircleFill style={{color:"#dc3545"}}/> <span style={{fontStyle: "italic"}}>Rejected </span></div>
+            return <div><BsFillXCircleFill style={{color:"#dc3545"}}/> <span style={{fontStyle: "italic"}}>Declined </span></div>
         }
         else {
-            return <div><MdHourglassFull style={{color:"#ed9106"}}/> <span style={{fontStyle: "italic"}}>pending </span></div>
+            return <div><MdHourglassFull style={{color:"#ed9106"}}/> <span style={{fontStyle: "italic"}}>Pending </span></div>
         }
     }
 
-    render() { 
+    render() {
         return (<div>
             <Accordion>
             <Card border="secondary" >
                     <Card.Header  style={{padding:"0"}}>
-                        
+
                     {this.renderHeader()}
-                        
+
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                         <Card.Body>
@@ -69,5 +69,5 @@ class ResponseMainCard extends Component {
         </div> );
     }
 }
- 
+
 export default ResponseMainCard;

@@ -16,9 +16,9 @@ class RequestsReceived extends Component {
         //http://localhost:8080/requestsreceived/getrequests/1
         await axios.get(`https://eventgoapi.herokuapp.com/requestsreceived/getrequests/1`)
         .then(res => {
-            
+
             const data = res.data;
-            
+
             //console.log(data);
             data.events.forEach(function (item, index) {
                 item.requests = [];
@@ -26,30 +26,29 @@ class RequestsReceived extends Component {
                 let e = data.requests.filter((request) => request.eventid == item.eventid);
                 console.log(e);
                 item.requests = item.requests.concat(e)
-                
+
             })
             console.log(data.events);
-          //this.state.eventHistory.push(data);
             this.setState({ eventDetails: data.events });
         }).catch(err =>  {
             console.log(err);
-            //this.setState({ data:"error" });
         })
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div>
-                <h5>Requests received for posted events</h5>
+                <h4 style={{textAlign: "center"}}>Requests received for created Rides</h4>
+                <br/>
                 {this.state.eventDetails.map(item =>
                     <ReqMainCard
                         key={item.eventid}
                         eventDetail = {item}
                     />)}
-                
+
             </div>
          );
-    } 
+    }
 }
- 
+
 export default RequestsReceived;
