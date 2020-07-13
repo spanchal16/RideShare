@@ -47,7 +47,7 @@ class Login extends Component {
 
         let errMsg = this.state.isInvalidCred ? <span style={{ fontStyle: "italic", color:"#dc3545" }}><span style={{fontWeight:"bold"}}>Invalid username or password</span></span> : null;
         return (
-            <Navbar className="navbg">
+            <Navbar className="navbgLogin">
                 <Col >
                     <Navbar.Brand href="login">
                         <img src={logo} alt="logo" style={{ height: "135px" }} />

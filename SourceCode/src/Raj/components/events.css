@@ -3,9 +3,17 @@
     background-color:rgb(3, 95, 187) /*this your primary color
   }  */
 
+.navbgLogin {
+  /*background: linear-gradient(90deg, rgb(3, 95, 187), transparent);
+  background-color: #00203fff; /*this your primary color*/
+  background-image:url('../images/background4.jpg');
+  /* background-repeat: no-repeat; */
+  background-attachment: fixed;
+}
+
 .navbg {
   background: linear-gradient(90deg, rgb(3, 95, 187), transparent);
-  background-color: #00203fff; /*this your primary color*/
+  background-color: #00203fff; /*this your primary color*/ 
 }
 
 .eventHistbg {
