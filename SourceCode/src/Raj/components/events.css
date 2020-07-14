@@ -24,7 +24,9 @@
 .border {
   border-style: inset;
 }
-
+img.uploadimg {
+  border: 1px solid black;
+}
 /* .calenderpicker{
     width: 113%;
     height: calc(1.5em + 0.75rem + 2px);

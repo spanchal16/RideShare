@@ -8,6 +8,7 @@ import axios from 'axios';
 import Cookies from "js-cookie";
 import "./events.css"; 
 import Loader from './loader'
+import { storage } from '../firebase';
 
 class CreateEventContainer extends Component {
   constructor(props) {
@@ -36,6 +37,11 @@ class CreateEventContainer extends Component {
       searchBy: "fromAddress",
       isValidated: false,
       sortyBy: "id",
+      imageError: '',
+      imagePreviewUrl1: '',
+      imagePreviewUrl2: '',
+      files: [],
+      imageurls:[],
       eventHistoryToDisplay: [],
       eventHistory: [],
     };
@@ -56,8 +62,57 @@ class CreateEventContainer extends Component {
         console.log(err);
         //this.setState({ data:"error" });
     })
-}
+  };
+
+  
+  uploadImages = () => {
+    //event.preventDefault();
+    let urls = [];
+    let counter = -1;
+    this.setState({ imageurls: [] })
+    let { files } = this.state;
+    return new Promise((resolve, reject) => {
+      if (files.length > 0) {  
+        files.forEach((file, index) => {
+
+          storage.ref(`images/${file.name}`).put(file).on(
+            "state_changed",
+            snapshot => { },
+            error => {
+              console.log(error)
+            },
+            () => {
+              storage
+                .ref("images")
+                .child(file.name)
+                .getDownloadURL().then(url => {
+                  //console.log(url)
+                  urls.push(url)
+                  counter = counter + 1;
+                  if (counter == files.length - 1) {
+                    resolve(urls)
+                  }
+                })
+            }
+          )
+        });
     
+      }
+      else {
+        if (this.state.isUpdate) {
+          if (this.state.imageurl1 != null) {
+            urls.push(this.state.imageurl1)
+          }
+          if (this.state.imageurl2 != null) {
+            urls.push(this.state.imageurl2)
+          }
+          resolve(urls);
+        }
+        resolve(urls);
+      }
+    })
+  };
+
   mySubmitHandler = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -65,106 +120,116 @@ class CreateEventContainer extends Component {
       this.setState({ isValidated: true });
       event.stopPropagation();
     } else {
-      if (this.state.isUpdate) {
+      this.uploadImages()
+        .then(async (imageurls) => {
+          if (this.state.isUpdate) {
 
-        let updatedItem = {
-          eventid: this.state.updateItemId,
-          eventTypeVal: this.state.eventTypeVal,
-          fromAddress: this.state.fromAddress,
-          toAddress: this.state.toAddress,
-          seats: this.state.seats,
-          estPrice: this.state.estPrice,
-          dateToDisplay: this.state.dateToDisplay,
-          journeyDate: this.state.journeyDate,
-          description: this.state.description,
-        };
-
-        //put to API
-        //https://eventgoapi.herokuapp.com/createevent/updateEvent/1
-        //http://localhost:8080/createevent/updateEvent/1
-        await axios.put(`https://eventgoapi.herokuapp.com/createevent/updateEvent/1`, { updatedItem })
-          .then(res => {
-            const { eventHistory } = this.state;
-            if (res.data) {
-              eventHistory.map((item) => {
-                if (item.eventid === this.state.updateItemId) {
-                  item.eventTypeVal = this.state.eventTypeVal;
-                  item.fromAddress = this.state.fromAddress;
-                  item.toAddress = this.state.toAddress;
-                  item.seats = this.state.seats;
-                  item.estPrice = this.state.estPrice;
-                  item.doj = this.state.dateToDisplay;
-                  item.description = this.state.description;
+            let updatedItem = {
+              eventid: this.state.updateItemId,
+              eventTypeVal: this.state.eventTypeVal,
+              fromAddress: this.state.fromAddress,
+              toAddress: this.state.toAddress,
+              seats: this.state.seats,
+              estPrice: this.state.estPrice,
+              dateToDisplay: this.state.dateToDisplay,
+              journeyDate: this.state.journeyDate,
+              description: this.state.description,
+              imageurls: imageurls
+            };
+    
+            //put to API
+            //https://eventgoapi.herokuapp.com/createevent/updateEvent/1
+            //http://localhost:8080/createevent/updateEvent/1
+            await axios.put(`https://eventgoapi.herokuapp.com/createevent/updateEvent/1`, { updatedItem })
+              .then(res => {
+                const { eventHistory } = this.state;
+                if (res.data) {
+                  eventHistory.map((item) => {
+                    if (item.eventid === this.state.updateItemId) {
+                      item.eventTypeVal = this.state.eventTypeVal;
+                      item.fromAddress = this.state.fromAddress;
+                      item.toAddress = this.state.toAddress;
+                      item.seats = this.state.seats;
+                      item.estPrice = this.state.estPrice;
+                      item.doj = this.state.dateToDisplay;
+                      item.description = this.state.description;
+                      item.imageurl1 = imageurls.length > 0 ? imageurls[0] : null;
+                      item.imageurl2 = imageurls.length > 1 ? imageurls[1] : null;
+                    }
+                  });
                 }
-              });
-            }
+                
+                this.setState({
+                  eventHistory: eventHistory,
+                  eventHistoryToDisplay: eventHistory,
+                  eventTypeVal: "",
+                  fromAddress: "",
+                  toAddress: "",
+                  seats: 0,
+                  journeyDate: "",
+                  dateToDisplay: "",
+                  estPrice: 0,
+                  description: "",
+                  isUpdate: false,
+                  isValidated: false,
+                  imagePreviewUrl1: "",
+                  imagePreviewUrl2: "",
+                  files: [],
+                  imageurls:[]
+                });
+                document.getElementById("imgupload").value = null;
+                
+              }).catch(err => {
+                console.log(err);
+                //this.setState({ data:"error" });
+              })
+    
             
-            this.setState({
-              eventHistory: eventHistory,
-              eventHistoryToDisplay: eventHistory,
-              eventTypeVal: "",
-              fromAddress: "",
-              toAddress: "",
-              seats: 0,
-              journeyDate: "",
-              dateToDisplay: "",
-              estPrice: 0,
-              description: "",
-              isUpdate: false,
-              isValidated: false,
-            });
-            
-          }).catch(err => {
-            console.log(err);
-            //this.setState({ data:"error" });
-          })
-
-        
-      } else {
-        
-        let newItem = {
-          eventTypeVal: this.state.eventTypeVal,
-          fromAddress: this.state.fromAddress,
-          toAddress: this.state.toAddress,
-          seats: this.state.seats,
-          estPrice: this.state.estPrice,
-          dateToDisplay: this.state.dateToDisplay,
-          journeyDate: this.state.journeyDate,
-          description: this.state.description,
-        };
-
-        //push to API
-        //https://eventgoapi.herokuapp.com/createevent/postEvent/1
-        //http://localhost:8080/createevent/postEvent/1
-        await axios.post(`https://eventgoapi.herokuapp.com/createevent/postEvent/1`, { newItem })
-          .then(res => {
-            
-            const data = res.data;
-            //console.log(data)
-            
-            this.setState({
-              eventHistory: data,
-              eventHistoryToDisplay: data,
-              eventTypeVal: "",
-              fromAddress: "",
-              toAddress: "",
-              seats: 0,
-              journeyDate: "",
-              dateToDisplay: "",
-              estPrice: 0,
-              description: "",
-              isUpdate: false,
-              isValidated: false,
-            });
-            
-          }).catch(err => {
-            console.log(err);
-            //this.setState({ data:"error" });
-          })
-        
-      }
-
-      
+          } else {
+            let newItem = {
+              eventTypeVal: this.state.eventTypeVal,
+              fromAddress: this.state.fromAddress,
+              toAddress: this.state.toAddress,
+              seats: this.state.seats,
+              estPrice: this.state.estPrice,
+              dateToDisplay: this.state.dateToDisplay,
+              journeyDate: this.state.journeyDate,
+              description: this.state.description,
+              imageurls: imageurls
+            };
+            //push to API
+            //https://eventgoapi.herokuapp.com/createevent/postEvent/1
+            //http://localhost:8080/createevent/postEvent/1
+            await axios.post(`https://eventgoapi.herokuapp.com/createevent/postEvent/1`, { newItem })
+              .then(res => {
+                
+                const data = res.data;
+                
+                this.setState({
+                  eventHistory: data,
+                  eventHistoryToDisplay: data,
+                  eventTypeVal: "",
+                  fromAddress: "",
+                  toAddress: "",
+                  seats: 0,
+                  journeyDate: "",
+                  dateToDisplay: "",
+                  estPrice: 0,
+                  description: "",
+                  isUpdate: false,
+                  isValidated: false,
+                  imagePreviewUrl1: "",
+                  imagePreviewUrl2: "",
+                  files: [],
+                  imageurls:[]
+                });
+                document.getElementById("imgupload").value = null;
+                
+              }).catch(err => {
+                console.log(err);
+              })   
+          }
+      });
     }
   };
 
@@ -237,6 +302,9 @@ class CreateEventContainer extends Component {
       estPrice,
       doj,
       description,
+      imageurl1,
+      imageurl2
+      
     } = history;
     let dateToDisplay1 =
       doj == undefined || doj.length == 0
@@ -254,6 +322,8 @@ class CreateEventContainer extends Component {
       description: description,
       isUpdate: true,
       updateItemId: eventid,
+      imagePreviewUrl1: imageurl1,
+      imagePreviewUrl2:imageurl2
     });
   };
 
@@ -327,6 +397,47 @@ class CreateEventContainer extends Component {
     );
   };
 
+  handleImgFiles = e => {
+    if (e.target.files.length > 2) {
+      e.preventDefault();
+      this.setState({ imageError: 'Only two images allowed..' })
+    } else {
+      let reader1 = new FileReader();
+      let file1 = e.target.files[0];
+      this.state.files.push(file1);
+      reader1.onloadend = () => {
+        this.setState({
+          imagePreviewUrl1: reader1.result,imageError:''
+        });
+      }
+      reader1.readAsDataURL(file1)
+
+      if (e.target.files.length > 1) {
+        let reader2 = new FileReader();
+        let file2 = e.target.files[1];
+        this.state.files.push(file2);
+        reader2.onloadend = () => {
+          this.setState({
+            imagePreviewUrl2: reader2.result
+          });
+        }
+        reader2.readAsDataURL(file2)
+      }
+    }
+  };
+
+  onClearImgBtnClick = e => {
+    e.preventDefault();
+    this.setState({
+      imageError: '',
+      imagePreviewUrl1: '',
+      imagePreviewUrl2: '',
+      files: [],
+      imageurls: []
+    });
+    document.getElementById("imgupload").value = null;
+  }
+
   render() {
     if (!this.state.isLoggedin) {
       return <Redirect to="/login" />;
@@ -343,6 +454,8 @@ class CreateEventContainer extends Component {
                 onEventddChange={this.onEventddChange}
                 handleDateChange={this.handleDateChange}
                 onDescriptionEnter={this.onDescriptionEnter}
+                handleImgFiles={this.handleImgFiles}
+                onClearImgBtnClick={this.onClearImgBtnClick}
                 eventTypeVal={this.state.eventTypeVal}
                 fromAddress={this.state.fromAddress}
                 toAddress={this.state.toAddress}
@@ -353,6 +466,9 @@ class CreateEventContainer extends Component {
                 description={this.state.description}
                 isUpdate={this.state.isUpdate}
                 isValidated={this.state.isValidated}
+                imageError={this.state.imageError}
+                imagePreviewUrl1={this.state.imagePreviewUrl1}
+                imagePreviewUrl2={this.state.imagePreviewUrl2}
                 isCreate={true}
               />
             </Col>

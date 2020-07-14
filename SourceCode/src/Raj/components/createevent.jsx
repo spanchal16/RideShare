@@ -77,6 +77,58 @@ class CreateEvent extends Component {
     ) : null;
   };
 
+  renderUploadImg = () => {
+    return this.props.isCreate ? (
+      <Form.Row>
+        <Form.Group as={Col} controlId="uploadimg">
+          <Form.Label>
+            Upload Image:{" "}
+            {/* <span className="fstyle">
+              {0} of 2 images uploaded
+            </span> */}
+            {this.rengerOptionalinLabel()}
+          </Form.Label>
+          <Row>
+          <Col>
+          <input type="file"
+            multiple
+            className="form-control-file"
+            id="imgupload"
+            onChange={this.props.handleImgFiles}
+            accept="image/*"
+            />
+            </Col>
+          <Col>
+            {this.renderClearImgBtn(this.props.imagePreviewUrl1)}
+            </Col>
+            </Row>
+          
+          
+          {this.props.imageError}
+          <br/>
+          <Row>
+            <Col>
+              {this.renderImgPreview(this.props.imagePreviewUrl1)}
+              
+            </Col>
+            <Col>
+              {this.renderImgPreview(this.props.imagePreviewUrl2)}
+            </Col>
+          </Row>
+          </Form.Group>
+        
+      </Form.Row>
+    ) : null;
+  };
+
+  renderImgPreview = (img) => {
+    return (img != '' && img != null) ? <img className="uploadimg" src={img} width="200" height="200" border="1"/> : null;
+  }
+
+  renderClearImgBtn = (img) => {
+    return (img != '' && img != null) ? <button onClick={this.props.onClearImgBtnClick}>clear</button> : null;
+  }
+
   renderDateRange = () => {
     if (!this.props.isCreate) {
       return (
@@ -264,6 +316,7 @@ class CreateEvent extends Component {
 
               <Form.Row>{this.renderByEventdd("car")}</Form.Row>
               {this.renderDescription()}
+              {this.renderUploadImg()}
               <div style={{ paddingBottom: "10px" }}>
                 <Row>
                   <Col>
