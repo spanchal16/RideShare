@@ -402,7 +402,7 @@ class CreateEventContainer extends Component {
   handleImgFiles = e => {
     if (e.target.files.length > 2) {
       e.preventDefault();
-      this.setState({ imageError: 'Only two images allowed..' })
+      this.setState({ imageError: 'Only two images allowed...' })
     } else {
       let reader1 = new FileReader();
       let file1 = e.target.files[0];
