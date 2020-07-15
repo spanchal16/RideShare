@@ -115,13 +115,14 @@ class CreateEventContainer extends Component {
   };
 
   mySubmitHandler = async (event) => {
-    this.setState({ isMasked: true });
+    
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       this.setState({ isValidated: true });
       event.stopPropagation();
     } else {
+      this.setState({ isMasked: true });
       this.uploadImages()
         .then(async (imageurls) => {
           if (this.state.isUpdate) {
