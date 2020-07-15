@@ -446,7 +446,7 @@ class CreateEventContainer extends Component {
       this.state.isMasked ?
         <div className="screenmask" >
           <Row className="justify-content-center align-items-center">
-            <Loader />
+            <div style={{ paddingTop: "134px" }}><Loader /></div>
           </Row>
         </div> : null
     );
