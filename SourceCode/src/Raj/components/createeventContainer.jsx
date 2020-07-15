@@ -20,6 +20,7 @@ class CreateEventContainer extends Component {
       isLoggedin = false;
     }
     this.state = {
+      isMasked: false,
       loader: false,
       isLoggedin,
       eventTypeVal: "",
@@ -62,6 +63,7 @@ class CreateEventContainer extends Component {
         console.log(err);
         //this.setState({ data:"error" });
     })
+    console.log('heloooooooo')
   };
 
   
@@ -114,6 +116,7 @@ class CreateEventContainer extends Component {
   };
 
   mySubmitHandler = async (event) => {
+    this.setState({ isMasked: true });
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -184,7 +187,7 @@ class CreateEventContainer extends Component {
                 //this.setState({ data:"error" });
               })
     
-            
+              this.setState({ isMasked: false });
           } else {
             let newItem = {
               eventTypeVal: this.state.eventTypeVal,
@@ -224,7 +227,7 @@ class CreateEventContainer extends Component {
                   imageurls:[]
                 });
                 document.getElementById("imgupload").value = null;
-                
+                this.setState({ isMasked: false });
               }).catch(err => {
                 console.log(err);
               })   
@@ -438,12 +441,26 @@ class CreateEventContainer extends Component {
     document.getElementById("imgupload").value = null;
   }
 
+  renderMask = () => {
+    return (
+      this.state.isMasked ?
+        <div className="screenmask" >
+          <Row className="justify-content-center align-items-center">
+            <Loader />
+          </Row>
+        </div> : null
+    );
+  }
+
   render() {
     if (!this.state.isLoggedin) {
       return <Redirect to="/login" />;
     }
     return (
       <div className="pb-5">
+       
+        {this.renderMask()}
+        
         <Container>
           <Row>
             <Col>

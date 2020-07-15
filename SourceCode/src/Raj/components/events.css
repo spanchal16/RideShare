@@ -75,6 +75,21 @@ body {
   border: 1px solid #ced4da;
 }
 
+div.screenmask
+{
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    background-color: #606060;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    -moz-opacity: .5;
+    opacity: .5;
+}
+
 /*
 Loading animation...
 */
