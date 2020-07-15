@@ -63,7 +63,6 @@ class CreateEventContainer extends Component {
         console.log(err);
         //this.setState({ data:"error" });
     })
-    console.log('heloooooooo')
   };
 
   
