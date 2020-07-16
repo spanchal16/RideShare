@@ -1,3 +1,5 @@
+//@Author - RajKumar B00849566
+
 import React, { Component } from 'react';
 import ReqMainCard from './requestMainCard'
 import axios from 'axios';
@@ -14,6 +16,7 @@ class RequestsReceived extends Component {
          }
     }
 
+    //GET all the posted events in the notifications screen
     async componentDidMount() {
         this.setState({ loader: true });
         //https://eventgoapi.herokuapp.com/requestsreceived/getrequests/1

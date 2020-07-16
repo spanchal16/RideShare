@@ -1,3 +1,6 @@
+//@Author - RajKumar B00849566
+//Card for posted events
+
 import React, { Component } from 'react';
 import { Card,Accordion,Button,Row,Col } from "react-bootstrap";
 import SubReqDetails from './subReqDetails'
@@ -19,6 +22,7 @@ class RequestMainCard extends Component {
                         </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
+                        {/* render requests for an event inside create-event card */}
                         <Card.Body>
                             {this.props.eventDetail.requests.map(item => <SubReqDetails
                                 key={item.requesteventId}
@@ -32,7 +36,7 @@ class RequestMainCard extends Component {
                             <small className="text-muted"> {this.props.eventDetail.requests.length} Requests for this event</small>
                         </Col>
                         <Col>
-                            <small className="text-muted">updated 3 days ago</small>
+                            <small className="text-muted">posted 3 days ago</small>
                         </Col>
                     </Row>
                 </Card.Footer>

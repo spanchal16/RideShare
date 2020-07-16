@@ -1,3 +1,7 @@
+//@Author - RajKumar B00849566
+
+//Render requests for a event
+
 import React, { Component } from 'react';
 import { Button, Row, Col, Card,Alert } from "react-bootstrap";
 import { BsFillXCircleFill } from "react-icons/bs";

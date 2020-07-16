@@ -1,3 +1,5 @@
+//@Author - RajKumar B00849566
+
 import React, { Component } from "react";
 import FindEvent from "./notfications/requestsReceived";
 import CreateEvent from "./createevent";
