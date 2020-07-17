@@ -12,7 +12,7 @@ class Home extends Component {
         super(props);
         let isLoggedin = true;
         //const username = sessionStorage.getItem("username");
-        const username = Cookies.get("username")
+        const username = Cookies.get("email")
         if (username == null) {
             isLoggedin = false;
         }

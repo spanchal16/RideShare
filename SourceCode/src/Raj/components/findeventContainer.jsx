@@ -7,7 +7,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from 'axios';
-import "./events.css"; 
+import "./events.css";
 import Loader from './loader'
 
 class FindEventContainer extends Component {
@@ -15,7 +15,7 @@ class FindEventContainer extends Component {
     super(props);
     let isLoggedin = true;
     //const username = sessionStorage.getItem("username");
-    const username = Cookies.get("username")
+    const username = Cookies.get("email")
     if (username == null) {
       isLoggedin = false;
     }
@@ -61,11 +61,11 @@ class FindEventContainer extends Component {
     let { eventsHistory } = this.state;
     let isFiltered = false;
 
-    
+
     //https://eventgoapi.herokuapp.com/findevents/findevents/2
     //http://localhost:8080/findevents/findevents/2
     await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/2`)
-          
+
       .then(res => {
 
         let eventsHistory = res.data;
@@ -110,7 +110,7 @@ class FindEventContainer extends Component {
           eventsHistory = [];
         }
         console.log(eventsHistory);
-    
+
         this.setState({
           loader: false,
           searchResults: eventsHistory,

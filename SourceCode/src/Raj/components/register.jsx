@@ -4,26 +4,27 @@ import DatePicker from "react-datepicker";
 import { Redirect } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import './events.css'
+import moment from 'moment';
 import Cookies from "js-cookie";
+import axios from 'axios';
 
 class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dob: '',
-            genderVal: '',
             username: '',
             password: '',
             email: '',
+            dob: '',
+            gender: '',
             validated: false,
             invalidPwd: false,
             invalidEmail: false,
             isValid:false
-
         }
     }
 
-    onFromToEnter = (event) => {
+    onUserNameChange = (event) => {
         let name = event.target.name;
         let value = event.target.value;
         this.setState({ [name]: value });
@@ -41,7 +42,7 @@ class Register extends Component {
         this.setState({ [name]: value });
     }
 
-    onEmailEnter = (event) => {
+    onEmailChange = (event) => {
         let name = event.target.name;
         let value = event.target.value;
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -55,14 +56,15 @@ class Register extends Component {
         this.setState({ [name]: value });
     }
 
-    handleDateChange = date => {
+    onDateChange = date => {
+        console.log(date);
         this.setState({
             dob: date
         });
     };
 
     onGenderChange = (event) => {
-        this.setState({ genderVal: event.target.value })
+        this.setState({ gender: event.target.value })
 
     }
 
@@ -75,16 +77,33 @@ class Register extends Component {
             event.stopPropagation();
         }
         else {
+            let selectedDateStr = moment(this.state.dob).format('DD.MM.YYYY');
+            const user = {
+                username: this.state.username,
+                password: this.state.password,
+                email: this.state.email,
+                dob: selectedDateStr,
+                gender: this.state.gender,
+            };
+            console.log(user);
+            let url = "https://eventgoapi.herokuapp.com/usermng/registerUser";
+            // let url = "http://localhost:8080/usermng/registerUser";
+            axios.post(url, { user })
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                }).catch(err => {
+                    console.log(err);
+                })
+
             //sessionStorage.setItem( "username", username );
             Cookies.set("username", username);
             this.setState({ isValid: true });
         }
-
         this.setState({ validated: true });
     };
 
     render() {
-
         const myBordeSrtyle = {
             width: "100%",
             height:"100%",
@@ -108,19 +127,17 @@ class Register extends Component {
                     <Container style={myBordeSrtyle}>
                         <h2>Create new account</h2>
                         <Form noValidate validated={this.state.validated} onSubmit={this.mySubmitHandler}>
-
                             <Form.Group as={Row} controlId="usrname">
                                 <Form.Label column sm="3.5" className="loginLabel">Username:</Form.Label>
                                 <Col sm="5">
                                     <Form.Control type="text" placeholder=""
                                                   name="username"
                                                   value={this.state.username}
-                                                  onChange={this.onFromToEnter}
+                                                  onChange={this.onUserNameChange}
                                                   required
                                     />
                                 </Col>
                             </Form.Group>
-
 
                             <Form.Group as={Row} controlId="pwd">
                                 <Form.Label column sm="3.5"  className="loginLabel">Password:</Form.Label>
@@ -144,7 +161,7 @@ class Register extends Component {
                                     <Form.Control type="text" placeholder=""
                                                   name="email"
                                                   value={this.state.email}
-                                                  onChange={this.onEmailEnter}
+                                                  onChange={this.onEmailChange}
                                                   required
                                                   className={emailbstyle}
                                     />
@@ -159,8 +176,9 @@ class Register extends Component {
                                 <Col sm="5">
                                     <DatePicker className="calenderpicker form-control"
                                                 selected={this.state.dob}
-                                                onChange={this.handleDateChange}
+                                                onChange={this.onDateChange}
                                                 value={this.state.dob}
+                                                dateFormat="dd.MM.yyyy"
                                                 required
                                     />
                                 </Col>
@@ -168,7 +186,7 @@ class Register extends Component {
                             <Form.Group as={Row} controlId="gender">
                                 <Form.Label column sm="3.5" className="loginLabel">Gender:</Form.Label>
                                 <Col sm="5">
-                                    <Form.Control as="select" value={this.state.genderVal} onChange={this.onGenderChange} required>
+                                    <Form.Control as="select" value={this.state.gender} onChange={this.onGenderChange} required>
                                         <option value=''>Choose...</option>
                                         <option value="ma">Male</option>
                                         <option value="fe">Female</option>
