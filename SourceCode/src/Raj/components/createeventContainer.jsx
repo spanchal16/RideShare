@@ -1,3 +1,5 @@
+//@Author - RajKumar B00849566
+
 import React, { Component } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import CreateEvent from "./createevent";
@@ -48,8 +50,11 @@ class CreateEventContainer extends Component {
     };
   }
 
+  //Get all the evnts for a user
   async componentDidMount() {
     this.setState({ loader: true });
+
+    //API call to fetch data
     //https://eventgoapi.herokuapp.com/createevent/getHistory/1
     //http://localhost:8080/createevent/getHistory/1/
     await axios.get(`https://eventgoapi.herokuapp.com/createevent/getHistory/1`)
@@ -65,64 +70,19 @@ class CreateEventContainer extends Component {
     })
   };
 
-  
-  uploadImages = () => {
-    //event.preventDefault();
-    let urls = [];
-    let counter = -1;
-    this.setState({ imageurls: [] })
-    let { files } = this.state;
-    return new Promise((resolve, reject) => {
-      if (files.length > 0) {  
-        files.forEach((file, index) => {
-
-          storage.ref(`images/${file.name}`).put(file).on(
-            "state_changed",
-            snapshot => { },
-            error => {
-              console.log(error)
-            },
-            () => {
-              storage
-                .ref("images")
-                .child(file.name)
-                .getDownloadURL().then(url => {
-                  //console.log(url)
-                  urls.push(url)
-                  counter = counter + 1;
-                  if (counter == files.length - 1) {
-                    resolve(urls)
-                  }
-                })
-            }
-          )
-        });
-    
-      }
-      else {
-        if (this.state.isUpdate) {
-          if (this.state.imageurl1 != null) {
-            urls.push(this.state.imageurl1)
-          }
-          if (this.state.imageurl2 != null) {
-            urls.push(this.state.imageurl2)
-          }
-          resolve(urls);
-        }
-        resolve(urls);
-      }
-    })
-  };
-
+  /*Create/Update button click handler
+  Image uploades here*/
   mySubmitHandler = async (event) => {
     
     event.preventDefault();
     const form = event.currentTarget;
+    //Form validation
     if (form.checkValidity() === false) {
       this.setState({ isValidated: true });
       event.stopPropagation();
     } else {
       this.setState({ isMasked: true });
+      //Upload image
       this.uploadImages()
         .then(async (imageurls) => {
           if (this.state.isUpdate) {
@@ -140,7 +100,7 @@ class CreateEventContainer extends Component {
               imageurls: imageurls
             };
     
-            //put to API
+            //API call for put
             //https://eventgoapi.herokuapp.com/createevent/updateEvent/1
             //http://localhost:8080/createevent/updateEvent/1
             await axios.put(`https://eventgoapi.herokuapp.com/createevent/updateEvent/1`, { updatedItem })
@@ -200,7 +160,7 @@ class CreateEventContainer extends Component {
               description: this.state.description,
               imageurls: imageurls
             };
-            //push to API
+            //API call for push
             //https://eventgoapi.herokuapp.com/createevent/postEvent/1
             //http://localhost:8080/createevent/postEvent/1
             await axios.post(`https://eventgoapi.herokuapp.com/createevent/postEvent/1`, { newItem })
@@ -294,6 +254,7 @@ class CreateEventContainer extends Component {
     });
   };
 
+  //Click on posted events, updating feature.
   onPostedEvetClicked = (history) => {
     //console.log(history)
     const {
@@ -330,6 +291,44 @@ class CreateEventContainer extends Component {
     });
   };
 
+  //Delete posted events
+  onDeleteEvetClicked = async (history) => {
+    let { eventHistory } = this.state;
+    //put to API
+    //https://eventgoapi.herokuapp.com/createevent/deleteevent/1/
+    //http://localhost:8080/createevent/deleteevent/1/
+    await axios.delete(`https://eventgoapi.herokuapp.com/createevent/deleteevent/1/` + history.eventid)
+      .then(res => {
+        if (res.data) {
+          let filteredevents = eventHistory.filter((item) => item.eventid != history.eventid);
+          this.setState({
+            eventHistory: filteredevents,
+            eventHistoryToDisplay: filteredevents,
+          });
+        }
+      }).catch(err => {
+        console.log(err);
+        //this.setState({ data:"error" });
+      })
+  };
+
+  //Render view for posted events
+  renderPostEventHistory = () => {
+    return this.state.eventHistoryToDisplay.length > 0 ? (
+      this.state.eventHistoryToDisplay.map((item) => (
+        <PostEventHistory
+          key={item.eventid}
+          eventHistory={item}
+          onPostedEvetClicked={this.onPostedEvetClicked}
+          onDeleteEvetClicked={this.onDeleteEvetClicked}
+        />
+      ))
+    ) : (
+      <div>No items to display</div>
+    );
+  };
+
+  /*Search and Sort Feature --start*/
   onSearchTermChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -364,40 +363,58 @@ class CreateEventContainer extends Component {
     eventHistoryToDisplay.sort((a, b) => (a[value] > b[value] ? 1 : -1));
     this.setState({ eventHistoryToDisplay: eventHistoryToDisplay });
   };
+  /*Search and Sort Feature --end*/
+  
+  /* Upload Image Feature --start */
+  //Function to upload images to Firebase
+  uploadImages = () => {
+    //event.preventDefault();
+    let urls = [];
+    let counter = -1;
+    this.setState({ imageurls: [] })
+    let { files } = this.state;
+    return new Promise((resolve, reject) => {
+      if (files.length > 0) {
+        files.forEach((file, index) => {
 
-  onDeleteEvetClicked = async (history) => {
-    let { eventHistory } = this.state;
-    //put to API
-    //https://eventgoapi.herokuapp.com/createevent/deleteevent/1/
-    //http://localhost:8080/createevent/deleteevent/1/
-    await axios.delete(`https://eventgoapi.herokuapp.com/createevent/deleteevent/1/` + history.eventid)
-      .then(res => {
-        if (res.data) {
-          let filteredevents = eventHistory.filter((item) => item.eventid != history.eventid);
-          this.setState({
-            eventHistory: filteredevents,
-            eventHistoryToDisplay: filteredevents,
-          });
+          //Upload images to Firebase
+          storage.ref(`images/${file.name}`).put(file).on(
+            "state_changed",
+            snapshot => { },
+            error => {
+              console.log(error)
+            },
+            () => {
+              storage
+                .ref("images")
+                .child(file.name)
+                .getDownloadURL().then(url => {
+                  //console.log(url)
+                  //get the image URL
+                  urls.push(url)
+                  counter = counter + 1;
+                  if (counter == files.length - 1) {
+                    resolve(urls)
+                  }
+                })
+            }
+          )
+        });
+    
+      }
+      else {
+        if (this.state.isUpdate) {
+          if (this.state.imageurl1 != null) {
+            urls.push(this.state.imageurl1)
+          }
+          if (this.state.imageurl2 != null) {
+            urls.push(this.state.imageurl2)
+          }
+          resolve(urls);
         }
-      }).catch(err => {
-        console.log(err);
-        //this.setState({ data:"error" });
-      })
-  };
-
-  renderPostEventHistory = () => {
-    return this.state.eventHistoryToDisplay.length > 0 ? (
-      this.state.eventHistoryToDisplay.map((item) => (
-        <PostEventHistory
-          key={item.eventid}
-          eventHistory={item}
-          onPostedEvetClicked={this.onPostedEvetClicked}
-          onDeleteEvetClicked={this.onDeleteEvetClicked}
-        />
-      ))
-    ) : (
-      <div>No items to display</div>
-    );
+        resolve(urls);
+      }
+    })
   };
 
   handleImgFiles = e => {
@@ -440,6 +457,7 @@ class CreateEventContainer extends Component {
     });
     document.getElementById("imgupload").value = null;
   }
+  /* Upload Image Feature --end */
 
   renderMask = () => {
     return (

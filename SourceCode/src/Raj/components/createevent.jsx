@@ -1,3 +1,5 @@
+//@Author - RajKumar B00849566
+
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -12,13 +14,14 @@ class CreateEvent extends Component {
     this.state = {};
   }
 
+  //render dropdown
   renderByEventdd = (etype) => {
     if (etype === "car") {
       return this.props.eventTypeVal === "cj" ? (
         <Row>
           <Form.Group as={Col}>
             <Form.Label>
-              Seats available: {this.rengerOptionalinLabel()}
+              Seats available: {this.renderOptionalinLabel()}
             </Form.Label>
             <div className="def-number-input number-input">
               <Form.Control
@@ -32,7 +35,7 @@ class CreateEvent extends Component {
           </Form.Group>
           <Form.Group as={Col} controlId="toAddr">
             <Form.Label>
-              Estimated price: {this.rengerOptionalinLabel()}
+              Estimated price: {this.renderOptionalinLabel()}
             </Form.Label>
             <InputGroup>
               <InputGroup.Prepend>
@@ -63,7 +66,7 @@ class CreateEvent extends Component {
             <span className="fstyle">
               {100 - this.props.description.length} words remaining
             </span>
-            {this.rengerOptionalinLabel()}
+            {this.renderOptionalinLabel()}
           </Form.Label>
           <Form.Control
             as="textarea"
@@ -77,6 +80,7 @@ class CreateEvent extends Component {
     ) : null;
   };
 
+  //view for rendering upload image section
   renderUploadImg = () => {
     return this.props.isCreate ? (
       <Form.Row>
@@ -86,7 +90,7 @@ class CreateEvent extends Component {
             {/* <span className="fstyle">
               {0} of 2 images uploaded
             </span> */}
-            {this.rengerOptionalinLabel()}
+            {this.renderOptionalinLabel()}
           </Form.Label>
           <Row>
           <Col>
@@ -121,6 +125,7 @@ class CreateEvent extends Component {
     ) : null;
   };
 
+  //view for image preview section
   renderImgPreview = (img) => {
     return (img != '' && img != null) ? <img className="uploadimg" src={img} width="200" height="200" border="1"/> : null;
   }
@@ -129,6 +134,7 @@ class CreateEvent extends Component {
     return (img != '' && img != null) ? <button onClick={this.props.onClearImgBtnClick}>clear</button> : null;
   }
 
+  //render date range for find-event screen
   renderDateRange = () => {
     if (!this.props.isCreate) {
       return (
@@ -152,7 +158,8 @@ class CreateEvent extends Component {
     }
   };
 
-  rengerOptionalinLabel = () => {
+  //(optional) text for lables
+  renderOptionalinLabel = () => {
     return this.props.isCreate ? (
       <span className="fstyle">(Optional)</span>
     ) : null;
@@ -299,7 +306,7 @@ class CreateEvent extends Component {
               <Form.Row>
                 <Form.Group as={Col} controlId="date">
                   <Form.Label>
-                    Date of journey: {this.rengerOptionalinLabel()}
+                    Date of journey: {this.renderOptionalinLabel()}
                   </Form.Label>
                   <div>
                     <DatePicker

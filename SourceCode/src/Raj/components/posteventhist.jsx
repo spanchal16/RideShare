@@ -1,3 +1,5 @@
+//@Author - RajKumar B00849566
+
 import React, { Component } from "react";
 import { Col, Row } from "react-bootstrap";
 import "./events.css";
@@ -21,6 +23,13 @@ class PostEventHistory extends Component {
   toggleHoverDeleteLeave = () => {
     this.setState({ hoverDelete: false });
   };
+
+  renderDescription = () => {
+    let { description } = this.props.eventHistory;
+    return (
+      description.length < 40 ? description : description.substr(0,41)+'...'
+    )
+  }
 
   render() {
     let myStyle = {
@@ -103,7 +112,8 @@ class PostEventHistory extends Component {
                   Estimated price:{" "}
                   <strong>{this.props.eventHistory.estPrice} </strong>
                   Description:{" "}
-                  <strong>{this.props.eventHistory.description}</strong>
+                  <strong>{this.renderDescription()}</strong>
+                  
                 </span>
               </Col>
               <Col sm={2}>
