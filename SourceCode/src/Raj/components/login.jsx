@@ -33,9 +33,15 @@ class Login extends Component {
         axios.post(url, { user })
             .then(res => {
                 let resultData = res.data;
+                console.log(resultData);
                 console.log("This is result resultData.length): " + resultData.length);
                 if (resultData.length > 0) {
+                    Cookies.remove("userId");
+                    Cookies.remove("userName");
                     Cookies.remove("email");
+
+                    Cookies.set("userId", resultData[0].userId);
+                    Cookies.set("userName", resultData[0].userName);
                     Cookies.set("email", user.email);
                     this.setState({ isLoggedIn: true, isInvalidCred: false });
                     console.log("This is isLoggedIn: " + this.state.isLoggedIn);

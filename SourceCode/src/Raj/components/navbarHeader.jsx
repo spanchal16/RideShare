@@ -29,7 +29,9 @@ class NavbarHeader extends Component {
   onButtonClick = () => {
     if (this.state.isLoggedin) {
       //sessionStorage.clear();
-      Cookies.remove("username");
+      Cookies.remove("userId");
+      Cookies.remove("userName");
+      Cookies.remove("email");
       this.setState({ isLoggedin: false, isLogoutClicked: true });
     } else {
       this.setState({ isLoggedin: false, isLogoutClicked: true });

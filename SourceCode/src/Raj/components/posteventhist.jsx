@@ -27,7 +27,7 @@ class PostEventHistory extends Component {
   renderDescription = () => {
     let { description } = this.props.eventHistory;
     return (
-      description.length < 40 ? description : description.substr(0,41)+'...'
+      (description != null && description.length >= 40 )? description.substr(0,41)+'...': description 
     )
   }
 

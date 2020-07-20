@@ -17,11 +17,12 @@ class FindEventContainer extends Component {
     super(props);
     let isLoggedin = true;
     //const username = sessionStorage.getItem("username");
-    const username = Cookies.get("email")
-    if (username == null) {
+    const userId = Cookies.get("userId")
+    if (userId == null) {
       isLoggedin = false;
     }
     this.state = {
+      userId,
       loader: false,
       eventSelected: false,
       isLoggedin,
@@ -64,9 +65,9 @@ class FindEventContainer extends Component {
     let isFiltered = false;
 
 
-    //https://eventgoapi.herokuapp.com/findevents/findevents/2
-    //http://localhost:8080/findevents/findevents/2
-    await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/2`)
+    //https://eventgoapi.herokuapp.com/findevents/findevents/
+    //http://localhost:8080/findevents/findevents/
+    await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/`+this.state.userId)
 
       .then(res => {
 

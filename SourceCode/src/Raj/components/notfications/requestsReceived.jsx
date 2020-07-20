@@ -5,12 +5,15 @@ import ReqMainCard from './requestMainCard'
 import axios from 'axios';
 import "../events.css"; 
 import Loader from '../loader'
+import Cookies from "js-cookie";
 
 
 class RequestsReceived extends Component {
     constructor(props) {
         super(props);
+        const userId = Cookies.get("userId");
         this.state = {
+            userId,
             loader: false,
             eventDetails:[]
          }
@@ -19,9 +22,9 @@ class RequestsReceived extends Component {
     //GET all the posted events in the notifications screen
     async componentDidMount() {
         this.setState({ loader: true });
-        //https://eventgoapi.herokuapp.com/requestsreceived/getrequests/1
-        //http://localhost:8080/requestsreceived/getrequests/1
-        await axios.get(`https://eventgoapi.herokuapp.com/requestsreceived/getrequests/1`)
+        //https://eventgoapi.herokuapp.com/requestsreceived/getrequests/
+        //http://localhost:8080/requestsreceived/getrequests/
+        await axios.get(`https://eventgoapi.herokuapp.com/requestsreceived/getrequests/`+this.state.userId)
         .then(res => {
 
             const data = res.data;

@@ -17,11 +17,12 @@ class CreateEventContainer extends Component {
     super(props);
     let isLoggedin = true;
     //const username = sessionStorage.getItem("username");
-    const username = Cookies.get("username")
-    if (username == null) {
+    const userId = Cookies.get("userId")
+    if (userId == null) {
       isLoggedin = false;
     }
     this.state = {
+      userId,
       isMasked: false,
       loader: false,
       isLoggedin,
@@ -55,9 +56,9 @@ class CreateEventContainer extends Component {
     this.setState({ loader: true });
 
     //API call to fetch data
-    //https://eventgoapi.herokuapp.com/createevent/getHistory/1
-    //http://localhost:8080/createevent/getHistory/1/
-    await axios.get(`https://eventgoapi.herokuapp.com/createevent/getHistory/1`)
+    //https://eventgoapi.herokuapp.com/createevent/getHistory/
+    //http://localhost:8080/createevent/getHistory/
+    await axios.get(`https://eventgoapi.herokuapp.com/createevent/getHistory/`+this.state.userId)
     .then(res => {
         
       const data = res.data;
@@ -101,9 +102,9 @@ class CreateEventContainer extends Component {
             };
     
             //API call for put
-            //https://eventgoapi.herokuapp.com/createevent/updateEvent/1
-            //http://localhost:8080/createevent/updateEvent/1
-            await axios.put(`https://eventgoapi.herokuapp.com/createevent/updateEvent/1`, { updatedItem })
+            //https://eventgoapi.herokuapp.com/createevent/updateEvent/
+            //http://localhost:8080/createevent/updateEvent/
+            await axios.put(`https://eventgoapi.herokuapp.com/createevent/updateEvent/`+this.state.userId, { updatedItem })
               .then(res => {
                 const { eventHistory } = this.state;
                 if (res.data) {
@@ -161,9 +162,9 @@ class CreateEventContainer extends Component {
               imageurls: imageurls
             };
             //API call for push
-            //https://eventgoapi.herokuapp.com/createevent/postEvent/1
-            //http://localhost:8080/createevent/postEvent/1
-            await axios.post(`https://eventgoapi.herokuapp.com/createevent/postEvent/1`, { newItem })
+            //https://eventgoapi.herokuapp.com/createevent/postEvent/
+            //http://localhost:8080/createevent/postEvent/
+            await axios.post(`https://eventgoapi.herokuapp.com/createevent/postEvent/`+this.state.userId, { newItem })
               .then(res => {
                 
                 const data = res.data;
@@ -295,9 +296,9 @@ class CreateEventContainer extends Component {
   onDeleteEvetClicked = async (history) => {
     let { eventHistory } = this.state;
     //put to API
-    //https://eventgoapi.herokuapp.com/createevent/deleteevent/1/
-    //http://localhost:8080/createevent/deleteevent/1/
-    await axios.delete(`https://eventgoapi.herokuapp.com/createevent/deleteevent/1/` + history.eventid)
+    //https://eventgoapi.herokuapp.com/createevent/deleteevent/
+    //http://localhost:8080/createevent/deleteevent/
+    await axios.delete(`https://eventgoapi.herokuapp.com/createevent/deleteevent/`+this.state.userId + history.eventid)
       .then(res => {
         if (res.data) {
           let filteredevents = eventHistory.filter((item) => item.eventid != history.eventid);
