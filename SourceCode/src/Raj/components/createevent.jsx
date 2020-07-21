@@ -29,6 +29,7 @@ class CreateEvent extends Component {
                 name="seats"
                 onChange={this.props.onNumInputChange}
                 type="number"
+                maxLength="2"
                 placeholder="0"
               />
             </div>
@@ -45,6 +46,7 @@ class CreateEvent extends Component {
                 type="number"
                 placeholder="0"
                 name="estPrice"
+                maxLength="5"
                 onChange={this.props.onNumInputChange}
                 aria-describedby="inputGroupPrepend"
                 value={this.props.estPrice}
@@ -72,6 +74,7 @@ class CreateEvent extends Component {
             as="textarea"
             placeholder="Max 100 words.."
             name="description"
+            maxLength="100"
             value={this.props.description}
             onChange={this.props.onDescriptionEnter}
           />
@@ -280,6 +283,7 @@ class CreateEvent extends Component {
                     placeholder="From"
                     value={this.props.fromAddress}
                     name="fromAddress"
+                    maxLength="20"
                     onChange={this.props.onFromToEnter}
                     required
                   />
@@ -295,6 +299,7 @@ class CreateEvent extends Component {
                     placeholder="To"
                     value={this.props.toAddress}
                     name="toAddress"
+                    maxLength="20"
                     onChange={this.props.onFromToEnter}
                     required
                   />

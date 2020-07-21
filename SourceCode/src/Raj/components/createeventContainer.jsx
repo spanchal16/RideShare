@@ -206,7 +206,7 @@ class CreateEventContainer extends Component {
   onNumInputChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
-    if (value >= 0) {
+    if (value >= 0 && value.length <= 5) {
       this.setState({ [name]: value });
     }
   };
@@ -298,7 +298,7 @@ class CreateEventContainer extends Component {
     //put to API
     //https://eventgoapi.herokuapp.com/createevent/deleteevent/
     //http://localhost:8080/createevent/deleteevent/
-    await axios.delete(`https://eventgoapi.herokuapp.com/createevent/deleteevent/`+this.state.userId + history.eventid)
+    await axios.delete(`https://eventgoapi.herokuapp.com/createevent/deleteevent/`+this.state.userId+`/` + history.eventid)
       .then(res => {
         if (res.data) {
           let filteredevents = eventHistory.filter((item) => item.eventid != history.eventid);
@@ -405,11 +405,11 @@ class CreateEventContainer extends Component {
       }
       else {
         if (this.state.isUpdate) {
-          if (this.state.imageurl1 != null) {
-            urls.push(this.state.imageurl1)
+          if (this.state.imagePreviewUrl1 != null) {
+            urls.push(this.state.imagePreviewUrl1)
           }
-          if (this.state.imageurl2 != null) {
-            urls.push(this.state.imageurl2)
+          if (this.state.imagePreviewUrl2 != null) {
+            urls.push(this.state.imagePreviewUrl2)
           }
           resolve(urls);
         }
