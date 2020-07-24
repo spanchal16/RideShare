@@ -7,8 +7,10 @@ import {
   Button,
   FormControl,
 } from "react-bootstrap";
+import axios from 'axios';
+import { storage } from '../../Raj/firebase';
 
-class booking_details extends Component {
+class BookingDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,8 +19,8 @@ class booking_details extends Component {
   }
 
   onClickIncreasehandler = () => {
-    if (this.state.counterValue === 4) {
-      alert("no more than 4 people allowed for current booking!!");
+    if (this.state.counterValue === this.props.location.state.seats) {
+      alert(`no more than ${this.props.location.state.seats} people allowed for current request!!`);
     } else {
       this.setState({ counterValue: this.state.counterValue + 1 });
     }
@@ -26,15 +28,29 @@ class booking_details extends Component {
 
   onClickDecreasehandler = () => {
     if (this.state.counterValue === 1) {
-      alert("need atleast 1 booking");
+      alert("need atleast 1 person to make a request");
     } else {
       this.setState({ counterValue: this.state.counterValue - 1 });
     }
   };
 
-  bookingSuccess = () => {
-    alert("Organiser has been notified. Booking Successful");
-  };
+  Requestevent = async (event) => {
+    console.log(event);
+    await axios.post(`https://eventgoapi.herokuapp.com/bookingdetails/postrequest` + this.state.userId, event)
+      .then(res => {
+        console.log(res);
+        alert("Organiser has been notified. Request Successful");
+      }).catch(err => {
+        console.log(err);
+
+      });
+  }
+
+  renderImgPreview = (img) => {
+    return (img != '' && img != null) ? <img className="uploadimg" src={img} width="200rem" height="200rem" border="1" /> : null;
+  }
+
+
   render() {
     return (
       <div className="pb-5">
@@ -52,7 +68,7 @@ class booking_details extends Component {
             >
               <h1 className="m-3" style={{ textAlign: "start" }}>
                 {" "}
-                Book-A-Ride
+                Request-A-Ride
               </h1>
               <br />
 
@@ -66,7 +82,7 @@ class booking_details extends Component {
                       <InputGroup.Text id="basic-addon1">From:</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="HaliFax"
+                      placeholder={this.props.location.state.fromAddress}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -80,7 +96,7 @@ class booking_details extends Component {
                       </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="Montreal"
+                      placeholder={this.props.location.state.toAddress}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -94,7 +110,7 @@ class booking_details extends Component {
                       <InputGroup.Text id="basic-addon1">Date:</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="14 JUN,2020"
+                      placeholder={this.props.location.state.doj}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -122,7 +138,7 @@ class booking_details extends Component {
                       </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="4"
+                      placeholder={this.props.location.state.seats}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -132,11 +148,11 @@ class booking_details extends Component {
                   <InputGroup className="m-3">
                     <InputGroup.Prepend>
                       <InputGroup.Text id="basic-addon1">
-                        Total Trip Time:
+                        Est. Cost (each):
                       </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="20hrs"
+                      placeholder={this.props.location.state.estPrice}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -144,44 +160,27 @@ class booking_details extends Component {
                 </Col>
               </Row>
               <Row className="m-3">
-                <h6> Rules!!</h6>
+                <h6> Description / Rules </h6>
               </Row>
               <Row className="m-3">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquid quidem debitis exercitationem ex fugiat fuga dolores
-                  perferendis ut deleniti! Alias harum expedita, fugit doloribus
-                  odit sunt earum nostrum ex ullam.
+                <p style={{ width: "90%" }}>
+                  {this.props.location.state.description}
                 </p>
               </Row>
               <Row className="m-3">
-                <h6>Payment Plan</h6>
+                <h6>Photos </h6>
               </Row>
               <Row className="m-3">
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Radio />
-                  </InputGroup.Prepend>
-                  <FormControl
-                    style={{ color: "black" }}
-                    plaintext
-                    readOnly
-                    defaultValue="  Price at full Capacity -- 10$ CAD"
-                  />
-                </InputGroup>
+                <Col>
+                  {this.renderImgPreview(this.props.location.state.imageurl1)}
+                </Col>
+                <Col>
+                  {this.renderImgPreview(this.props.location.state.imageurl2)}
+                </Col>
+
               </Row>
               <Row className="m-3 mb-5">
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Radio />
-                  </InputGroup.Prepend>
-                  <FormControl
-                    style={{ color: "black" }}
-                    plaintext
-                    readOnly
-                    defaultValue="  Price at half Capacity -- 25$ CAD"
-                  />
-                </InputGroup>
+
               </Row>
             </Card>
           </Col>
@@ -219,14 +218,14 @@ class booking_details extends Component {
                   </Button>
                 </Row>
                 <Row className="m-3 justify-content-center">
-                  <h4>Total : ${this.state.counterValue * 10} CAD</h4>
+                  <h4>Total : ${this.state.counterValue * this.props.location.state.estPrice} CAD</h4>
                 </Row>
                 <Row className="justify-content-center mb-5">
                   <Button
                     variant="outline-warning"
-                    onClick={() => this.bookingSuccess()}
+                    onClick={() => this.Requestevent(this.props.location.state)}
                   >
-                    <h4>Book and Pay</h4>
+                    <h4>Send Request to Join</h4>
                   </Button>
                 </Row>
               </Card>
@@ -286,4 +285,4 @@ class booking_details extends Component {
   }
 }
 
-export default booking_details;
+export default BookingDetails;

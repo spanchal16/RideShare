@@ -27,7 +27,7 @@ class PostEventHistory extends Component {
   renderDescription = () => {
     let { description } = this.props.eventHistory;
     return (
-      (description != null && description.length >= 40 )? description.substr(0,41)+'...': description 
+      (description != null && description.length >= 40) ? description.substr(0, 41) + '...' : description
     )
   }
 
@@ -48,7 +48,7 @@ class PostEventHistory extends Component {
       borderRightColor: "rgb(195, 198, 216)",
       borderBottomColor: "rgb(195, 198, 216)"
     };
-    
+
     if (this.state.hover) {
       myStyle = {
         // background: "linear-gradient(180deg,#c3c6d8,transparent)",
@@ -68,7 +68,7 @@ class PostEventHistory extends Component {
         borderTopColor: "rgb(195, 198, 216)",
         borderRightColor: "rgb(195, 198, 216)",
         borderBottomColor: "rgb(195, 198, 216)"
-        
+
       };
     }
 
@@ -96,7 +96,7 @@ class PostEventHistory extends Component {
         <div style={myStyle} >
           <Col>
             <Row>
-              <Col sm={10}>
+              <Col sm={11}>
                 <span
                   onMouseEnter={this.toggleHover}
                   onMouseLeave={this.toggleHover}
@@ -113,10 +113,16 @@ class PostEventHistory extends Component {
                   <strong>{this.props.eventHistory.estPrice} </strong>
                   Description:{" "}
                   <strong>{this.renderDescription()}</strong>
-                  
+
                 </span>
               </Col>
-              <Col sm={2}>
+              {/* <Col sm={1} style={{ padding: "0.2rem 0" }}>
+                <button value="View" style={{ width: "3rem", height: "2rem" }} >
+                  View
+                </button>
+              </Col> */}
+              <Col sm={1}>
+
                 <button
                   type="button"
                   className="close"
@@ -133,7 +139,7 @@ class PostEventHistory extends Component {
             </Row>
           </Col>
         </div>
-      </div>
+      </div >
     );
   }
 }

@@ -7,7 +7,7 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 import './events.css';
-import logo from '../images/logo.png'
+import logo from '../images/logo_white.png'
 import axios from 'axios';
 
 class Login extends Component {
@@ -17,7 +17,7 @@ class Login extends Component {
             email: '',
             password: '',
             isLoggedIn: false,
-            isInvalidCred:false
+            isInvalidCred: false
         }
     }
 
@@ -48,14 +48,14 @@ class Login extends Component {
                     console.log("This is isInvalidCred: " + this.state.isInvalidCred);
                     console.log("This is state: " + this.state);
                 } else {
-                    this.setState({isInvalidCred:true})
+                    this.setState({ isInvalidCred: true })
                     console.log("This is isInvalidCred: " + this.state.isInvalidCred);
                     throw new Error("Bad response from server");
                 }
             }).catch(err => {
-            console.log(err);
-            this.setState({isInvalidCred:true})
-        })
+                console.log(err);
+                this.setState({ isInvalidCred: true })
+            })
     }
 
     onFieldChange = (event) => {
@@ -67,23 +67,23 @@ class Login extends Component {
     render() {
         console.log("This is isLoggedIn in render: " + this.state.isLoggedIn);
         if (this.state.isLoggedIn) {
-            return <Redirect to="/home"/>
+            return <Redirect to="/home" />
         }
 
         let errMsg = this.state.isInvalidCred ?
-            <span style={{ fontStyle: "italic", color:"#dc3545" }}>
-                <span style={{fontWeight:"bold"}}>Invalid email or password</span></span> :
+            <span style={{ fontStyle: "italic", color: "#dc3545" }}>
+                <span style={{ fontWeight: "bold" }}>Invalid email or password</span></span> :
             null;
         return (
             <Navbar className="navbgLogin">
                 <Col >
                     <Navbar.Brand href="login">
                         <img src={logo} alt="logo" style={{ height: "135px" }} />
-                        <MediaQuery  maxWidth="690px" >
+                        <MediaQuery maxWidth="690px" >
                             {(matches) =>
                                 matches
                                     ? null
-                                    : <strong style={{ fontFamily: "unset", fontSize: "xxx-large" }}>RideShare</strong>
+                                    : <strong style={{ fontFamily: "unset", fontSize: "xxx-large", color: "white" }}>RideShare</strong>
                             }
                         </MediaQuery>
                     </Navbar.Brand>
@@ -94,9 +94,9 @@ class Login extends Component {
                             <Form.Label column sm="3.5" className="loginLabel" style={{ color: "white" }}>Email Id:</Form.Label>
                             <Col sm="5">
                                 <Form.Control type="text" placeholder=""
-                                              name="email"
-                                              value={this.state.email}
-                                              onChange={this.onFieldChange}
+                                    name="email"
+                                    value={this.state.email}
+                                    onChange={this.onFieldChange}
                                 />
                             </Col>
                         </Form.Group>
@@ -104,9 +104,9 @@ class Login extends Component {
                             <Form.Label column sm="3.5" className="loginLabel" style={{ color: "white" }}>Password:</Form.Label>
                             <Col sm="5">
                                 <Form.Control type="password" placeholder=""
-                                              name="password"
-                                              value={this.state.password}
-                                              onChange={this.onFieldChange}
+                                    name="password"
+                                    value={this.state.password}
+                                    onChange={this.onFieldChange}
                                 />
                                 {errMsg}
                             </Col>

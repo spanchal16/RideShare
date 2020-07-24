@@ -77,6 +77,33 @@ class EditProfile extends Component {
                     ></textarea>
                   </div>
                 </div>
+                <div className="row">
+                  <div className="col-md-3">
+                    <label>Twitter ID:</label>
+                  </div>
+                  <div className="col-md-6">
+                    <input id="t_id" name="twitter_id" type="text" required />
+                    <p id="input_email"></p>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-3">
+                    <label>Instagram ID:</label>
+                  </div>
+                  <div className="col-md-6">
+                    <input id="insta_id" name="instagram_id" type="text" required />
+                    <p id="input_email"></p>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-3">
+                    <label>Facebook ID:</label>
+                  </div>
+                  <div className="col-md-6">
+                    <input id="fb_id" name="facebook_id" type="text" required />
+                    <p id="input_email"></p>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-md-2">

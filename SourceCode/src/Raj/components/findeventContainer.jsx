@@ -12,6 +12,7 @@ import axios from 'axios';
 import "./events.css";
 import Loader from './loader'
 
+
 class FindEventContainer extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +45,8 @@ class FindEventContainer extends Component {
       sortyBy: "id",
       searchResults: [],
       searchResultsToDisplay: [],
-      eventsHistory:[]
+      eventsHistory: [],
+      requestToDisplay: {}
     };
   }
 
@@ -67,7 +69,7 @@ class FindEventContainer extends Component {
 
     //https://eventgoapi.herokuapp.com/findevents/findevents/
     //http://localhost:8080/findevents/findevents/
-    await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/`+this.state.userId)
+    await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/` + this.state.userId)
 
       .then(res => {
 
@@ -216,7 +218,9 @@ class FindEventContainer extends Component {
   };
 
   onPostedEvetClicked = (history) => {
-    this.setState({ eventSelected: true });
+    console.log("FindEventContainer -> onPostedEvetClicked -> history", history)
+
+    this.setState({ eventSelected: true, requestToDisplay: history });
   };
 
   onSearchTermChange = (event) => {
@@ -273,8 +277,8 @@ class FindEventContainer extends Component {
         />
       ))
     ) : (
-      <div>No items to display</div>
-    );
+        <div>No items to display</div>
+      );
   };
   onNumInputChange = (event) => {
     let name = event.target.name;
@@ -289,7 +293,7 @@ class FindEventContainer extends Component {
       return <Redirect to="/login" />;
     }
     if (this.state.eventSelected) {
-      return <Redirect to="/bookingdetails" />;
+      return <Redirect to={{ pathname: "/bookingdetails", state: this.state.requestToDisplay }} />;
     }
     return (
       <div className="pb-5">
@@ -328,7 +332,7 @@ class FindEventContainer extends Component {
                 />
               </Row>
               <Row className="justify-content-center align-items-center">
-                {this.state.loader ? <Loader/> : this.renderSearchResults()}
+                {this.state.loader ? <Loader /> : this.renderSearchResults()}
               </Row>
             </Col>
           </Row>

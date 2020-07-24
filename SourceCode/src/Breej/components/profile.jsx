@@ -94,6 +94,35 @@ const profile_card = (props) => (
               </div>
               <div className="row m-3">
                 <div className="col-md-12">
+                  <h4>Your Social Media handles:</h4>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-6">
+                  <label>Twitter Id:</label>
+                </div>
+                <div className="col-md-6">
+                  <p>Rdj_229</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-6">
+                  <label>Instagram Id:</label>
+                </div>
+                <div className="col-md-6">
+                  <p>Rdj_229</p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-6">
+                  <label>Facebook Username:</label>
+                </div>
+                <div className="col-md-6">
+                  <p>Robert jr. Downey</p>
+                </div>
+              </div>
+              <div className="row m-3">
+                <div className="col-md-12">
                   <a href="editprofile">
                     <input
                       type="submit"
