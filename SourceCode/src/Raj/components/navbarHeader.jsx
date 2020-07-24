@@ -15,7 +15,7 @@ class NavbarHeader extends Component {
 
     let isLoggedin = true;
     //const username = sessionStorage.getItem("username");
-    const username = Cookies.get("email")
+    const username = Cookies.get("userName")
     if (username == null) {
       isLoggedin = false;
     }
