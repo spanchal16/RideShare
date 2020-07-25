@@ -18,7 +18,7 @@ ReactDOM.render(
     <Switch>
       <Route exact path="/login" component={LoginAndReg}></Route>
       <Route exact path="/forgotpassword" component={ForgotPassword}></Route>
-      <Route exact path="/feedback" component={Feedback}></Route>
+      
         <Route exact path="/carousel" component={TestCarousels}></Route>
       <Route component={NavbarTemplate} />
     </Switch>
