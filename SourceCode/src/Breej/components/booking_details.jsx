@@ -9,38 +9,60 @@ import {
 } from "react-bootstrap";
 import axios from 'axios';
 import { storage } from '../../Raj/firebase';
+import Cookies from "js-cookie";
+import { Redirect } from "react-router-dom";
 
 class BookingDetails extends Component {
   constructor(props) {
     super(props);
+
+    var isLoggedIn = true;
+    const userId = Cookies.get("userId");
+    if (userId == null) {
+      isLoggedIn = false;
+    }
     this.state = {
-      counterValue: 1,
+      isLoggedIn: true,
+      eventid: this.props.location.state.eventid,
+      userid: userId,
+      seats: 1,
+      description: "",
+      status: -1
+
     };
+
   }
 
   onClickIncreasehandler = () => {
-    if (this.state.counterValue === this.props.location.state.seats) {
+    if (this.state.seats === this.props.location.state.seats) {
       alert(`no more than ${this.props.location.state.seats} people allowed for current request!!`);
     } else {
-      this.setState({ counterValue: this.state.counterValue + 1 });
+      this.setState({ seats: this.state.seats + 1 });
     }
   };
 
   onClickDecreasehandler = () => {
-    if (this.state.counterValue === 1) {
+    if (this.state.seats === 1) {
       alert("need atleast 1 person to make a request");
     } else {
-      this.setState({ counterValue: this.state.counterValue - 1 });
+      this.setState({ seats: this.state.counterValue - 1 });
     }
   };
 
+
+
   Requestevent = async (event) => {
     console.log(event);
-    await axios.post(`https://eventgoapi.herokuapp.com/bookingdetails/postrequest` + this.state.userId, event)
+    await axios.post(`http://localhost:8080/requestsreceived/postrequest/` + this.state.userid, event)
       .then(res => {
-        console.log(res);
-        alert("Organiser has been notified. Request Successful");
+        if (res.data == "exist") {
+          alert("You already have requested for this event !! Wait for response from organiser..");
+        }
+        else {
+          alert("Request Succesfull")
+        }
       }).catch(err => {
+        console.log("Inside catch")
         console.log(err);
 
       });
@@ -50,8 +72,15 @@ class BookingDetails extends Component {
     return (img != '' && img != null) ? <img className="uploadimg" src={img} width="200rem" height="200rem" border="1" /> : null;
   }
 
+  recordText = e => {
+    this.setState({ description: e.target.value });
+    console.log(this.state.description)
+  }
 
   render() {
+    if (!this.state.isLoggedIn) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="pb-5">
         <Row>
@@ -208,7 +237,7 @@ class BookingDetails extends Component {
                     <h3>-</h3>
                   </Button>
                   <span className="text-center mt-1" style={{ width: "3rem" }}>
-                    <h3>{this.state.counterValue}</h3>
+                    <h3>{this.state.seats}</h3>
                   </span>
                   <Button
                     variant="warning"
@@ -218,12 +247,12 @@ class BookingDetails extends Component {
                   </Button>
                 </Row>
                 <Row className="m-3 justify-content-center">
-                  <h4>Total : ${this.state.counterValue * this.props.location.state.estPrice} CAD</h4>
+                  <h4>Total : ${this.state.seats * this.props.location.state.estPrice} CAD</h4>
                 </Row>
                 <Row className="justify-content-center mb-5">
                   <Button
                     variant="outline-warning"
-                    onClick={() => this.Requestevent(this.props.location.state)}
+                    onClick={() => this.Requestevent(this.state)}
                   >
                     <h4>Send Request to Join</h4>
                   </Button>
@@ -244,11 +273,12 @@ class BookingDetails extends Component {
               >
                 <Row className="m-3">
                   <h3 style={{ color: "#2B85FD", textAlign: "center" }}>
-                    Organiser's Contact Information
+                    Send message to Organiser <h5>(optional)</h5>
                   </h3>
+                  <hr />
                 </Row>
-                <hr />
-                <Row className="mb-2 p-2 justify-content-center">
+
+                {/* <Row className="mb-2 p-2 justify-content-center">
                   <Col className="col-5 text-center">
                     <img
                       src={
@@ -261,9 +291,9 @@ class BookingDetails extends Component {
                   <Col>
                     <h4 style={{ color: "black" }}>@Rdj_229</h4>
                   </Col>
-                </Row>
-                <Row className=" p-2 justify-content-center mb-3">
-                  <Col className="col-5 text-center">
+                </Row> */}
+                <Row className=" pl-4 pr-4 justify-content-center mb-3">
+                  {/* <Col className="col-5 text-center">
                     <img
                       src={
                         "https://sguru.org/wp-content/uploads/2018/01/instagram-logo-black-transparent.png"
@@ -274,7 +304,9 @@ class BookingDetails extends Component {
                   </Col>
                   <Col>
                     <h4 style={{ color: "black" }}>@Rdj_insta_229</h4>
-                  </Col>
+                  </Col> */}
+                  <label for="exampleFormControlTextarea1"  > <b>Message:</b> </label>
+                  <textarea className="form-control" id="Textarea1" rows="3" placeholder="Write something..." onChange={e => this.recordText(e)} value={this.state.description} ></textarea>
                 </Row>
               </Card>
             </Row>
