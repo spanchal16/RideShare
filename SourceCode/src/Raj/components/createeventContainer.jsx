@@ -17,11 +17,11 @@ class CreateEventContainer extends Component {
     super(props);
     let isLoggedin = true;
     //const username = sessionStorage.getItem("username");
-    const userId = 5;
-    // const userId = Cookies.get("userId")
-    // if (userId == null) {
-    //   isLoggedin = false;
-    // }
+    //const userId = 5;
+    const userId = Cookies.get("userId")
+    if (userId == null) {
+      isLoggedin = false;
+    }
     this.state = {
       userId,
       isMasked: false,
