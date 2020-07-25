@@ -92,7 +92,7 @@ class VerifyId extends Component {
       "image2": urls[1]
 
     }
-    await Axios.put("http://localhost:8080/verifyid/addid/" + this.state.userid, urljson)
+    await Axios.put("https://eventgoapi.herokuapp.com/verifyid/addid/" + this.state.userid, urljson)
       .then(res => {
         if (res.data == true) {
           alert("sucessfully uploaded");
