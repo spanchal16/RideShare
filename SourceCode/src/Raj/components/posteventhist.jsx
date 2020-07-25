@@ -13,17 +13,22 @@ class PostEventHistory extends Component {
     };
   }
 
+  //on mouse hover on the event
   toggleHover = () => {
     this.setState({ hover: !this.state.hover });
   };
 
+  //on mouse hover on the event's 'X' (delete button)
   toggleHoverDelete = () => {
     this.setState({ hoverDelete: true });
   };
+
+  //on mouse hover on the event's 'X' (delete button)
   toggleHoverDeleteLeave = () => {
     this.setState({ hoverDelete: false });
   };
 
+  //render description
   renderDescription = () => {
     let { description } = this.props.eventHistory;
     return (

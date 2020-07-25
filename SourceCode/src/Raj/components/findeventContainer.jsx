@@ -50,6 +50,7 @@ class FindEventContainer extends Component {
     };
   }
 
+  //Find button click handler
   mySubmitHandler = async (event) => {
     this.setState({ loader: true });
     event.preventDefault();
@@ -137,12 +138,14 @@ class FindEventContainer extends Component {
       })
   };
 
+  //triggers when text entered to From and To fields
   onFromToEnter = (event) => {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({ [name]: value });
   };
 
+  //triggers when text entered to Description field
   onDescriptionEnter = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -151,10 +154,12 @@ class FindEventContainer extends Component {
     }
   };
 
+   //triggers when text entered to From and To fields
   onEventddChange = (event) => {
     this.setState({ eventTypeVal: event.target.value });
   };
 
+  //handle date change event
   handleDateChange = (date) => {
     let dateString = "";
     if (date != null) {
@@ -217,12 +222,14 @@ class FindEventContainer extends Component {
     });
   };
 
+  //Click on posted events, updating feature.
   onPostedEvetClicked = (history) => {
     console.log("FindEventContainer -> onPostedEvetClicked -> history", history)
 
     this.setState({ eventSelected: true, requestToDisplay: history });
   };
 
+  /*Search and Sort Feature --start*/
   onSearchTermChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -243,12 +250,14 @@ class FindEventContainer extends Component {
     this.setState({ searchResultsToDisplay: filteredsearchResults });
   };
 
+  //searchby dropdown change event
   onSearchByChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({ [name]: value });
   };
 
+  //sort dropdown change event
   onSortByChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -257,6 +266,7 @@ class FindEventContainer extends Component {
     searchResultsToDisplay.sort((a, b) => (a[value] > b[value] ? 1 : -1));
     this.setState({ searchResultsToDisplay: searchResultsToDisplay });
   };
+  /*Search and Sort Feature --end*/
 
   onDeleteEvetClicked = (history) => {
     let { searchResultsToDisplay } = this.state;

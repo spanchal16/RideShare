@@ -21,6 +21,7 @@ class Login extends Component {
         }
     }
 
+    //Login button click handler
     mySubmitHandler = (event) => {
         event.preventDefault();
         const user = {
@@ -58,6 +59,7 @@ class Login extends Component {
             })
     }
 
+    //fields change
     onFieldChange = (event) => {
         let usr = event.target.name;
         let val = event.target.value;

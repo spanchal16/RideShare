@@ -20,10 +20,12 @@ class SubReqDetails extends Component {
 
     }
 
+    //click event for Accept button
     onClickAccept = () => {
         this.setState({status:"accept"})
     }
 
+    //click event for Reject button
     onClickReject = () => {
         this.setState({status:"reject",showAlert:true})
     }

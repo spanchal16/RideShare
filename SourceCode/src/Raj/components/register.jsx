@@ -26,12 +26,14 @@ class Register extends Component {
         }
     }
 
+    //user name change event
     onUserNameChange = (event) => {
         let name = event.target.name;
         let value = event.target.value;
         this.setState({ [name]: value });
     }
 
+    //Password validation goes here
     onPasswordEnter = (event) => {
         let name = event.target.name;
         let value = event.target.value;
@@ -44,6 +46,7 @@ class Register extends Component {
         this.setState({ [name]: value });
     }
 
+    //Email Id validation goes here
     onEmailChange = (event) => {
         let name = event.target.name;
         let value = event.target.value;
@@ -58,6 +61,7 @@ class Register extends Component {
         this.setState({ [name]: value });
     }
 
+    //DOJ change event
     onDateChange = date => {
         console.log(date);
         this.setState({
@@ -65,11 +69,13 @@ class Register extends Component {
         });
     };
 
+    //Gender dropdown
     onGenderChange = (event) => {
         this.setState({ gender: event.target.value })
 
     }
 
+    //Register button click event
     mySubmitHandler = (event) => {
         const form = event.currentTarget;
         const { invalidPwd, invalidEmail, username } = this.state;
