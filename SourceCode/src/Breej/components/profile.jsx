@@ -50,10 +50,7 @@ const profile_card = (props) => (
           className="text-secondary mb-4"
           style={{ fontSize: "0.75rem" }}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. ...
+          Hi! Welcome to my Bio. I am an actor | Loving husband | proud father and Ohh!! Also an Avenger!
         </CardText>
         <div className="row justify-content-center">
           <div className="col-md-6">
