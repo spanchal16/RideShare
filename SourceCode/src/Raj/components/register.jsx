@@ -3,11 +3,9 @@
 import React, { Component } from 'react';
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import { Redirect } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import './events.css'
 import moment from 'moment';
-import Cookies from "js-cookie";
 import axios from 'axios';
 
 class Register extends Component {
@@ -77,6 +75,7 @@ class Register extends Component {
 
     //Register button click event
     mySubmitHandler = (event) => {
+        event.preventDefault();
         const form = event.currentTarget;
         const { invalidPwd, invalidEmail, username } = this.state;
         console.log(invalidPwd,invalidEmail)
@@ -100,13 +99,19 @@ class Register extends Component {
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
+                    if(res.data.length == 0)
+                    {
+                        this.setState({ isValid: false });
+                        alert("Email Id is already registered with us.\n" +
+                            "Please try a new email id.")
+                    } else {
+                        this.setState({ isValid: true });
+                        alert("Registration successful!\n" +
+                            "Please Log In.")
+                    }
                 }).catch(err => {
                     console.log(err);
                 })
-
-            //sessionStorage.setItem( "username", username );
-            Cookies.set("username", username);
-            this.setState({ isValid: true });
         }
         this.setState({ validated: true });
     };
@@ -125,9 +130,6 @@ class Register extends Component {
         let errMsgPwd = this.state.invalidPwd ? <span style={{ fontStyle: "italic" }}><small className="text-muted" >Password must be atleast 5 Characters long</small></span> : null;
         let errMsgEmail = this.state.invalidEmail ? <span style={{fontStyle: "italic"}}><small  className="text-muted" >Please enter a valid email address</small></span> : null;
 
-        if (this.state.isValid) {
-            return <Redirect to="/home"/>
-        }
         return (
             <div style={{height:"100%"}}>
                 <br/>
