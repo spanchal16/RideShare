@@ -7,35 +7,80 @@ import {
   Button,
   FormControl,
 } from "react-bootstrap";
+import axios from 'axios';
+import { storage } from '../../Raj/firebase';
+import Cookies from "js-cookie";
+import { Redirect } from "react-router-dom";
 
-class booking_details extends Component {
+class BookingDetails extends Component {
   constructor(props) {
     super(props);
+
+    var isLoggedIn = true;
+    const userId = Cookies.get("userId");
+    if (userId == null) {
+      isLoggedIn = false;
+    }
     this.state = {
-      counterValue: 1,
+      isLoggedIn: true,
+      eventid: this.props.location.state.eventid,
+      userid: userId,
+      seats: 1,
+      description: "",
+      status: -1
+
     };
+
   }
 
   onClickIncreasehandler = () => {
-    if (this.state.counterValue === 4) {
-      alert("no more than 4 people allowed for current booking!!");
+    if (this.state.seats === this.props.location.state.seats) {
+      alert(`no more than ${this.props.location.state.seats} people allowed for current request!!`);
     } else {
-      this.setState({ counterValue: this.state.counterValue + 1 });
+      this.setState({ seats: this.state.seats + 1 });
     }
   };
 
   onClickDecreasehandler = () => {
-    if (this.state.counterValue === 1) {
-      alert("need atleast 1 booking");
+    if (this.state.seats === 1) {
+      alert("need atleast 1 person to make a request");
     } else {
-      this.setState({ counterValue: this.state.counterValue - 1 });
+      this.setState({ seats: this.state.counterValue - 1 });
     }
   };
 
-  bookingSuccess = () => {
-    alert("Organiser has been notified. Booking Successful");
-  };
+
+
+  Requestevent = async (event) => {
+    console.log(event);
+    await axios.post(`http://localhost:8080/requestsreceived/postrequest/` + this.state.userid, event)
+      .then(res => {
+        if (res.data == "exist") {
+          alert("You already have requested for this event !! Wait for response from organiser..");
+        }
+        else {
+          alert("Request Succesfull")
+        }
+      }).catch(err => {
+        console.log("Inside catch")
+        console.log(err);
+
+      });
+  }
+
+  renderImgPreview = (img) => {
+    return (img != '' && img != null) ? <img className="uploadimg" src={img} width="200rem" height="200rem" border="1" /> : null;
+  }
+
+  recordText = e => {
+    this.setState({ description: e.target.value });
+    console.log(this.state.description)
+  }
+
   render() {
+    if (!this.state.isLoggedIn) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="pb-5">
         <Row>
@@ -52,7 +97,7 @@ class booking_details extends Component {
             >
               <h1 className="m-3" style={{ textAlign: "start" }}>
                 {" "}
-                Book-A-Ride
+                Request-A-Ride
               </h1>
               <br />
 
@@ -66,7 +111,7 @@ class booking_details extends Component {
                       <InputGroup.Text id="basic-addon1">From:</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="HaliFax"
+                      placeholder={this.props.location.state.fromAddress}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -80,7 +125,7 @@ class booking_details extends Component {
                       </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="Montreal"
+                      placeholder={this.props.location.state.toAddress}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -94,7 +139,7 @@ class booking_details extends Component {
                       <InputGroup.Text id="basic-addon1">Date:</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="14 JUN,2020"
+                      placeholder={this.props.location.state.doj}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -122,7 +167,7 @@ class booking_details extends Component {
                       </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="4"
+                      placeholder={this.props.location.state.seats}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -132,11 +177,11 @@ class booking_details extends Component {
                   <InputGroup className="m-3">
                     <InputGroup.Prepend>
                       <InputGroup.Text id="basic-addon1">
-                        Total Trip Time:
+                        Est. Cost (each):
                       </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
-                      placeholder="20hrs"
+                      placeholder={this.props.location.state.estPrice}
                       aria-describedby="basic-addon1"
                       readOnly
                     />
@@ -144,44 +189,27 @@ class booking_details extends Component {
                 </Col>
               </Row>
               <Row className="m-3">
-                <h6> Rules!!</h6>
+                <h6> Description / Rules </h6>
               </Row>
               <Row className="m-3">
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Aliquid quidem debitis exercitationem ex fugiat fuga dolores
-                  perferendis ut deleniti! Alias harum expedita, fugit doloribus
-                  odit sunt earum nostrum ex ullam.
+                <p style={{ width: "90%" }}>
+                  {this.props.location.state.description}
                 </p>
               </Row>
               <Row className="m-3">
-                <h6>Payment Plan</h6>
+                <h6>Photos </h6>
               </Row>
               <Row className="m-3">
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Radio />
-                  </InputGroup.Prepend>
-                  <FormControl
-                    style={{ color: "black" }}
-                    plaintext
-                    readOnly
-                    defaultValue="  Price at full Capacity -- 10$ CAD"
-                  />
-                </InputGroup>
+                <Col>
+                  {this.renderImgPreview(this.props.location.state.imageurl1)}
+                </Col>
+                <Col>
+                  {this.renderImgPreview(this.props.location.state.imageurl2)}
+                </Col>
+
               </Row>
               <Row className="m-3 mb-5">
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Radio />
-                  </InputGroup.Prepend>
-                  <FormControl
-                    style={{ color: "black" }}
-                    plaintext
-                    readOnly
-                    defaultValue="  Price at half Capacity -- 25$ CAD"
-                  />
-                </InputGroup>
+
               </Row>
             </Card>
           </Col>
@@ -209,7 +237,7 @@ class booking_details extends Component {
                     <h3>-</h3>
                   </Button>
                   <span className="text-center mt-1" style={{ width: "3rem" }}>
-                    <h3>{this.state.counterValue}</h3>
+                    <h3>{this.state.seats}</h3>
                   </span>
                   <Button
                     variant="warning"
@@ -219,14 +247,14 @@ class booking_details extends Component {
                   </Button>
                 </Row>
                 <Row className="m-3 justify-content-center">
-                  <h4>Total : ${this.state.counterValue * 10} CAD</h4>
+                  <h4>Total : ${this.state.seats * this.props.location.state.estPrice} CAD</h4>
                 </Row>
                 <Row className="justify-content-center mb-5">
                   <Button
                     variant="outline-warning"
-                    onClick={() => this.bookingSuccess()}
+                    onClick={() => this.Requestevent(this.state)}
                   >
-                    <h4>Book and Pay</h4>
+                    <h4>Send Request to Join</h4>
                   </Button>
                 </Row>
               </Card>
@@ -245,11 +273,12 @@ class booking_details extends Component {
               >
                 <Row className="m-3">
                   <h3 style={{ color: "#2B85FD", textAlign: "center" }}>
-                    Organiser's Contact Information
+                    Send message to Organiser <h5>(optional)</h5>
                   </h3>
+                  <hr />
                 </Row>
-                <hr />
-                <Row className="mb-2 p-2 justify-content-center">
+
+                {/* <Row className="mb-2 p-2 justify-content-center">
                   <Col className="col-5 text-center">
                     <img
                       src={
@@ -262,9 +291,9 @@ class booking_details extends Component {
                   <Col>
                     <h4 style={{ color: "black" }}>@Rdj_229</h4>
                   </Col>
-                </Row>
-                <Row className=" p-2 justify-content-center mb-3">
-                  <Col className="col-5 text-center">
+                </Row> */}
+                <Row className=" pl-4 pr-4 justify-content-center mb-3">
+                  {/* <Col className="col-5 text-center">
                     <img
                       src={
                         "https://sguru.org/wp-content/uploads/2018/01/instagram-logo-black-transparent.png"
@@ -275,7 +304,9 @@ class booking_details extends Component {
                   </Col>
                   <Col>
                     <h4 style={{ color: "black" }}>@Rdj_insta_229</h4>
-                  </Col>
+                  </Col> */}
+                  <label for="exampleFormControlTextarea1"  > <b>Message:</b> </label>
+                  <textarea className="form-control" id="Textarea1" rows="3" placeholder="Write something..." onChange={e => this.recordText(e)} value={this.state.description} ></textarea>
                 </Row>
               </Card>
             </Row>
@@ -286,4 +317,4 @@ class booking_details extends Component {
   }
 }
 
-export default booking_details;
+export default BookingDetails;

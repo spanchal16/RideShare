@@ -39,8 +39,8 @@ class profile_card extends Component {
     const user = {
       email: _email,
     };
-    //let url = "https://eventgoapi.herokuapp.com/usermng/getSpecificUser";
-    let url = "http://localhost:8080/usermng/getSpecificUser";
+    let url = "https://eventgoapi.herokuapp.com/usermng/getSpecificUser";
+    //let url = "http://localhost:8080/usermng/getSpecificUser";
     console.log("email \t" + _email);
     axios
       .post(url, { user })

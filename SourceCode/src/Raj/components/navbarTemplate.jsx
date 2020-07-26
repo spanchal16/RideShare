@@ -12,6 +12,7 @@ import bookingdetails from "../../Breej/components/booking_details";
 import verifyid from "../../Breej/components/verify_id";
 import editprofile from "../../Breej/components/EditProfile";
 import { Route, Switch } from "react-router-dom";
+import Feedback from "../../Smit/components/feedback";
 import AboutUs from "../../Nishant/components/AboutUs";
 import Terms from "../../Nishant/components/Terms";
 import PrivacyPolicies from "../../Nishant/components/PrivacyPolicies";
@@ -60,6 +61,7 @@ class NavbarTemplate extends Component {
             <Route exact path="/editprofile" component={editprofile}></Route>
             <Route exact path="/aboutus" component={AboutUs}></Route>
             <Route exact path="/privacy" component={PrivacyPolicies}></Route>
+            <Route exact path="/feedback" component={Feedback}></Route>
             <Route exact path="/terms" component={Terms}></Route>
             <Route exact path="/contactus" component={ContactUs}></Route>
             <Route exact path="/*" component={Error} />

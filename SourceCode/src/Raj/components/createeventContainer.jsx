@@ -17,6 +17,7 @@ class CreateEventContainer extends Component {
     super(props);
     let isLoggedin = true;
     //const username = sessionStorage.getItem("username");
+    //const userId = 5;
     const userId = Cookies.get("userId")
     if (userId == null) {
       isLoggedin = false;
@@ -72,7 +73,7 @@ class CreateEventContainer extends Component {
   };
 
   /*Create/Update button click handler
-  Image uploades here*/
+  Image uploades to Db here*/
   mySubmitHandler = async (event) => {
     
     event.preventDefault();
@@ -197,12 +198,14 @@ class CreateEventContainer extends Component {
     }
   };
 
+  //triggers when text entered to From and To fields
   onFromToEnter = (event) => {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({ [name]: value });
   };
 
+  //triggers when text entered to numeric fields
   onNumInputChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -211,6 +214,7 @@ class CreateEventContainer extends Component {
     }
   };
 
+  //triggers when text entered to Description field
   onDescriptionEnter = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -219,10 +223,12 @@ class CreateEventContainer extends Component {
     }
   };
 
+  //triggers when text entered to From and To fields
   onEventddChange = (event) => {
     this.setState({ eventTypeVal: event.target.value });
   };
 
+  //handle date change event
   handleDateChange = (date) => {
     //console.log(date);
     let dateString = "";
@@ -350,12 +356,14 @@ class CreateEventContainer extends Component {
     this.setState({ eventHistoryToDisplay: filteredEventHistory });
   };
 
+  //searchby dropdown change event
   onSearchByChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({ [name]: value });
   };
 
+  //sort dropdown change event
   onSortByChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;

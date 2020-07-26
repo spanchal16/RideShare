@@ -12,6 +12,7 @@ class ResponseMainCard extends Component {
         this.state = {  }
     }
 
+    //Event description renders here
     renderHeader = () => {
         if (this.props.eventDetail.status == 1) {
             return (<Accordion.Toggle as={Button} variant="link" eventKey="0">
@@ -29,6 +30,7 @@ class ResponseMainCard extends Component {
         }
     }
 
+    //status of the event display
     renderFooterText = () => {
         if (this.props.eventDetail.status == 1) {
             return <div><FcOk /> <span style={{fontStyle: "italic"}}>Accepted </span></div>

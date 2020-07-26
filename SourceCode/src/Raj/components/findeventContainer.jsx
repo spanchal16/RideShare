@@ -12,6 +12,7 @@ import axios from 'axios';
 import "./events.css";
 import Loader from './loader'
 
+
 class FindEventContainer extends Component {
   constructor(props) {
     super(props);
@@ -44,10 +45,12 @@ class FindEventContainer extends Component {
       sortyBy: "id",
       searchResults: [],
       searchResultsToDisplay: [],
-      eventsHistory:[]
+      eventsHistory: [],
+      requestToDisplay: {}
     };
   }
 
+  //Find button click handler
   mySubmitHandler = async (event) => {
     this.setState({ loader: true });
     event.preventDefault();
@@ -67,7 +70,7 @@ class FindEventContainer extends Component {
 
     //https://eventgoapi.herokuapp.com/findevents/findevents/
     //http://localhost:8080/findevents/findevents/
-    await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/`+this.state.userId)
+    await axios.get(`https://eventgoapi.herokuapp.com/findevents/findevents/` + this.state.userId)
 
       .then(res => {
 
@@ -135,12 +138,14 @@ class FindEventContainer extends Component {
       })
   };
 
+  //triggers when text entered to From and To fields
   onFromToEnter = (event) => {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({ [name]: value });
   };
 
+  //triggers when text entered to Description field
   onDescriptionEnter = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -149,10 +154,12 @@ class FindEventContainer extends Component {
     }
   };
 
+   //triggers when text entered to From and To fields
   onEventddChange = (event) => {
     this.setState({ eventTypeVal: event.target.value });
   };
 
+  //handle date change event
   handleDateChange = (date) => {
     let dateString = "";
     if (date != null) {
@@ -215,10 +222,14 @@ class FindEventContainer extends Component {
     });
   };
 
+  //Click on posted events, updating feature.
   onPostedEvetClicked = (history) => {
-    this.setState({ eventSelected: true });
+    console.log("FindEventContainer -> onPostedEvetClicked -> history", history)
+
+    this.setState({ eventSelected: true, requestToDisplay: history });
   };
 
+  /*Search and Sort Feature --start*/
   onSearchTermChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -239,12 +250,14 @@ class FindEventContainer extends Component {
     this.setState({ searchResultsToDisplay: filteredsearchResults });
   };
 
+  //searchby dropdown change event
   onSearchByChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({ [name]: value });
   };
 
+  //sort dropdown change event
   onSortByChange = (event) => {
     let name = event.target.name;
     let value = event.target.value;
@@ -253,6 +266,7 @@ class FindEventContainer extends Component {
     searchResultsToDisplay.sort((a, b) => (a[value] > b[value] ? 1 : -1));
     this.setState({ searchResultsToDisplay: searchResultsToDisplay });
   };
+  /*Search and Sort Feature --end*/
 
   onDeleteEvetClicked = (history) => {
     let { searchResultsToDisplay } = this.state;
@@ -273,8 +287,8 @@ class FindEventContainer extends Component {
         />
       ))
     ) : (
-      <div>No items to display</div>
-    );
+        <div>No items to display</div>
+      );
   };
   onNumInputChange = (event) => {
     let name = event.target.name;
@@ -289,7 +303,7 @@ class FindEventContainer extends Component {
       return <Redirect to="/login" />;
     }
     if (this.state.eventSelected) {
-      return <Redirect to="/bookingdetails" />;
+      return <Redirect to={{ pathname: "/bookingdetails", state: this.state.requestToDisplay }} />;
     }
     return (
       <div className="pb-5">
@@ -328,7 +342,7 @@ class FindEventContainer extends Component {
                 />
               </Row>
               <Row className="justify-content-center align-items-center">
-                {this.state.loader ? <Loader/> : this.renderSearchResults()}
+                {this.state.loader ? <Loader /> : this.renderSearchResults()}
               </Row>
             </Col>
           </Row>
