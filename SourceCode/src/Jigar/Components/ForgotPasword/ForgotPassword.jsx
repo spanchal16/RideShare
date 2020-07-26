@@ -22,7 +22,7 @@ export class ForgotPassword extends Component {
     }
 
     redirectToResetPassword = () => {
-        this.props.history.push('/resetpassword');
+        alert("Password Reset Link is sent to the email id.");
     }
 
     updateEmail(name, value){
