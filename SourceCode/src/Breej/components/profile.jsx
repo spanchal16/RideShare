@@ -1,3 +1,4 @@
+//@Author - Nishant Amoli, B00835717
 import React, { Component } from "react";
 import "./profcard.css";
 import { Img } from "react-image";
