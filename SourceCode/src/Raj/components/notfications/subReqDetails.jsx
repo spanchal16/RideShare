@@ -1,5 +1,5 @@
 //@Author - RajKumar B00849566
-
+/* @Author - Jigar Makwana B00842568 */
 //Render requests for a event
 
 import React, { Component } from 'react';

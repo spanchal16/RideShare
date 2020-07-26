@@ -1,9 +1,10 @@
 //@Author - RajKumar B00849566
+/* @Author - Jigar Makwana B00842568 */
 
 import React, { Component } from 'react';
 import ReqMainCard from './requestMainCard'
 import axios from 'axios';
-import "../events.css"; 
+import "../events.css";
 import Loader from '../loader'
 import Cookies from "js-cookie";
 
@@ -55,7 +56,7 @@ class RequestsReceived extends Component {
                         key={item.eventid}
                         eventDetail={item}
                     />)}
-                
+
 
             </div>
         );

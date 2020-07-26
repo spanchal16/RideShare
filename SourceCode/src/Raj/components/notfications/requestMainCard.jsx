@@ -1,4 +1,5 @@
 //@Author - RajKumar B00849566
+/* @Author - Jigar Makwana B00842568 */
 //Card for posted events
 
 import React, { Component } from 'react';
@@ -46,5 +47,5 @@ class RequestMainCard extends Component {
         </div>);
     }
 }
- 
+
 export default RequestMainCard;

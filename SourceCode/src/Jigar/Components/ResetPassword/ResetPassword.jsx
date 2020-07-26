@@ -1,3 +1,5 @@
+/* @Author - Jigar Makwana B00842568 */
+
 import React, {Component} from 'react';
 import '../../stylesheets/ForgotPassword.css';
 import {validatePassword, validateConfirmPassword} from "../Validation/ValidateProperties";

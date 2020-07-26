@@ -1,6 +1,7 @@
+/* @Author - Jigar Makwana B00842568 */
 //@Author - RajKumar B00849566
 
-import React, { Component } from 'react';  
+import React, { Component } from 'react';
 import Login from './login'
 import Register from './register'
 import Description from './description'
@@ -12,12 +13,12 @@ class LoginAndReg extends Component {
         super(props);
         this.state = {  }
     }
-    render() { 
+    render() {
         return (
             <div>
-                
+
                 <Login />
-                
+
                 <Row style={{width:"100%"}}>
                     <Col >
                         <Description />
@@ -25,12 +26,12 @@ class LoginAndReg extends Component {
                     <Col >
                         <Register />
                     </Col>
-                    
+
                 </Row>
                 <br/>
             </div>
         );
     }
 }
- 
+
 export default LoginAndReg;
