@@ -1,159 +1,99 @@
 //@Author - Nishant Amoli, B00835717
+import React from "react";
+import { Component } from "react";
+import { FaHeart } from "react-icons/fa";
+import { Img } from "react-image";
 
-import React, { Component } from "react";
-import { Col, Form, Navbar } from "react-bootstrap";
-import emailjs from "emailjs-com";
-import axios from "axios";
-import Cookies from "js-cookie";
-
-export class ContactUs extends Component {
-  constructor(props) {
-    super(props);
-    const email = Cookies.get("email");
-
-    this.state = {
-      email: "",
-      feedback: "",
-      error: {},
-      validateEmailMsg: "",
-      validateFeedbackMsg: "",
-    };
-  }
-
-  redirectToHome = () => {
-    this.props.history.push("/home");
-  };
-
-  emailIdFun = (event) => {
-    this.setState({
-      email: event.target.value,
-    });
-  };
-
-  feedbackFun = (event) => {
-    this.setState({
-      feedback: event.target.value,
-    });
-  };
-
-  feedbackSubmitted = (event) => {
-    let validateEmailMsg = "";
-    let validateFeedbackMsg = "";
-    event.preventDefault();
-
-    emailjs
-      .sendForm(
-        "gmail",
-        "rideshare",
-        event.target,
-        "user_SZchUn5ka0898AwI2Yq1S"
-      )
-      .then(
-        (result) => {},
-        (error) => {
-          console.log(error.text);
-        }
-      );
-
-    if (this.state.feedback.length === 0 || this.state.feedback.trim() === "") {
-      validateFeedbackMsg =
-        "Feedback field cannot be empty. Please provide feedback";
-      if (validateFeedbackMsg) {
-        this.setState({ validateFeedbackMsg });
-      }
-    } else {
-      this.setState({ validateFeedbackMsg });
-    }
-
-    if (this.state.email.includes("@") && this.state.email.includes(".")) {
-      this.setState({ validateEmailMsg });
-    } else {
-      validateEmailMsg = "Email Id is invalid. Please provide valid Email Id";
-      if (validateEmailMsg) {
-        this.setState({ validateEmailMsg });
-      }
-    }
-
-    const mydata = {
-      email: this.state.email,
-      feedback: this.state.feedback,
-    };
-    console.log(mydata);
-    let url = "https://eventgoapi.herokuapp.com/insertFeedback/insertFeedback";
-    //let url = "http://localhost:8080/insertFeedback/insertFeedback";
-    axios
-      .post(url, mydata)
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+class ContactUs extends Component {
   render() {
     return (
-      <section>
-        <Col align="center">
+      <div className="container" style={{ marginTop: "2em" }}>
+        <div class="row">
+          <div class="col-sm-3 jumbotron"></div>
+          <div class="col-sm-6 jumbotron" align="center">
+            <h1>Contact Us</h1>
+            <p>We will love to hear from you.</p>
+          </div>
+          <div class="col-sm-3 jumbotron"></div>
+        </div>
+        <div
+          class="row"
+          style={{ backgroundColor: "#E9FFE9", paddingTop: "1em" }}
+        >
+          <div class="col-sm-5">
+            <Img
+              src={require("../images/rideshare.png")}
+              width="700"
+              fluid
+              style={{ maxWidth: "100%", height: "auto", marginTop: "2em" }}
+            />
+          </div>
+          <div class="col-sm-7">
+            <h2>Office Location</h2>
+            <span style={{ textTransform: "capitalize" }}> RideShare</span> is
+            located at:
+            <br />
+            <address>
+              6225 Duncan Street, Halifax <br />- NS , Canada
+              <br />
+            </address>
+            <h2>Reach Out to Us</h2>
+            E-mail at:
+            <br />
+            <address>
+              contact@rideshare.ca <br /> nishant.amoli@dal.ca
+              <br />
+            </address>
+            Call us on:
+            <br />
+            <address>
+              +1(902)-802-0940 <br /> +1(902)-989-2500
+              <br />
+            </address>
+            <p style={{ textAlign: "left" }}>
+              Made with <FaHeart style={{ color: "red" }} /> at DAL{" "}
+            </p>
+            <p style={{ textAlign: "left" }}>
+              RideShare, {new Date().getFullYear()} &copy;
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="container-fluid text-center jumbotron"
+          style={{ marginTop: "1em" }}
+        >
+          <h4>Use RideShare To:</h4>
           <br />
-          <header className="header justify-content-center">
-            <h3>Contact Us</h3>
-          </header>
-          <section className="card" style={{ width: "35%" }}>
-            <div className="card-body">
-              <form className="form" onSubmit={this.feedbackSubmitted}>
-                <br />
-                <section className="form-group text-left">
-                  <label>Enter your email id</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    name="email"
-                    placeholder="Enter your email id"
-                    value={this.state.email}
-                    onChange={this.emailIdFun}
-                  />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.validateEmailMsg}
-                  </div>
-                </section>
-
-                <section className="form-group text-left">
-                  <label htmlFor="exampleInputEmail1">Message</label>
-                  <textarea
-                    type="feedback"
-                    className="form-control"
-                    name="feedback"
-                    placeholder="Please write your message"
-                    value={this.state.feedback}
-                    onChange={this.feedbackFun}
-                  />
-                  <div style={{ fontSize: 12, color: "red" }}>
-                    {this.state.validateFeedbackMsg}
-                  </div>
-                </section>
-
-                <section>
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
-                </section>
-              </form>
-              <br />
-              <br />
-              <footer
-                type="submit"
-                className="btn-custom"
-                onClick={this.redirectToHome.bind(this)}
-              >
-                <strong>Back to Home</strong>
-              </footer>
+          <div class="row">
+            <div class="col-sm-4">
+              <span class=""></span>
+              <h4>Save Money</h4>
+              <p>
+                Why spend too much money on cabs or flights when you can
+                carpool.
+              </p>
             </div>
-          </section>
-        </Col>
-      </section>
+            <div class="col-sm-4">
+              <span class=""></span>
+              <h4>Have Fun</h4>
+              <p>
+                Share your journey and forget about the stress of driving alone.
+              </p>
+            </div>
+            <div class="col-sm-4">
+              <span class=""></span>
+              <h4>Save Environment</h4>
+              <p>
+                Lets pool and go green. Low carbon emission and less traffic
+                congestion.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
+
 export default ContactUs;
