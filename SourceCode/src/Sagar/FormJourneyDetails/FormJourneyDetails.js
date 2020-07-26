@@ -1,3 +1,4 @@
+//Author: Sagar Moghe B00838037
 import React, { Component } from "react";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
@@ -8,7 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 class FormJourneyDetails extends Component{
-
+    carList = {1:"Budget car", 2:"Family Car", 3:"Sedan"}
 
     continue = e => {
         e.preventDefault();
@@ -93,7 +94,7 @@ class FormJourneyDetails extends Component{
                     <br/>
                     <div>
                         <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
-                            Car Type
+                            Car Type: {this.carList[this.props.values['carType']]}
                         </Button>
                         <Menu
                             id="simple-menu"
@@ -114,12 +115,12 @@ class FormJourneyDetails extends Component{
                         onClick={this.continue}
                         style={styles.button}
                     />
-                    <RaisedButton
-                        label="Previous"
-                        primary={false}
-                        onClick={this.previous}
-                        style={styles.button}
-                    />
+                    {/*<RaisedButton*/}
+                    {/*    label="Previous"*/}
+                    {/*    primary={false}*/}
+                    {/*    onClick={this.previous}*/}
+                    {/*    style={styles.button}*/}
+                    {/*/>*/}
                 </React.Fragment>
             </MuiThemeProvider>
         )
