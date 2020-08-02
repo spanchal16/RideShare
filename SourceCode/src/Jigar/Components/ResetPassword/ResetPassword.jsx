@@ -1,9 +1,13 @@
 /* @Author - Jigar Makwana B00842568 */
 
 import React, {Component} from 'react';
-import '../../stylesheets/ForgotPassword.css';
+import '../ForgotPasword/ForgotPassword.css';
 import {validatePassword, validateConfirmPassword} from "../Validation/ValidateProperties";
 import {ErrorMsg} from "../Validation/ErrorMsg";
+import {Col, Navbar} from "react-bootstrap";
+import logo from "../../../Raj/images/logo.png";
+import MediaQuery from "react-responsive";
+import axios from 'axios';
 
 export class ResetPassword extends Component {
     constructor(props) {
@@ -19,7 +23,7 @@ export class ResetPassword extends Component {
     }
 
     redirectToLogin = () => {
-        this.props.history.push('/user/login');
+        this.props.history.push('/login');
     }
 
     updateProperties(name, value){
@@ -43,25 +47,52 @@ export class ResetPassword extends Component {
         })
     }
 
-    resetLinkSent = (e) => {
+    updatePassword = (e) => {
         e.preventDefault();
-        console.log('Function called');
-        this.setState({
-            password: "",
-            confirmPassword: "",
-            error: {},
-            isPasswordValid: false,
-            isConfirmPasswordValid: false,
-            isFormValid: false
+        // console.log("In updatePassword: " + JSON.stringify(this.props));
+        const  _userId  = this.props.match.params.userId;
+        const { password } = this.state
+        console.log("In updatePassword _userId: " + _userId);
+        console.log("In updatePassword: " + password);
+        const resetPssURL = `https://eventgoapi.herokuapp.com/usermng/resetpassword/${_userId}`;
+        // const resetPssURL = `http://localhost:8080/usermng/resetpassword/${_userId}`;
+        console.log("In updatePassword: " + resetPssURL);
+        axios
+            .put(resetPssURL, { password })
+            .then(res => {
+                let resultData = res.data;
+                console.log(resultData);
+                if (resultData == true) {
+                    alert("Password is successfully Reset!!\nPlease login.");
+                    this.redirectToLogin();
+                } else {
+                    alert("Error from server updating password.\n Please contact RideShare.");
+                }
         })
-        alert("Here dialog with below confirmation will be implemented\n " +
-            "Password is successfully Reset!");
+            .catch(err => console.warn("ERROR FROM SERVER UPDATING PASSWORD:", err))
     }
 
     render() {
         console.log("Reset Passsowrd called!");
         return (
-            <section className="col-lg-4">
+            <section>
+                <header>
+                    <Navbar className="navbg">
+                        <Col align="center">
+                            <Navbar.Brand href="login">
+                                <img src={logo} alt="logo" style={{ height: "135px" }} />
+                                <MediaQuery  maxWidth="500px" >
+                                    {(matches) =>
+                                        matches
+                                            ? null
+                                            : <strong style={{ fontFamily: "unset", fontSize: "xxx-large" }}>RideShare</strong>
+                                    }
+                                </MediaQuery>
+                            </Navbar.Brand>
+                        </Col>
+                    </Navbar>
+                </header>
+                <Col align="center" >
                 <header className="header justify-content-center">
                     <h3>Reset Password</h3>
                 </header>
@@ -100,7 +131,7 @@ export class ResetPassword extends Component {
                                 type="submit"
                                 className="btn btn-primary"
                                 disabled={!this.state.isFormValid}
-                                onClick={this.resetLinkSent}
+                                onClick={this.updatePassword}
                             >Reset Passowrd
                             </button>
                         </section>
@@ -114,6 +145,7 @@ export class ResetPassword extends Component {
                     ><strong>Back to Login</strong>
                     </section>
                 </section>
+                </Col>
             </section>
         )
     }
