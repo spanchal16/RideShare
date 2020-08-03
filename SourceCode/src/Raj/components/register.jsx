@@ -93,8 +93,8 @@ class Register extends Component {
                 gender: this.state.gender,
             };
             console.log(user);
-            // let url = "https://eventgoapi.herokuapp.com/usermng/registerUser";
-            let url = "http://localhost:8080/usermng/registerUser";
+            let url = "https://eventgoapi.herokuapp.com/usermng/registerUser";
+            // let url = "http://localhost:8080/usermng/registerUser";
             axios.post(url, { user })
                 .then(res => {
                     console.log(res);
