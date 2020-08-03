@@ -138,7 +138,7 @@ class Register extends Component {
                         <h2>Create new account</h2>
                         <Form noValidate validated={this.state.validated} onSubmit={this.mySubmitHandler}>
                             <Form.Group as={Row} controlId="usrname">
-                                <Form.Label column sm="3.5" className="loginLabel">Username:</Form.Label>
+                                <Form.Label column sm="3.5" className="loginLabel">Name:</Form.Label>
                                 <Col sm="5">
                                     <Form.Control type="text" placeholder=""
                                                   name="username"
