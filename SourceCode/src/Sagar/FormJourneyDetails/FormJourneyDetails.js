@@ -61,7 +61,7 @@ class FormJourneyDetails extends Component{
     setCarType = (event) =>{
         this.props.changeHandler('carType');
         this.setState({anchorEl:null});
-        console.log(event.target.value)
+
     }
 
 

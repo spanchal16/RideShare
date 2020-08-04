@@ -57,7 +57,7 @@ class NavbarHeader extends Component {
         </a>
       </div>
     ) : null;
-    console.log("state",this.state.userID)
+
     const buttonText = this.state.isLoggedin ? "Logout" : "Login/Register";
 
     if (this.state.isLogoutClicked) {
