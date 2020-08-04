@@ -79,10 +79,8 @@ class ResponseMainCard extends Component {
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                         <Card.Body>
-<<<<<<< HEAD
-                            <button>Yo</button>
+
                             event owner details to contact...
-=======
                             <Row>
                                 <Col md={{ span: 5, offset: 4 }}>
                                     <Button className="btn btn-success" type="button"
@@ -91,7 +89,7 @@ class ResponseMainCard extends Component {
                                     </Button>
                                 </Col>
                             </Row>
->>>>>>> bef626eb22564035bffc7be7c1a98032805fd1dc
+
                         </Card.Body>
                     </Accordion.Collapse>
                     <Card.Footer className="justify-content-end">
