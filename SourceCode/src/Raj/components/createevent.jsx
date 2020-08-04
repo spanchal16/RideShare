@@ -9,6 +9,7 @@ import "./events.css";
 import jsPDF from "jspdf";
 import { AiFillFilePdf } from "react-icons/ai";
 import Bump from "../../Sagar/PremiumUser/Bump/Bump";
+import Cookies from "js-cookie"
 import axios from "axios";
 
 class CreateEvent extends Component {
@@ -62,7 +63,7 @@ class CreateEvent extends Component {
   };
 
   renderDescription = () => {
-    console.log(this.props.isCreate);
+    //console.log(this.props.isCreate);
     return this.props.isCreate ? (
       <Form.Row>
         <Form.Group as={Col} controlId="txtarea">
@@ -209,12 +210,12 @@ class CreateEvent extends Component {
       myData.text(20, 310, "Seats:");
 
       if(this.props.seats === undefined || this.props.seats === null || this.props.seats === 0 ){
-        myData.text(80, 310, "0" );      
+        myData.text(80, 310, "0" );
       }
       else{
         myData.text(80, 310, this.props.seats);
       }
-      
+
 
       myData.text(20, 350, "Estimated Price:");
 
@@ -224,7 +225,7 @@ class CreateEvent extends Component {
       else{
         myData.text(140, 350, this.props.estPrice);
       }
-      
+
     } else if (this.props.eventTypeVal === "oe") {
       myData.text(300, 90, "Organizing Event");
     } else {
@@ -247,7 +248,7 @@ class CreateEvent extends Component {
     alert("The PDF file is stored in your machine successfully.")
 
     }
-    
+
   };
 
   renderPDFButton = () => {
@@ -280,7 +281,10 @@ class CreateEvent extends Component {
       : "Find Event";
     let hedingText = this.props.isCreate ? "Offer a Ride" : "Find a Ride";
 
-    let showBump = this.props.isCreate? !!this.props.isUpdate:false;
+    let showBump0 = this.props.isCreate? !!this.props.isUpdate:false;
+    let isPremium = Cookies.get("isPremium") == 1
+    let showBump = showBump0 && isPremium
+
 
     return (
       <div>

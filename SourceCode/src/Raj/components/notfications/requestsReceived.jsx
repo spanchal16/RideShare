@@ -35,11 +35,11 @@ class RequestsReceived extends Component {
                 item.requests = [];
                 //console.log(item, index);
                 let e = data.requests.filter((request) => request.eventid == item.eventid);
-                console.log(e);
+                //console.log(e);
                 item.requests = item.requests.concat(e)
 
             })
-            console.log(data.events);
+            //console.log(data.events);
             this.setState({ loader: false, eventDetails: data.events });
         }).catch(err =>  {
             console.log(err);
@@ -47,6 +47,7 @@ class RequestsReceived extends Component {
     }
 
     fixFooterHeight = () => {
+
         return (this.state.eventDetails.length == 1 ? "110px":"0px" )
         
     }

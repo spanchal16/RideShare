@@ -61,7 +61,7 @@ class Register extends Component {
 
     //DOJ change event
     onDateChange = date => {
-        console.log(date);
+        // console.log(date);
         this.setState({
             dob: date
         });
@@ -78,7 +78,7 @@ class Register extends Component {
         event.preventDefault();
         const form = event.currentTarget;
         const { invalidPwd, invalidEmail, username } = this.state;
-        console.log(invalidPwd,invalidEmail)
+        // console.log(invalidPwd,invalidEmail)
         if (form.checkValidity() === false || invalidPwd || invalidEmail) {
             event.preventDefault();
             event.stopPropagation();
@@ -92,13 +92,13 @@ class Register extends Component {
                 dob: selectedDateStr,
                 gender: this.state.gender,
             };
-            console.log(user);
+            // console.log(user);
             let url = "https://eventgoapi.herokuapp.com/usermng/registerUser";
             // let url = "http://localhost:8080/usermng/registerUser";
             axios.post(url, { user })
                 .then(res => {
-                    console.log(res);
-                    console.log(res.data);
+                    // console.log(res);
+                    // console.log(res.data);
                     if(res.data.length == 0)
                     {
                         this.setState({ isValid: false });
