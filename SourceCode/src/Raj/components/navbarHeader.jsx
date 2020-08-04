@@ -126,7 +126,7 @@ class NavbarHeader extends Component {
               {/*>*/}
               {/*  Go Premium*/}
               {/*</Button>*/}
-              {Cookies.get("isPremium")===0?<ModalPremium userID={this.state.userID}/>:null}
+              {Cookies.get("isPremium")==0?<ModalPremium userID={this.state.userID}/>:null}
               &nbsp; &nbsp;
               <Button
                 variant="primary"
