@@ -192,7 +192,7 @@ class CreateEvent extends Component {
       myData.text(300, 90, "Car Journey");
 
       myData.text(20, 310, "Seats:");
-      //var checkSeats = this.props.seats;
+
       if(this.props.seats === undefined || this.props.seats === null || this.props.seats === 0 ){
         myData.text(80, 310, "0" );      
       }
@@ -202,7 +202,7 @@ class CreateEvent extends Component {
       
 
       myData.text(20, 350, "Estimated Price:");
-      //var checkPrice = this.props.estPrice;
+
       if(this.props.estPrice === undefined || this.props.estPrice === null || this.props.estPrice === 0 ){
         myData.text(140, 350, "0");
       }
