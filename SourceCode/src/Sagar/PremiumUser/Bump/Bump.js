@@ -14,6 +14,7 @@ class Bump extends Component{
             }).catch(err => {
             console.log(err);
         })
+        alert("Your posting has been bumped to top spot.")
     }
 
     render(){
