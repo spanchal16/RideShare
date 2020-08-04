@@ -1,9 +1,10 @@
 //@Author - RajKumar B00849566
+/* @Author - Jigar Makwana B00842568 */
 
 import React, { Component } from 'react';
 import ReqMainCard from './requestMainCard'
 import axios from 'axios';
-import "../events.css"; 
+import "../events.css";
 import Loader from '../loader'
 import Cookies from "js-cookie";
 
@@ -45,17 +46,23 @@ class RequestsReceived extends Component {
         })
     }
 
+    fixFooterHeight = () => {
+        return (this.state.eventDetails.length == 1 ? "110px":"0px" )
+        
+    }
+
     render() {
         return (
-            <div>
+            <div style={{ paddingBottom: this.fixFooterHeight() }}>
                 <h4 style={{ textAlign: "center" }}>Requests received for created Rides</h4>
                 <br />
-                {this.state.loader ? <Loader /> : this.state.eventDetails.map(item =>
+                {this.state.loader ? <Loader /> : this.state.eventDetails.length > 0 ?
+                    (this.state.eventDetails.map(item =>
                     <ReqMainCard
                         key={item.eventid}
                         eventDetail={item}
-                    />)}
-                
+                    />)) : <h4 style={{ textAlign: "center",color:"#013b75",height:"240px" }}>No Notifications...Create a Ride!!</h4>}
+
 
             </div>
         );

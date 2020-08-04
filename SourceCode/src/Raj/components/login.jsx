@@ -1,3 +1,4 @@
+/* @Author - Jigar Makwana B00842568 */
 //@Author - RajKumar B00849566
 
 import React, { Component } from 'react';
@@ -69,7 +70,7 @@ class Login extends Component {
     render() {
         console.log("This is isLoggedIn in render: " + this.state.isLoggedIn);
         if (this.state.isLoggedIn) {
-            return <Redirect to="/home" />
+            return <Redirect to="/findevent" />
         }
 
         let errMsg = this.state.isInvalidCred ?

@@ -1,131 +1,99 @@
-import React, { Component } from "react";
-import "../style/ForgotPassword.css";
-import { ErrorMsg } from "../../Jigar/Components/Validation/ErrorMsg";
-import { validateEmail } from "../../Jigar/Components/Validation/ValidateProperties";
-import { Col, Navbar } from "react-bootstrap";
-import logo from "../../Raj/images/logo.png";
-import MediaQuery from "react-responsive";
+//@Author - Nishant Amoli, B00835717
+import React from "react";
+import { Component } from "react";
+import { FaHeart } from "react-icons/fa";
+import { Img } from "react-image";
 
 class ContactUs extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      feedback: "",
-      error: {},
-      isEmailValid: false,
-      isFormValid: false,
-    };
-  }
-
-  redirectToHome = () => {
-    this.props.history.push("/home");
-  };
-
-  feedbackSubmitted = (e) => {
-    e.preventDefault();
-    console.log("Function called");
-    this.setState({
-      email: "",
-      message: "",
-      error: {},
-      isEmailValid: false,
-      isFormValid: false,
-    });
-    alert(
-      "Here dialog with below confirmation will be implemented\n " +
-        "Email sent successfully!\n Thank You."
-    );
-  };
-
-  updateProperties(name, value) {
-    switch (name) {
-      case "email":
-        this.setState({ [name]: value }, validateEmail);
-        break;
-      case "message":
-        this.setState({ [name]: value });
-        break;
-      default:
-        break;
-    }
-  }
-
-  validateForm = () => {
-    const { isEmailValid } = this.state;
-    this.setState({
-      isFormValid: isEmailValid,
-    });
-  };
-
   render() {
-    console.log("ContactUs called!");
     return (
-      <section>
-        <Col align="center">
-          <br />
-          <header className="header justify-content-center">
-            <h3>Contact Us</h3>
-          </header>
-          <section className="card forgot-password-card mt-2 hv-center">
-            <form className="form">
+      <div className="container" style={{ marginTop: "2em" }}>
+        <div class="row">
+          <div class="col-sm-3 jumbotron"></div>
+          <div class="col-sm-6 jumbotron" align="center">
+            <h1>Contact Us</h1>
+            <p>We will love to hear from you.</p>
+          </div>
+          <div class="col-sm-3 jumbotron"></div>
+        </div>
+        <div
+          class="row"
+          style={{ backgroundColor: "#E9FFE9", paddingTop: "1em" }}
+        >
+          <div class="col-sm-5">
+            <Img
+              src={require("../images/rideshare.png")}
+              width="700"
+              fluid
+              style={{ maxWidth: "100%", height: "auto", marginTop: "2em" }}
+            />
+          </div>
+          <div class="col-sm-7">
+            <h2>Office Location</h2>
+            <span style={{ textTransform: "capitalize" }}> RideShare</span> is
+            located at:
+            <br />
+            <address>
+              6225 Duncan Street, Halifax <br />- NS , Canada
               <br />
-              <section className="form-group text-left">
-                <label htmlFor="exampleInputEmail1">Enter your email id</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="Enter your email id"
-                  value={this.state.email}
-                  onChange={(e) =>
-                    this.updateProperties("email", e.target.value)
-                  }
-                />
-                <ErrorMsg
-                  valid={this.state.isEmailValid}
-                  message={this.state.error.email}
-                />
-              </section>
-
-              <section className="form-group text-left">
-                <label htmlFor="exampleInputEmail1">Message</label>
-                <textarea
-                  type="feedback"
-                  className="form-control"
-                  id="feedback"
-                  placeholder="Please write your message here..."
-                  value={this.state.feedback}
-                  onChange={(e) =>
-                    this.updateProperties("feedback", e.target.value)
-                  }
-                />
-              </section>
-
-              <section>
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={!this.state.isFormValid}
-                  onClick={this.feedbackSubmitted}
-                >
-                  Submit
-                </button>
-              </section>
-            </form>
+            </address>
+            <h2>Reach Out to Us</h2>
+            E-mail at:
             <br />
+            <address>
+              contact@rideshare.ca <br /> nishant.amoli@dal.ca
+              <br />
+            </address>
+            Call us on:
             <br />
-            <footer
-              type="submit"
-              className="btn-custom"
-              onClick={this.redirectToHome.bind(this)}
-            >
-              <strong>Back to Home</strong>
-            </footer>
-          </section>
-        </Col>
-      </section>
+            <address>
+              +1(902)-802-0940 <br /> +1(902)-989-2500
+              <br />
+            </address>
+            <p style={{ textAlign: "left" }}>
+              Made with <FaHeart style={{ color: "red" }} /> at DAL{" "}
+            </p>
+            <p style={{ textAlign: "left" }}>
+              RideShare, {new Date().getFullYear()} &copy;
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="container-fluid text-center jumbotron"
+          style={{ marginTop: "1em" }}
+        >
+          <h4>Use RideShare To:</h4>
+          <br />
+          <div class="row">
+            <div class="col-sm-4">
+              <span class=""></span>
+              <h4>Save Money</h4>
+              <p>
+                Why spend too much money on cabs or flights when you can
+                carpool.
+              </p>
+            </div>
+            <div class="col-sm-4">
+              <span class=""></span>
+              <h4>Have Fun</h4>
+              <p>
+                Share your journey and forget about the stress of driving alone.
+              </p>
+            </div>
+            <div class="col-sm-4">
+              <span class=""></span>
+              <h4>Save Environment</h4>
+              <p>
+                Lets pool and go green. Low carbon emission and less traffic
+                congestion.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }
+
 export default ContactUs;

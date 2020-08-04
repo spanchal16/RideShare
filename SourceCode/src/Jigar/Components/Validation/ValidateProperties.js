@@ -1,3 +1,5 @@
+/* @Author - Jigar Makwana B00842568 */
+
 export function validateEmail() {
     const {email} = this.state;
     let isEmailValid = true;

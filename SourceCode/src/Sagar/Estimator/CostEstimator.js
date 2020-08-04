@@ -1,3 +1,4 @@
+//Author: Sagar Moghe B00838037
 import React, {Component} from "react";
 import Success from "../Success/Success";
 import FormJourneyDetails from "../FormJourneyDetails/FormJourneyDetails";
@@ -43,7 +44,7 @@ class CostEstimator extends Component{
 
     distanceGenerator = () =>{
         let {distance, carType} = this.state
-        let prices = distance*carType*5
+        let prices = distance*carType*5/1.5
         this.setState((prevState)=> prevState['price']=prices)
 
     }

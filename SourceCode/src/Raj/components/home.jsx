@@ -1,5 +1,5 @@
 //@Author - RajKumar B00849566
-
+/* @Author - Jigar Makwana B00842568 */
 import React, { Component } from 'react';
 import RequestsReceived from './notfications/requestsReceived'
 import ResponsesReceived from './notfications/responsesReceived'

@@ -1,3 +1,4 @@
+//@Author - Nishant Amoli, B00835717
 import React from "react";
 import { Component } from "react";
 import { FaHeart } from "react-icons/fa";
@@ -13,7 +14,7 @@ class AboutUs extends Component {
             <h1>We are RideShare</h1>
             <p>Providing you with the best carpooling service.</p>
 
-            <form class="form-inline">
+            {/* <form class="form-inline">
               <div class="input-group">
                 <input
                   type="email"
@@ -28,7 +29,7 @@ class AboutUs extends Component {
                   </button>
                 </div>
               </div>
-            </form>
+            </form> */}
           </div>
           <div class="col-sm-3 jumbotron"></div>
         </div>

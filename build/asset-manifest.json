@@ -1,31 +1,49 @@
 {
   "files": {
+<<<<<<< HEAD
     "main.css": "/static/css/main.d2f07707.chunk.css",
     "main.js": "/static/js/main.8bceaad0.chunk.js",
     "main.js.map": "/static/js/main.8bceaad0.chunk.js.map",
+=======
+    "main.css": "/static/css/main.75148366.chunk.css",
+    "main.js": "/static/js/main.64984e72.chunk.js",
+    "main.js.map": "/static/js/main.64984e72.chunk.js.map",
+>>>>>>> 7538a9bfbaea45b7b44f7033cd51739a27465aee
     "runtime-main.js": "/static/js/runtime-main.8fd84bac.js",
     "runtime-main.js.map": "/static/js/runtime-main.8fd84bac.js.map",
     "static/css/2.a1b7a17e.chunk.css": "/static/css/2.a1b7a17e.chunk.css",
-    "static/js/2.3908e849.chunk.js": "/static/js/2.3908e849.chunk.js",
-    "static/js/2.3908e849.chunk.js.map": "/static/js/2.3908e849.chunk.js.map",
+    "static/js/2.842a38fd.chunk.js": "/static/js/2.842a38fd.chunk.js",
+    "static/js/2.842a38fd.chunk.js.map": "/static/js/2.842a38fd.chunk.js.map",
     "index.html": "/index.html",
+<<<<<<< HEAD
     "precache-manifest.a50b980633d1ea903893bf7887a5cdfe.js": "/precache-manifest.a50b980633d1ea903893bf7887a5cdfe.js",
+=======
+    "precache-manifest.7b3bf104cdb2312dc61293236bad417f.js": "/precache-manifest.7b3bf104cdb2312dc61293236bad417f.js",
+>>>>>>> 7538a9bfbaea45b7b44f7033cd51739a27465aee
     "service-worker.js": "/service-worker.js",
     "static/css/2.a1b7a17e.chunk.css.map": "/static/css/2.a1b7a17e.chunk.css.map",
-    "static/css/main.d2f07707.chunk.css.map": "/static/css/main.d2f07707.chunk.css.map",
-    "static/js/2.3908e849.chunk.js.LICENSE.txt": "/static/js/2.3908e849.chunk.js.LICENSE.txt",
+    "static/css/main.75148366.chunk.css.map": "/static/css/main.75148366.chunk.css.map",
+    "static/js/2.842a38fd.chunk.js.LICENSE.txt": "/static/js/2.842a38fd.chunk.js.LICENSE.txt",
     "static/media/A2FooterFb.png": "/static/media/A2FooterFb.465faff2.png",
     "static/media/A2FooterInsta.png": "/static/media/A2FooterInsta.7742981d.png",
     "static/media/A2FooterTwitter.png": "/static/media/A2FooterTwitter.0452ac38.png",
     "static/media/events.css": "/static/media/background4.90e9df32.jpg",
     "static/media/carpool.png": "/static/media/carpool.3cf1399e.png",
-    "static/media/logo.png": "/static/media/logo.b6440551.png"
+    "static/media/logo.png": "/static/media/logo.b6440551.png",
+    "static/media/rideshare.png": "/static/media/rideshare.5d18dc27.png",
+    "static/media/solitary.jpeg": "/static/media/solitary.e7a767c8.jpeg"
   },
   "entrypoints": [
     "static/js/runtime-main.8fd84bac.js",
     "static/css/2.a1b7a17e.chunk.css",
+<<<<<<< HEAD
     "static/js/2.3908e849.chunk.js",
     "static/css/main.d2f07707.chunk.css",
     "static/js/main.8bceaad0.chunk.js"
+=======
+    "static/js/2.842a38fd.chunk.js",
+    "static/css/main.75148366.chunk.css",
+    "static/js/main.64984e72.chunk.js"
+>>>>>>> 7538a9bfbaea45b7b44f7033cd51739a27465aee
   ]
 }

@@ -1,3 +1,5 @@
+/* @Author - Jigar Makwana B00842568 */
+
 import React, {Component} from 'react';
 import '../ForgotPasword/ForgotPassword.css';
 import {ErrorMsg} from '../Validation/ErrorMsg';
