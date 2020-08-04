@@ -63,7 +63,7 @@ class CreateEvent extends Component {
   };
 
   renderDescription = () => {
-    console.log(this.props.isCreate);
+    //console.log(this.props.isCreate);
     return this.props.isCreate ? (
       <Form.Row>
         <Form.Group as={Col} controlId="txtarea">
