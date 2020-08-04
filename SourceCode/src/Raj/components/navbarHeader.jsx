@@ -9,6 +9,8 @@ import { MdNotificationsActive } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import Cookies from "js-cookie";
 import CostEstimator from "../../Sagar/Estimator/CostEstimator";
+import axios from "axios";
+import ModalPremium from "../../Sagar/PremiumUser/PremiumButton/Modal";
 
 class NavbarHeader extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class NavbarHeader extends Component {
     let isLoggedin = true;
     //const username = sessionStorage.getItem("username");
     const username = Cookies.get("userName")
+    const userID = Cookies.get("userId")
     if (username == null) {
       isLoggedin = false;
     }
@@ -25,6 +28,7 @@ class NavbarHeader extends Component {
       isLoggedin,
       username,
       isLogoutClicked: false,
+      userID
     };
   }
 
@@ -34,11 +38,13 @@ class NavbarHeader extends Component {
       Cookies.remove("userId");
       Cookies.remove("userName");
       Cookies.remove("email");
+      Cookies.remove('isPremium')
       this.setState({ isLoggedin: false, isLogoutClicked: true });
     } else {
       this.setState({ isLoggedin: false, isLogoutClicked: true });
     }
   };
+
 
   render() {
     const signinText = this.state.isLoggedin ? (
@@ -51,7 +57,7 @@ class NavbarHeader extends Component {
         </a>
       </div>
     ) : null;
-
+    console.log("state",this.state.userID)
     const buttonText = this.state.isLoggedin ? "Logout" : "Login/Register";
 
     if (this.state.isLogoutClicked) {
@@ -112,23 +118,26 @@ class NavbarHeader extends Component {
                 />
               </NavLink>
               &nbsp; &nbsp;
-              <Button
-                  variant="primary"
-                  type="submit"
-                  //onClick={this.onButtonClick}
-                  style={{ backgroundColor: "transparent" }}
-              >
-                Go Premium
-              </Button>
+              {/*<Button*/}
+              {/*    variant="primary"*/}
+              {/*    type="submit"*/}
+              {/*    onClick={this.makePremium}*/}
+              {/*    style={{ backgroundColor: "transparent" }}*/}
+              {/*>*/}
+              {/*  Go Premium*/}
+              {/*</Button>*/}
+              {Cookies.get("isPremium")==0?<ModalPremium userID={this.state.userID}/>:null}
               &nbsp; &nbsp;
               <Button
                 variant="primary"
                 type="submit"
                 onClick={this.onButtonClick}
                 style={{ backgroundColor: "transparent" }}
+
               >
                 {buttonText}
               </Button>
+
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -154,7 +163,9 @@ class NavbarHeader extends Component {
             </div>
           </div>
         </div>
+
       </section>
+
     );
   }
 }

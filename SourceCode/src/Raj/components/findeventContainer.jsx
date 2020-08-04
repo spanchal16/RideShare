@@ -105,7 +105,7 @@ class FindEventContainer extends Component {
             );
             isFiltered = true;
           } else if (dateToDisplay.length > 0) {
-            console.log(dateToDisplay);
+            //console.log(dateToDisplay);
             eventsHistory = eventsHistory.filter(
               (item) => item["dateToDisplay"] == dateToDisplay
             );
@@ -115,8 +115,8 @@ class FindEventContainer extends Component {
         if (!isFiltered) {
           eventsHistory = [];
         }
-        console.log(eventsHistory);
 
+        // eventsHistory.sort((a, b) => (a["bumped"] > b["bumped"] ? 1 : -1));
         this.setState({
           loader: false,
           searchResults: eventsHistory,
@@ -224,7 +224,7 @@ class FindEventContainer extends Component {
 
   //Click on posted events, updating feature.
   onPostedEvetClicked = (history) => {
-    console.log("FindEventContainer -> onPostedEvetClicked -> history", history)
+    //console.log("FindEventContainer -> onPostedEvetClicked -> history", history)
 
     this.setState({ eventSelected: true, requestToDisplay: history });
   };

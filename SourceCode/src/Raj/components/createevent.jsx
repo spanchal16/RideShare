@@ -1,4 +1,5 @@
 //@Author - RajKumar B00849566
+//@Author - Smit Panchal B00828070
 
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
@@ -7,6 +8,8 @@ import { Form, Button, InputGroup, Col, Row } from "react-bootstrap";
 import "./events.css";
 import jsPDF from "jspdf";
 import { AiFillFilePdf } from "react-icons/ai";
+import Bump from "../../Sagar/PremiumUser/Bump/Bump";
+import axios from "axios";
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -59,7 +62,7 @@ class CreateEvent extends Component {
   };
 
   renderDescription = () => {
-    console.log(this.props.isCreate);
+    //console.log(this.props.isCreate);
     return this.props.isCreate ? (
       <Form.Row>
         <Form.Group as={Col} controlId="txtarea">
@@ -109,21 +112,21 @@ class CreateEvent extends Component {
             {this.renderClearImgBtn(this.props.imagePreviewUrl1)}
             </Col>
             </Row>
-          
-          
+
+
           {this.props.imageError}
           <br/>
           <Row>
             <Col>
               {this.renderImgPreview(this.props.imagePreviewUrl1)}
-              
+
             </Col>
             <Col>
               {this.renderImgPreview(this.props.imagePreviewUrl2)}
             </Col>
           </Row>
           </Form.Group>
-        
+
       </Form.Row>
     ) : null;
   };
@@ -168,12 +171,32 @@ class CreateEvent extends Component {
     ) : null;
   };
 
+  bumpEvent=()=>{
+    let url = "https://eventgoapi.herokuapp.com/createevent/bumpTimeStamp/";
+    //let url = "http://localhost:8080/createevent/bumpTimeStamp/";
+    console.log("props.eventid",this.props.eventID)
+    axios.put(url + this.props.eventID)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        }).catch(err => {
+      console.log(err);
+    })
+  }
+
   pdfGeneratorFun = () => {
-    console.log("Type = ", this.props.eventTypeVal);
+    if(this.props.eventTypeVal === "" || this.props.fromAddress === "" || this.props.toAddress === ""){
+      alert("You have to provide required fields in order to generate a PDF")
+      return
+    }
+    else{
+      console.log("Type = ", this.props.eventTypeVal);
     console.log("From = ", this.props.fromAddress);
     console.log("To = ", this.props.toAddress);
     console.log("Date of Journey = ", this.props.journeyDate);
     console.log("Description = ", this.props.description);
+    console.log("Seats = ", this.props.seats);
+    console.log("TYPEOF = ", typeof this.props.seats);
 
     let myData = new jsPDF("p", "pt");
 
@@ -184,10 +207,24 @@ class CreateEvent extends Component {
       myData.text(300, 90, "Car Journey");
 
       myData.text(20, 310, "Seats:");
-      myData.text(80, 310, this.props.seats);
+
+      if(this.props.seats === undefined || this.props.seats === null || this.props.seats === 0 ){
+        myData.text(80, 310, "0" );      
+      }
+      else{
+        myData.text(80, 310, this.props.seats);
+      }
+      
 
       myData.text(20, 350, "Estimated Price:");
-      myData.text(140, 350, this.props.estPrice);
+
+      if(this.props.estPrice === undefined || this.props.estPrice === null || this.props.estPrice === 0 ){
+        myData.text(140, 350, "0");
+      }
+      else{
+        myData.text(140, 350, this.props.estPrice);
+      }
+      
     } else if (this.props.eventTypeVal === "oe") {
       myData.text(300, 90, "Organizing Event");
     } else {
@@ -207,6 +244,10 @@ class CreateEvent extends Component {
     myData.text(110, 260, this.props.description);
 
     myData.save("PDFFile.pdf");
+    alert("The PDF file is stored in your machine successfully.")
+
+    }
+    
   };
 
   renderPDFButton = () => {
@@ -238,6 +279,8 @@ class CreateEvent extends Component {
         : "Create"
       : "Find Event";
     let hedingText = this.props.isCreate ? "Offer a Ride" : "Find a Ride";
+
+    let showBump = this.props.isCreate? !!this.props.isUpdate:false;
 
     return (
       <div>
@@ -336,7 +379,15 @@ class CreateEvent extends Component {
                       {buttonText}
                     </Button>
                   </Col>
+                  <Col>
+                    {showBump?<Button variant="primary" onClick={this.bumpEvent} >
+                      Bump Event
+                    </Button>:null}
+
+                  </Col>
+
                   <Col>{this.renderPDFButton()}</Col>
+
                 </Row>
               </div>
             </Form>

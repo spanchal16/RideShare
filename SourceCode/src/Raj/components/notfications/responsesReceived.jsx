@@ -34,17 +34,20 @@ class ResponsesReceived extends Component {
                 console.log(err);
             })
     }
-
+    fixFooterHeight = () => {
+        return (this.state.eventDetails.length == 1 ? "110px":"0px" )
+        
+    }
     render() {
         return (
-            <div>
+            <div style={{ paddingBottom: this.fixFooterHeight() }}>
                 <h4 style={{textAlign: "center"}}>Responses received for requested Rides</h4>
                 <br/>
-                {this.state.eventDetails.map(item =>
+                {this.state.eventDetails.length > 0 ? this.state.eventDetails.map(item =>
                     <ResponseMainCard
-                        key={item.eventDetailId}
+                        key={item.requesteventId}
                         eventDetail = {item}
-                    />)}
+                    />) : <h4 style={{ textAlign: "center",color:"#013b75",height:"240px" }}>No Notifications...Request a Ride!!</h4>}
             </div>
          );
     }

@@ -35,27 +35,34 @@ class RequestsReceived extends Component {
                 item.requests = [];
                 //console.log(item, index);
                 let e = data.requests.filter((request) => request.eventid == item.eventid);
-                console.log(e);
+                //console.log(e);
                 item.requests = item.requests.concat(e)
 
             })
-            console.log(data.events);
+            //console.log(data.events);
             this.setState({ loader: false, eventDetails: data.events });
         }).catch(err =>  {
             console.log(err);
         })
     }
 
+    fixFooterHeight = () => {
+
+        return (this.state.eventDetails.length == 1 ? "110px":"0px" )
+        
+    }
+
     render() {
         return (
-            <div>
+            <div style={{ paddingBottom: this.fixFooterHeight() }}>
                 <h4 style={{ textAlign: "center" }}>Requests received for created Rides</h4>
                 <br />
-                {this.state.loader ? <Loader /> : this.state.eventDetails.map(item =>
+                {this.state.loader ? <Loader /> : this.state.eventDetails.length > 0 ?
+                    (this.state.eventDetails.map(item =>
                     <ReqMainCard
                         key={item.eventid}
                         eventDetail={item}
-                    />)}
+                    />)) : <h4 style={{ textAlign: "center",color:"#013b75",height:"240px" }}>No Notifications...Create a Ride!!</h4>}
 
 
             </div>
