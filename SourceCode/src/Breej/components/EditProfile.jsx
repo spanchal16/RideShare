@@ -82,7 +82,7 @@ class EditProfile extends Component {
       evt.url = [this.state.profileImage];
     }
 
-    let url = `http://localhost:8080/usermng/updateUser/${this.state.userId}`;
+    let url = `https://eventgoapi.herokuapp.com/usermng/updateUser/${this.state.userId}`;
     await axios
       .put(url, evt)
       .then((res) => {
@@ -134,7 +134,7 @@ class EditProfile extends Component {
     const user = {
       email: _email,
     };
-    let url = "http://localhost:8080/usermng/getSpecificUser";
+    let url = "https://eventgoapi.herokuapp.com/usermng/getSpecificUser";
     //let url = "http://localhost:8080/usermng/getSpecificUser";
     console.log("email \t" + _email);
     axios
