@@ -31,7 +31,7 @@ class Login extends Component {
         };
         // console.log(user);
         let url = "https://eventgoapi.herokuapp.com/usermng/login";
-        // let url = "http://localhost:8080/usermng/login";
+         //let url = "http://localhost:8080/usermng/login";
         axios.post(url, { user })
             .then(res => {
                 let resultData = res.data;

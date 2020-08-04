@@ -1,4 +1,5 @@
 //@Author - RajKumar B00849566
+//@Author - Smit Panchal B00828070
 
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
@@ -184,11 +185,18 @@ class CreateEvent extends Component {
   }
 
   pdfGeneratorFun = () => {
-    console.log("Type = ", this.props.eventTypeVal);
+    if(this.props.eventTypeVal === "" || this.props.fromAddress === "" || this.props.toAddress === ""){
+      alert("You have to provide required fields in order to generate a PDF")
+      return
+    }
+    else{
+      console.log("Type = ", this.props.eventTypeVal);
     console.log("From = ", this.props.fromAddress);
     console.log("To = ", this.props.toAddress);
     console.log("Date of Journey = ", this.props.journeyDate);
     console.log("Description = ", this.props.description);
+    console.log("Seats = ", this.props.seats);
+    console.log("TYPEOF = ", typeof this.props.seats);
 
     let myData = new jsPDF("p", "pt");
 
@@ -199,10 +207,24 @@ class CreateEvent extends Component {
       myData.text(300, 90, "Car Journey");
 
       myData.text(20, 310, "Seats:");
-      myData.text(80, 310, this.props.seats);
+
+      if(this.props.seats === undefined || this.props.seats === null || this.props.seats === 0 ){
+        myData.text(80, 310, "0" );      
+      }
+      else{
+        myData.text(80, 310, this.props.seats);
+      }
+      
 
       myData.text(20, 350, "Estimated Price:");
-      myData.text(140, 350, this.props.estPrice);
+
+      if(this.props.estPrice === undefined || this.props.estPrice === null || this.props.estPrice === 0 ){
+        myData.text(140, 350, "0");
+      }
+      else{
+        myData.text(140, 350, this.props.estPrice);
+      }
+      
     } else if (this.props.eventTypeVal === "oe") {
       myData.text(300, 90, "Organizing Event");
     } else {
@@ -222,6 +244,10 @@ class CreateEvent extends Component {
     myData.text(110, 260, this.props.description);
 
     myData.save("PDFFile.pdf");
+    alert("The PDF file is stored in your machine successfully.")
+
+    }
+    
   };
 
   renderPDFButton = () => {
