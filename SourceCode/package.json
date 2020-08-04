@@ -16,6 +16,7 @@
     "material-ui": "^0.20.2",
     "moment": "^2.27.0",
     "path": "^0.12.7",
+    "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-datepicker": "^3.0.0",

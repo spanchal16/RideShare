@@ -17,6 +17,7 @@ import AboutUs from "../../Nishant/components/AboutUs";
 import Terms from "../../Nishant/components/Terms";
 import PrivacyPolicies from "../../Nishant/components/PrivacyPolicies";
 import ContactUs from "../../Nishant/components/ContactUs";
+import viewProfile from "../../Jigar/viewProfile";
 import {
   Form,
   Button,
@@ -57,6 +58,7 @@ class NavbarTemplate extends Component {
               path="/bookingdetails"
               component={bookingdetails}
             ></Route>
+            <Route exact path="/viewprofile" component={viewProfile}></Route>
             <Route exact path="/verifyid" component={verifyid}></Route>
             <Route exact path="/editprofile" component={editprofile}></Route>
             <Route exact path="/aboutus" component={AboutUs}></Route>

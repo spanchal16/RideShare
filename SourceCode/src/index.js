@@ -7,24 +7,31 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginAndReg from "./Raj/components/loginReg";
 import { FooterCus } from "./Jigar/Components/Footer/Footer";
 import { ForgotPassword } from "./Jigar/Components/ForgotPasword/ForgotPassword";
-import { Feedback } from "./Jigar/Components/Feedback/Feeback";
+import { ResetPassword } from "./Jigar/Components/ResetPassword/ResetPassword";
 import NavbarTemplate from "./Raj/components/navbarTemplate";
 import { TestCarousels} from "./Jigar/Components/TestCarousels/TestCarousels";
 
 // import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/login" component={LoginAndReg}></Route>
-      <Route exact path="/forgotpassword" component={ForgotPassword}></Route>
-      
-        <Route exact path="/carousel" component={TestCarousels}></Route>
-      <Route component={NavbarTemplate} />
-    </Switch>
-    <FooterCus />
-  </BrowserRouter>,
-  document.getElementById("root")
+<BrowserRouter>
+<Switch>
+<Route exact path="/login" component={LoginAndReg}></Route>
+    <Route exact path="/forgotpassword" component={ForgotPassword}></Route>
+    // <Route exact path="/resetpassword" component={ResetPassword}></Route>
+    // <Route path="/resetpassword/:userId" render={(props) => <ResetPassword {...props} />} />
+
+<Route path="/resetpassword"
+         render={({ match }) => (
+         <ResetPassword userId={match.params.userId} />
+         )}
+         />
+    <Route exact path="/carousel" component={TestCarousels}></Route>
+    <Route component={NavbarTemplate} />
+</Switch>
+<FooterCus />
+</BrowserRouter>,
+document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

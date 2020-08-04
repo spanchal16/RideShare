@@ -72,7 +72,7 @@ class Login extends Component {
     render() {
         console.log("This is isLoggedIn in render: " + this.state.isLoggedIn);
         if (this.state.isLoggedIn) {
-            return <Redirect to="/home" />
+            return <Redirect to="/findevent" />
         }
 
         let errMsg = this.state.isInvalidCred ?

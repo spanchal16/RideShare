@@ -7,6 +7,7 @@ import {ErrorMsg} from "../Validation/ErrorMsg";
 import {Button, Col, Form, Navbar, Row} from "react-bootstrap";
 import logo from "../../../Raj/images/logo.png";
 import MediaQuery from "react-responsive";
+import axios from 'axios';
 
 export class ForgotPassword extends Component {
     constructor(props) {
@@ -25,6 +26,7 @@ export class ForgotPassword extends Component {
 
     redirectToResetPassword = () => {
         alert("Password Reset Link is sent to the email id.");
+        this.props.history.push('/resetpassword');
     }
 
     updateEmail(name, value){
@@ -40,14 +42,26 @@ export class ForgotPassword extends Component {
 
     resetLinkSent = (e) => {
         e.preventDefault();
-        console.log('Function called');
-        this.setState({
-            email: "",
-            error: {},
-            isEmailValid: false,
-            isFormValid: false,
+        console.log('resetLinkSent function called');
+        const user = {
+            email: this.state.email
+        };
+        console.log(user);
+        console.log(user.email);
+        let url = "https://eventgoapi.herokuapp.com/usermng/forgotPassword";
+        // let url = "http://localhost:8080/usermng/forgotPassword";
+        axios.post(url, { user })
+            .then(res => {
+                let resultData = res.data;
+                console.log(resultData);
+                if (resultData.length > 0) {
+                    alert("Password Reset Link Sent to registered email id!");
+                } else {
+                    alert("Email Id is not registered with RideShare.");
+                }
+            }).catch(err => {
+            console.log(err);
         })
-        alert("Here dialog with below confirmation will be implemented\n Password Reset Link Sent!");
     }
 
     render() {
@@ -97,7 +111,7 @@ export class ForgotPassword extends Component {
                                 type="submit"
                                 className="btn btn-primary"
                                 disabled={!this.state.isFormValid}
-                                onClick={this.redirectToResetPassword}
+                                onClick={this.resetLinkSent}
                             >Send Password Reset Link
                             </button>
                         </section>
