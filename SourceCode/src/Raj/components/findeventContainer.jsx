@@ -115,10 +115,6 @@ class FindEventContainer extends Component {
         if (!isFiltered) {
           eventsHistory = [];
         }
-<<<<<<< HEAD
-        //console.log(eventsHistory);
-=======
->>>>>>> 9fdcc3bfc4eaa4dc5bbedef3d64dad52c0104977
 
         // eventsHistory.sort((a, b) => (a["bumped"] > b["bumped"] ? 1 : -1));
         this.setState({

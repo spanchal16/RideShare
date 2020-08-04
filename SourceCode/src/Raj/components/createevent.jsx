@@ -185,13 +185,6 @@ class CreateEvent extends Component {
   }
 
   pdfGeneratorFun = () => {
-<<<<<<< HEAD
-    // console.log("Type = ", this.props.eventTypeVal);
-    // console.log("From = ", this.props.fromAddress);
-    // console.log("To = ", this.props.toAddress);
-    // console.log("Date of Journey = ", this.props.journeyDate);
-    // console.log("Description = ", this.props.description);
-=======
     if(this.props.eventTypeVal === "" || this.props.fromAddress === "" || this.props.toAddress === ""){
       alert("You have to provide required fields in order to generate a PDF")
       return
@@ -204,7 +197,6 @@ class CreateEvent extends Component {
     console.log("Description = ", this.props.description);
     console.log("Seats = ", this.props.seats);
     console.log("TYPEOF = ", typeof this.props.seats);
->>>>>>> 9fdcc3bfc4eaa4dc5bbedef3d64dad52c0104977
 
     let myData = new jsPDF("p", "pt");
 
