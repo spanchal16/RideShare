@@ -90,34 +90,34 @@ class viewProfile extends Component {
                                         <div className="col-md-3"></div>
                                         <div className="col-md-8" style={{ textAlign: "left" }}>
                                             <div className="row">
-                                                <div className="col-md-6">
-                                                    <label>Full Name:</label>
+                                                <div className="col-md-4">
+                                                    <label>Name:</label>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-8">
                                                     <p>{this.state.name}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
-                                                <div className="col-md-6">
+                                                <div className="col-md-4">
                                                     <label>Email:</label>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-8">
                                                     <p>{this.state.email}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
-                                                <div className="col-md-6">
+                                                <div className="col-md-4">
                                                     <label>Phone:</label>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-8">
                                                     <p>{this.state.phone}</p>
                                                 </div>
                                             </div>
                                             <div className="row">
-                                                <div className="col-md-6">
+                                                <div className="col-md-4">
                                                     <label>Gender:</label>
                                                 </div>
-                                                <div className="col-md-6">
+                                                <div className="col-md-8">
                                                     <p>{this.state.gender}</p>
                                                 </div>
                                             </div>

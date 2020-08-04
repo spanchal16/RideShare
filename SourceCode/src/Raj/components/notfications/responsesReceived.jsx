@@ -3,26 +3,38 @@
 
 import React, { Component } from 'react';
 import ResponseMainCard from './responseMainCard'
+import axios from 'axios';
+import "../events.css";
+import Loader from '../loader'
+import Cookies from "js-cookie";
 
 class ResponsesReceived extends Component {
     constructor(props) {
         super(props);
+        const userId = Cookies.get("userId");
         this.state = {
-            eventDetails: [
-                {
-                    eventDetailId: 1, fromAddress: "Halifax", toAddress: "Moncton", dateToDisplay: "07/02/2020", seats: 4, estPrice: 200, description: "sample desc",status:0
-                },
-
-                {
-                    eventDetailId: 2, fromAddress: "Moncton", toAddress: "Halifax", dateToDisplay: "07/12/2020", seats: 1, estPrice: 250, description: "sample desc",status:1
-                },
-
-                {
-                    eventDetailId: 3, fromAddress: "Moncton", toAddress: "Quebic", dateToDisplay: "07/12/2020", seats: 1, estPrice: 250, description: "sample desc",status:-1
-                }
-            ]
+            userId,
+            loader: false,
+            eventDetails: []
          }
     }
+
+    //GET all the responses in the notifications screen
+    async componentDidMount() {
+        this.setState({ loader: true });
+        //https://eventgoapi.herokuapp.com/requestsreceived/getresponses/
+        //http://localhost:8080/requestsreceived/getresponses/
+        await axios.get(`https://eventgoapi.herokuapp.com/requestsreceived/getresponses/`+this.state.userId)
+            .then(res => {
+                const data = res.data;
+                // console.log(data.requests.length); //2
+                // console.log(data.requests[0].eventid);
+                this.setState({ loader: false, eventDetails: data.requests });
+            }).catch(err =>  {
+                console.log(err);
+            })
+    }
+
     render() {
         return (
             <div>
@@ -33,7 +45,6 @@ class ResponsesReceived extends Component {
                         key={item.eventDetailId}
                         eventDetail = {item}
                     />)}
-
             </div>
          );
     }
