@@ -47,7 +47,7 @@ class BookingDetails extends Component {
     if (this.state.seats === 1) {
       alert("need atleast 1 person to make a request");
     } else {
-      this.setState({ seats: this.state.counterValue - 1 });
+      this.setState({ seats: this.state.seats - 1 });
     }
   };
 
