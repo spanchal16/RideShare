@@ -59,7 +59,7 @@ class CreateEvent extends Component {
   };
 
   renderDescription = () => {
-    console.log(this.props.isCreate);
+    //console.log(this.props.isCreate);
     return this.props.isCreate ? (
       <Form.Row>
         <Form.Group as={Col} controlId="txtarea">
@@ -169,11 +169,11 @@ class CreateEvent extends Component {
   };
 
   pdfGeneratorFun = () => {
-    console.log("Type = ", this.props.eventTypeVal);
-    console.log("From = ", this.props.fromAddress);
-    console.log("To = ", this.props.toAddress);
-    console.log("Date of Journey = ", this.props.journeyDate);
-    console.log("Description = ", this.props.description);
+    // console.log("Type = ", this.props.eventTypeVal);
+    // console.log("From = ", this.props.fromAddress);
+    // console.log("To = ", this.props.toAddress);
+    // console.log("Date of Journey = ", this.props.journeyDate);
+    // console.log("Description = ", this.props.description);
 
     let myData = new jsPDF("p", "pt");
 

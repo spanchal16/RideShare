@@ -23,7 +23,7 @@ class ResponseMainCard extends Component {
         {
             let time = timeStamp.split("T");
             let timeString = time[0] + " " + time[1].split(".")[0];
-            console.log(timeString)
+            //console.log(timeString)
             this.setState({time:timeString});
         }
     }

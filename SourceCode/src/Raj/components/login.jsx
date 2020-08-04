@@ -35,8 +35,8 @@ class Login extends Component {
         axios.post(url, { user })
             .then(res => {
                 let resultData = res.data;
-                console.log(resultData);
-                console.log("This is result resultData.length): " + resultData.length);
+                //console.log(resultData);
+                //console.log("This is result resultData.length): " + resultData.length);
                 if (resultData.length > 0) {
                     Cookies.remove("userId");
                     Cookies.remove("userName");
@@ -46,12 +46,12 @@ class Login extends Component {
                     Cookies.set("userName", resultData[0].userName);
                     Cookies.set("email", user.email);
                     this.setState({ isLoggedIn: true, isInvalidCred: false });
-                    console.log("This is isLoggedIn: " + this.state.isLoggedIn);
-                    console.log("This is isInvalidCred: " + this.state.isInvalidCred);
-                    console.log("This is state: " + this.state);
+                    // console.log("This is isLoggedIn: " + this.state.isLoggedIn);
+                    // console.log("This is isInvalidCred: " + this.state.isInvalidCred);
+                    // console.log("This is state: " + this.state);
                 } else {
                     this.setState({ isInvalidCred: true })
-                    console.log("This is isInvalidCred: " + this.state.isInvalidCred);
+                    //console.log("This is isInvalidCred: " + this.state.isInvalidCred);
                     throw new Error("Bad response from server");
                 }
             }).catch(err => {
@@ -68,7 +68,7 @@ class Login extends Component {
     }
 
     render() {
-        console.log("This is isLoggedIn in render: " + this.state.isLoggedIn);
+        //console.log("This is isLoggedIn in render: " + this.state.isLoggedIn);
         if (this.state.isLoggedIn) {
             return <Redirect to="/findevent" />
         }
