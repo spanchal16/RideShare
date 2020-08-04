@@ -16,6 +16,7 @@ class RequestMainCard extends Component {
             <Accordion>
                 <Card border="secondary" >
                     <Card.Header style={{padding:"0"}}>
+                      
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
                             From <strong>{this.props.eventDetail.fromAddress}</strong> to <strong>{this.props.eventDetail.toAddress}</strong> on <strong>{this.props.eventDetail.doj}</strong> Seats available: <strong>{this.props.eventDetail.seats} </strong>
                             Estimated price: <strong>$ {this.props.eventDetail.estPrice} </strong>
@@ -25,6 +26,7 @@ class RequestMainCard extends Component {
                     <Accordion.Collapse eventKey="0">
                         {/* render requests for an event inside create-event card */}
                         <Card.Body>
+                            
                             {this.props.eventDetail.requests.map(item => <SubReqDetails
                                 key={item.requesteventId}
                                 data={item}
