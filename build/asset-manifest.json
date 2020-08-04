@@ -1,33 +1,32 @@
 {
   "files": {
     "main.css": "/static/css/main.5587ea45.chunk.css",
-    "main.js": "/static/js/main.e278d748.chunk.js",
-    "main.js.map": "/static/js/main.e278d748.chunk.js.map",
+    "main.js": "/static/js/main.af68c629.chunk.js",
+    "main.js.map": "/static/js/main.af68c629.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.8fd84bac.js",
     "runtime-main.js.map": "/static/js/runtime-main.8fd84bac.js.map",
     "static/css/2.a1b7a17e.chunk.css": "/static/css/2.a1b7a17e.chunk.css",
-    "static/js/2.27637e8e.chunk.js": "/static/js/2.27637e8e.chunk.js",
-    "static/js/2.27637e8e.chunk.js.map": "/static/js/2.27637e8e.chunk.js.map",
+    "static/js/2.19cc9c6a.chunk.js": "/static/js/2.19cc9c6a.chunk.js",
+    "static/js/2.19cc9c6a.chunk.js.map": "/static/js/2.19cc9c6a.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.b4c6a13d9cc225a8444a08ab28683465.js": "/precache-manifest.b4c6a13d9cc225a8444a08ab28683465.js",
+    "precache-manifest.da8020646a36f05fc9bd6197135c1c21.js": "/precache-manifest.da8020646a36f05fc9bd6197135c1c21.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.a1b7a17e.chunk.css.map": "/static/css/2.a1b7a17e.chunk.css.map",
     "static/css/main.5587ea45.chunk.css.map": "/static/css/main.5587ea45.chunk.css.map",
-    "static/js/2.27637e8e.chunk.js.LICENSE.txt": "/static/js/2.27637e8e.chunk.js.LICENSE.txt",
+    "static/js/2.19cc9c6a.chunk.js.LICENSE.txt": "/static/js/2.19cc9c6a.chunk.js.LICENSE.txt",
     "static/media/A2FooterFb.png": "/static/media/A2FooterFb.465faff2.png",
     "static/media/A2FooterInsta.png": "/static/media/A2FooterInsta.7742981d.png",
     "static/media/A2FooterTwitter.png": "/static/media/A2FooterTwitter.0452ac38.png",
     "static/media/events.css": "/static/media/background4.90e9df32.jpg",
     "static/media/carpool.png": "/static/media/carpool.3cf1399e.png",
     "static/media/logo.png": "/static/media/logo.b6440551.png",
-    "static/media/rideshare.png": "/static/media/rideshare.5d18dc27.png",
-    "static/media/solitary.jpeg": "/static/media/solitary.e7a767c8.jpeg"
+    "static/media/rideshare.png": "/static/media/rideshare.5d18dc27.png"
   },
   "entrypoints": [
     "static/js/runtime-main.8fd84bac.js",
     "static/css/2.a1b7a17e.chunk.css",
-    "static/js/2.27637e8e.chunk.js",
+    "static/js/2.19cc9c6a.chunk.js",
     "static/css/main.5587ea45.chunk.css",
-    "static/js/main.e278d748.chunk.js"
+    "static/js/main.af68c629.chunk.js"
   ]
 }

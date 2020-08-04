@@ -39,17 +39,44 @@ class viewProfile extends Component {
                 let email = res.data[0].email;
                 let phone = res.data[0].phone;
                 let gender = res.data[0].gender;
+                let isPremium = res.data[0].isPremium;
+                let isVerified = res.data[0].isVerified;
+                let profile_image = res.data[0].profile_image;
+                let profession = res.data[0].profession;
+                let bio = res.data[0].bio;
+
                 console.log(userName, phone, email, gender);
                 this.setState({ name: userName });
                 this.setState({ email: email });
                 if(phone == null)
                     this.setState({ phone: "Not Provided" });
-                if(gender == "ma")
-                    this.setState({ gender: "male" });
-                else if(gender == "fe")
-                    this.setState({ gender: "female" });
                 else
-                    this.setState({ gender: "other" });
+                    this.setState({ phone: phone});
+                if(gender == "ma")
+                    this.setState({ gender: "Male" });
+                else if(gender == "fe")
+                    this.setState({ gender: "Female" });
+                else
+                    this.setState({ gender: "Other" });
+                if(isPremium == 0)
+                    this.setState({ isPremium: "Normal Account" });
+                else
+                    this.setState({ isPremium: "Premium Account" });
+                if(isVerified == -1)
+                    this.setState({ isVerified: "not Verified" });
+                else if (isVerified == 0)
+                    this.setState({ isVerified: "Under Process" });
+                else if (isVerified == 1)
+                    this.setState({ isVerified: "Verified" });
+                this.setState({ profile_image: profile_image });
+                if(profession == null)
+                    this.setState({ profession: "Not Provided" });
+                else
+                    this.setState({ profession: profession});
+                if(bio == null)
+                    this.setState({ bio: "Not Provided" });
+                else
+                    this.setState({ bio: phone});
 
             }).catch(err => {
             console.log(err);
@@ -69,10 +96,10 @@ class viewProfile extends Component {
         return (
             <div className="main-container">
                 <div className="div-image text-center">
-                    <Img
-                        top
+                    <img
+                        src={this.state.profile_image}
+                        alt="profile pic"
                         className="image1"
-                        src={require("../Nishant/images/solitary.jpeg")}
                     />
                 </div>
                 <br/>
@@ -80,7 +107,7 @@ class viewProfile extends Component {
                 <Card className="main-card">
                     <CardBody className="text-center">
                         <CardTitle className="h3 mb-2 pt-2 font-weight-bold text-secondary">
-                            Requester's information
+                            {this.state.name}'s Profile
                         </CardTitle>
                         <br/>
                         <div className="row justify-content-center">
@@ -119,6 +146,38 @@ class viewProfile extends Component {
                                                 </div>
                                                 <div className="col-md-8">
                                                     <p>{this.state.gender}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <label>Premium:</label>
+                                                </div>
+                                                <div className="col-md-8">
+                                                    <p>{this.state.isPremium}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <label>Verified:</label>
+                                                </div>
+                                                <div className="col-md-8">
+                                                    <p>{this.state.isVerified}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <label>Profession:</label>
+                                                </div>
+                                                <div className="col-md-8">
+                                                    <p>{this.state.profession}</p>
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <label>Bio:</label>
+                                                </div>
+                                                <div className="col-md-8">
+                                                    <p>{this.state.bio}</p>
                                                 </div>
                                             </div>
                                         </div>
