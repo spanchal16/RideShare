@@ -9,9 +9,21 @@ import SubReqDetails from './subReqDetails'
 class RequestMainCard extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = {
+            time: ''
+        }
+    }
+    componentDidMount() {
+        let timeStamp = this.props.eventDetail.createddate;
+        if(timeStamp != null)
+        {
+            let time = timeStamp.split("T");
+            let timeString = time[0] + " " + time[1].split(".")[0];
+            this.setState({time:timeString});
+        }
     }
     render() {
+        // console.log("in request main card: " + JSON.stringify(this.props));
         return (<div>
             <Accordion>
                 <Card border="secondary" >
@@ -39,7 +51,7 @@ class RequestMainCard extends Component {
                             <small className="text-muted"> {this.props.eventDetail.requests.length} Requests for this event</small>
                         </Col>
                         <Col>
-                            <small className="text-muted">posted 3 days ago</small>
+                            <small className="text-muted">{this.state.time}</small>
                         </Col>
                     </Row>
                 </Card.Footer>

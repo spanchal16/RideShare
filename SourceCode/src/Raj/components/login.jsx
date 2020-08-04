@@ -31,7 +31,7 @@ class Login extends Component {
         };
         // console.log(user);
         let url = "https://eventgoapi.herokuapp.com/usermng/login";
-        // let url = "http://localhost:8080/usermng/login";
+         //let url = "http://localhost:8080/usermng/login";
         axios.post(url, { user })
             .then(res => {
                 let resultData = res.data;
@@ -70,7 +70,7 @@ class Login extends Component {
     render() {
         console.log("This is isLoggedIn in render: " + this.state.isLoggedIn);
         if (this.state.isLoggedIn) {
-            return <Redirect to="/home" />
+            return <Redirect to="/findevent" />
         }
 
         let errMsg = this.state.isInvalidCred ?
