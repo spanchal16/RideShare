@@ -41,7 +41,9 @@ class Login extends Component {
                     Cookies.remove("userId");
                     Cookies.remove("userName");
                     Cookies.remove("email");
-
+                    //sagar
+                    Cookies.set("isPremium", resultData[0].isPremium);
+                    //
                     Cookies.set("userId", resultData[0].userId);
                     Cookies.set("userName", resultData[0].userName);
                     Cookies.set("email", user.email);

@@ -7,6 +7,8 @@ import { Form, Button, InputGroup, Col, Row } from "react-bootstrap";
 import "./events.css";
 import jsPDF from "jspdf";
 import { AiFillFilePdf } from "react-icons/ai";
+import Bump from "../../Sagar/PremiumUser/Bump/Bump";
+import axios from "axios";
 
 class CreateEvent extends Component {
   constructor(props) {
@@ -109,21 +111,21 @@ class CreateEvent extends Component {
             {this.renderClearImgBtn(this.props.imagePreviewUrl1)}
             </Col>
             </Row>
-          
-          
+
+
           {this.props.imageError}
           <br/>
           <Row>
             <Col>
               {this.renderImgPreview(this.props.imagePreviewUrl1)}
-              
+
             </Col>
             <Col>
               {this.renderImgPreview(this.props.imagePreviewUrl2)}
             </Col>
           </Row>
           </Form.Group>
-        
+
       </Form.Row>
     ) : null;
   };
@@ -167,6 +169,19 @@ class CreateEvent extends Component {
       <span className="fstyle">(Optional)</span>
     ) : null;
   };
+
+  bumpEvent=()=>{
+    //let url = "https://eventgoapi.herokuapp.com/createevent/bumpTimeStamp/";
+    let url = "http://localhost:8080/createevent/bumpTimeStamp/";
+    console.log("props.eventid",this.props.eventID)
+    axios.put(url + this.props.eventID)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        }).catch(err => {
+      console.log(err);
+    })
+  }
 
   pdfGeneratorFun = () => {
     console.log("Type = ", this.props.eventTypeVal);
@@ -238,6 +253,8 @@ class CreateEvent extends Component {
         : "Create"
       : "Find Event";
     let hedingText = this.props.isCreate ? "Offer a Ride" : "Find a Ride";
+
+    let showBump = this.props.isCreate? !!this.props.isUpdate:false;
 
     return (
       <div>
@@ -336,7 +353,15 @@ class CreateEvent extends Component {
                       {buttonText}
                     </Button>
                   </Col>
+                  <Col>
+                    {showBump?<Button variant="primary" onClick={this.bumpEvent} >
+                      Bump Event
+                    </Button>:null}
+
+                  </Col>
+
                   <Col>{this.renderPDFButton()}</Col>
+
                 </Row>
               </div>
             </Form>
