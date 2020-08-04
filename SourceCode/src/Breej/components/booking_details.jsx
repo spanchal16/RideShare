@@ -17,13 +17,14 @@ class BookingDetails extends Component {
   constructor(props) {
     super(props);
 
-    var isLoggedIn = true;
+    let isLoggedin = true;
+
     const userId = Cookies.get("userId");
     if (userId == null) {
-      isLoggedIn = false;
+      isLoggedin = false;
     }
     this.state = {
-      isLoggedIn: true,
+      isLoggedin,
       eventid: this.props.location.state.eventid,
       userid: userId,
       seats: 1,
@@ -91,7 +92,7 @@ class BookingDetails extends Component {
   };
 
   render() {
-    if (!this.state.isLoggedIn) {
+    if (!this.state.isLoggedin) {
       return <Redirect to="/login" />;
     }
     return (
