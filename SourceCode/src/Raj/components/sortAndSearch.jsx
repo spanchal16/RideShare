@@ -67,6 +67,7 @@ class SortAndSearch extends Component {
                   name="sorthBy"
                   onChange={this.props.onSortByChange}
                 >
+
                   <option value="id">Event added</option>
                   <option value="fromAddress">From</option>
                   <option value="toAddress">To</option>

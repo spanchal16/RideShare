@@ -49,7 +49,7 @@ class ResponseMainCard extends Component {
     //status of the event display
     renderFooterText = () => {
         if (this.props.eventDetail.status == 1) {
-            return <div><FcOk /> <span style={{fontStyle: "italic"}}>Accepted </span></div>
+            return <div><FcOk /> <span style={{fontStyle: "italic"}}>Accepted</span></div>
         }
         else if (this.props.eventDetail.status == 0) {
             return <div><BsFillXCircleFill style={{color:"#dc3545"}}/> <span style={{fontStyle: "italic"}}>Declined </span></div>
@@ -79,6 +79,8 @@ class ResponseMainCard extends Component {
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                         <Card.Body>
+
+                            event owner details to contact...
                             <Row>
                                 <Col md={{ span: 5, offset: 4 }}>
                                     <Button className="btn btn-success" type="button"
@@ -87,6 +89,7 @@ class ResponseMainCard extends Component {
                                     </Button>
                                 </Col>
                             </Row>
+
                         </Card.Body>
                     </Accordion.Collapse>
                     <Card.Footer className="justify-content-end">

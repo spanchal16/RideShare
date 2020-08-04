@@ -53,6 +53,9 @@ export class Feedback extends Component {
        
         let validateEmailMsg = "";
         let validateFeedbackMsg = "";
+        let mess1 = false;
+        let mess2 = false;
+        
         event.preventDefault();
 
         emailjs.sendForm('gmail', 'rideshare', event.target, 'user_SZchUn5ka0898AwI2Yq1S')
@@ -64,20 +67,24 @@ export class Feedback extends Component {
 
         if(this.state.feedback.length === 0 || this.state.feedback.trim() === ""){
             validateFeedbackMsg ="Feedback field cannot be empty. Please provide feedback";
+            mess1 = false;
             if(validateFeedbackMsg){
               this.setState({validateFeedbackMsg})      
             }
         }
         else{
             this.setState({validateFeedbackMsg})
+            mess1= true;
         }
       
         if(this.state.email.includes('@') && this.state.email.includes('.')){
             this.setState({validateEmailMsg})
+            mess2 = true;
         }
 
         else{
             validateEmailMsg ="Email Id is invalid. Please provide valid Email Id";
+            mess2 = false;
             if(validateEmailMsg){
               this.setState({validateEmailMsg})      
             }
@@ -98,6 +105,14 @@ export class Feedback extends Component {
             }).catch(err => {
                 console.log(err);
             })
+
+            if(mess1 && mess2 === true){
+                alert("Your feedback has been successfully inserted in the database.")
+            }
+            else{
+                alert("Sorry, your feedback cannot be inserted.")
+            }
+
 
         
     }
@@ -151,9 +166,7 @@ export class Feedback extends Component {
                             <section>
                                 <button
                                     type="submit"
-                                    className="btn btn-primary"
-                                  
-                                    
+                                    className="btn btn-primary"  
                                 >Submit
                                 </button>
                             </section>

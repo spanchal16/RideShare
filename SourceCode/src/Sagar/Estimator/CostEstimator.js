@@ -6,7 +6,7 @@ import FormUsersDetails from "../FormUsersDetails/FormUsersDetails";
 import Confirm from "../Confirm/Confirm";
 
 
-class CostEstimator extends Component{
+class  CostEstimator extends Component{
 
     state = {
         step:1,

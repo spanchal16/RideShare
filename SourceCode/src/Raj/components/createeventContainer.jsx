@@ -8,7 +8,7 @@ import PostEventHistory from "./posteventhist";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
 import Cookies from "js-cookie";
-import "./events.css"; 
+import "./events.css";
 import Loader from './loader'
 import { storage } from '../firebase';
 
@@ -61,7 +61,7 @@ class CreateEventContainer extends Component {
     //http://localhost:8080/createevent/getHistory/
     await axios.get(`https://eventgoapi.herokuapp.com/createevent/getHistory/`+this.state.userId)
     .then(res => {
-        
+
       const data = res.data;
       //console.log(data);
       this.state.eventHistory.push(data);
@@ -75,7 +75,7 @@ class CreateEventContainer extends Component {
   /*Create/Update button click handler
   Image uploades to Db here*/
   mySubmitHandler = async (event) => {
-    
+
     event.preventDefault();
     const form = event.currentTarget;
     //Form validation
@@ -101,7 +101,7 @@ class CreateEventContainer extends Component {
               description: this.state.description,
               imageurls: imageurls
             };
-    
+
             //API call for put
             //https://eventgoapi.herokuapp.com/createevent/updateEvent/
             //http://localhost:8080/createevent/updateEvent/
@@ -123,7 +123,7 @@ class CreateEventContainer extends Component {
                     }
                   });
                 }
-                
+
                 this.setState({
                   eventHistory: eventHistory,
                   eventHistoryToDisplay: eventHistory,
@@ -143,12 +143,12 @@ class CreateEventContainer extends Component {
                   imageurls:[]
                 });
                 document.getElementById("imgupload").value = null;
-                
+
               }).catch(err => {
                 console.log(err);
                 //this.setState({ data:"error" });
               })
-    
+
               this.setState({ isMasked: false });
           } else {
             let newItem = {
@@ -167,9 +167,9 @@ class CreateEventContainer extends Component {
             //http://localhost:8080/createevent/postEvent/
             await axios.post(`https://eventgoapi.herokuapp.com/createevent/postEvent/`+this.state.userId, { newItem })
               .then(res => {
-                
+
                 const data = res.data;
-                
+
                 this.setState({
                   eventHistory: data,
                   eventHistoryToDisplay: data,
@@ -192,7 +192,7 @@ class CreateEventContainer extends Component {
                 this.setState({ isMasked: false });
               }).catch(err => {
                 console.log(err);
-              })   
+              })
           }
       });
     }
@@ -275,7 +275,7 @@ class CreateEventContainer extends Component {
       description,
       imageurl1,
       imageurl2
-      
+
     } = history;
     let dateToDisplay1 =
       doj == undefined || doj.length == 0
@@ -373,7 +373,7 @@ class CreateEventContainer extends Component {
     this.setState({ eventHistoryToDisplay: eventHistoryToDisplay });
   };
   /*Search and Sort Feature --end*/
-  
+
   /* Upload Image Feature --start */
   //Function to upload images to Firebase
   uploadImages = () => {
@@ -409,7 +409,7 @@ class CreateEventContainer extends Component {
             }
           )
         });
-    
+
       }
       else {
         if (this.state.isUpdate) {
@@ -485,9 +485,9 @@ class CreateEventContainer extends Component {
     }
     return (
       <div className="pb-5">
-       
+
         {this.renderMask()}
-        
+
         <Container>
           <Row>
             <Col>
@@ -513,6 +513,7 @@ class CreateEventContainer extends Component {
                 imageError={this.state.imageError}
                 imagePreviewUrl1={this.state.imagePreviewUrl1}
                 imagePreviewUrl2={this.state.imagePreviewUrl2}
+                eventID={this.state.updateItemId}
                 isCreate={true}
               />
             </Col>

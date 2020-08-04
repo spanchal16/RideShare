@@ -5,6 +5,7 @@
 
 **[Optional]** If what is being submitted is an individual Lab or Assignment. Otherwise, include a brief one paragraph description about the project.
 
+
 * *Date Created*: 25 July 2020
 * *Last Modification Date*: 25 July 2020
 
@@ -21,6 +22,8 @@
 **[Optional]** If needing to provide the marker with a copy of the project that should run on their local machine for development, testing and/or marking purposes. Please include the following sections.
 
 See deployment for notes on how to deploy the project on a live system.
+Deployment URL: https://csci5709webgroup20.herokuapp.com/login
+For assignment 4, I have decided to submit "Cost Estimator feature".
 
 ### Prerequisites
 
