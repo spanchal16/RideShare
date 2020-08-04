@@ -8,8 +8,8 @@ import {
   Button,
   FormControl,
 } from "react-bootstrap";
-import axios from 'axios';
-import { storage } from '../../Raj/firebase';
+import axios from "axios";
+import { storage } from "../../Raj/firebase";
 import Cookies from "js-cookie";
 import { Redirect } from "react-router-dom";
 
@@ -28,15 +28,15 @@ class BookingDetails extends Component {
       userid: userId,
       seats: 1,
       description: "",
-      status: -1
-
+      status: -1,
     };
-
   }
 
   onClickIncreasehandler = () => {
     if (this.state.seats === this.props.location.state.seats) {
-      alert(`no more than ${this.props.location.state.seats} people allowed for current request!!`);
+      alert(
+        `no more than ${this.props.location.state.seats} people allowed for current request!!`
+      );
     } else {
       this.setState({ seats: this.state.seats + 1 });
     }
@@ -50,33 +50,45 @@ class BookingDetails extends Component {
     }
   };
 
-
-
   Requestevent = async (event) => {
     console.log(event);
-    await axios.post(`http://localhost:8080/requestsreceived/postrequest/` + this.state.userid, event)
-      .then(res => {
+    await axios
+      .post(
+        `https://eventgoapi.herokuapp.com/requestsreceived/postrequest/` +
+          this.state.userid,
+        event
+      )
+      .then((res) => {
         if (res.data == "exist") {
-          alert("You already have requested for this event !! Wait for response from organiser..");
+          alert(
+            "You already have requested for this event !! Wait for response from organiser.."
+          );
+        } else {
+          alert("Request Succesfull");
         }
-        else {
-          alert("Request Succesfull")
-        }
-      }).catch(err => {
-        console.log("Inside catch")
+      })
+      .catch((err) => {
+        console.log("Inside catch");
         console.log(err);
-
       });
-  }
+  };
 
   renderImgPreview = (img) => {
-    return (img != '' && img != null) ? <img className="uploadimg" src={img} width="200rem" height="200rem" border="1" /> : null;
-  }
+    return img != "" && img != null ? (
+      <img
+        className="uploadimg"
+        src={img}
+        width="200rem"
+        height="200rem"
+        border="1"
+      />
+    ) : null;
+  };
 
-  recordText = e => {
+  recordText = (e) => {
     this.setState({ description: e.target.value });
-    console.log(this.state.description)
-  }
+    console.log(this.state.description);
+  };
 
   render() {
     if (!this.state.isLoggedIn) {
@@ -147,7 +159,7 @@ class BookingDetails extends Component {
                   </InputGroup>
                 </Col>
                 <Col className="col-lg-5 col-md-11 col-sm-11 col-xs-11 col-11">
-                  <InputGroup className="m-3">
+                  {/* <InputGroup className="m-3">
                     <InputGroup.Prepend>
                       <InputGroup.Text id="basic-addon1">Time:</InputGroup.Text>
                     </InputGroup.Prepend>
@@ -156,7 +168,7 @@ class BookingDetails extends Component {
                       aria-describedby="basic-addon1"
                       readOnly
                     />
-                  </InputGroup>
+                  </InputGroup> */}
                 </Col>
               </Row>
               <Row>
@@ -207,11 +219,8 @@ class BookingDetails extends Component {
                 <Col>
                   {this.renderImgPreview(this.props.location.state.imageurl2)}
                 </Col>
-
               </Row>
-              <Row className="m-3 mb-5">
-
-              </Row>
+              <Row className="m-3 mb-5"></Row>
             </Card>
           </Col>
           <Col className="col-lg-4 col-md-4 col-sm-11 col-xs-11 col-11">
@@ -248,7 +257,10 @@ class BookingDetails extends Component {
                   </Button>
                 </Row>
                 <Row className="m-3 justify-content-center">
-                  <h4>Total : ${this.state.seats * this.props.location.state.estPrice} CAD</h4>
+                  <h4>
+                    Total : $
+                    {this.state.seats * this.props.location.state.estPrice} CAD
+                  </h4>
                 </Row>
                 <Row className="justify-content-center mb-5">
                   <Button
@@ -306,8 +318,18 @@ class BookingDetails extends Component {
                   <Col>
                     <h4 style={{ color: "black" }}>@Rdj_insta_229</h4>
                   </Col> */}
-                  <label for="exampleFormControlTextarea1"  > <b>Message:</b> </label>
-                  <textarea className="form-control" id="Textarea1" rows="3" placeholder="Write something..." onChange={e => this.recordText(e)} value={this.state.description} ></textarea>
+                  <label for="exampleFormControlTextarea1">
+                    {" "}
+                    <b>Message:</b>{" "}
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="Textarea1"
+                    rows="3"
+                    placeholder="Write something..."
+                    onChange={(e) => this.recordText(e)}
+                    value={this.state.description}
+                  ></textarea>
                 </Row>
               </Card>
             </Row>
