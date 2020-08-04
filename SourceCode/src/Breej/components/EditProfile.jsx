@@ -7,10 +7,16 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { storage } from "../../Raj/firebase";
 import { Row, Container, Card, Col, Form, Button } from "react-bootstrap";
-
+import { Redirect } from "react-router-dom";
 class EditProfile extends Component {
   constructor(props) {
     super(props);
+
+    var isLoggedIn = true;
+    const userId = Cookies.get("userId");
+    if (userId == null) {
+      isLoggedIn = false;
+    }
     this.state = {
       userId: "",
       fullName: "",
@@ -21,38 +27,41 @@ class EditProfile extends Component {
       files: [],
       imagePreviewUrl1: "",
       imageError: "",
-      url: ["http://www.classichc.com/images/Bios/14.png"],
+      url: [],
       profileImage: "",
+      isLoggedIn,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmission = this.handleSubmission.bind(this);
+    // this.handleSubmission = this.handleSubmission.bind(this);
   }
+
   handleSubmission(event) {
-    event.preventDefault();
-    let evt = this.state;
-    console.log("inside handel submission" + evt);
-    const re = /[0-9]{10}/;
-    console.log(this.state);
-    // if (
-    //   this.state.fullName.length > 0 &&
-    //   this.state.profession &&
-    //   this.state.phone.length == 10
-    // ) {
-    console.log("inside If");
+    // event.preventDefault();
+    // let evt = this.state;
+    console.log("inside handel submission");
+    console.log(event);
+    // const re = /[0-9]{10}/;
+    // console.log(this.state);
+    if (
+      this.state.fullName.length > 0 &&
+      this.state.profession &&
+      this.state.phone.length == 10
+    ) {
+      console.log("inside If");
 
-    this.ImageUpload();
-
-    console.log(this.state);
-
-    this.updateProfile(evt);
-    // }
+      this.ImageUpload();
+      console.log(this.state.url);
+      console.log(this.state);
+    } else {
+      alert("couldn't update profile!!");
+    }
   }
 
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  updateProfile = async (evt1) => {
+  updateProfile = async () => {
     let evt = {
       fullName: this.state.fullName,
       bio: this.state.bio,
@@ -61,6 +70,18 @@ class EditProfile extends Component {
       url: this.state.url,
     };
     console.log("inside updateProfile");
+    console.log(evt.url);
+    console.log("profile image");
+    console.log(this.state.profileImage);
+
+    if (this.state.profileImage.length < 1) {
+      evt.url = ["http://www.classichc.com/images/Bios/14.png"];
+    } else if (this.state.url.length > 0) {
+      evt.url = this.state.url;
+    } else {
+      evt.url = [this.state.profileImage];
+    }
+
     let url = `http://localhost:8080/usermng/updateUser/${this.state.userId}`;
     await axios
       .put(url, evt)
@@ -159,16 +180,19 @@ class EditProfile extends Component {
     ) : null;
   };
 
-  ImageUpload = () => {
+  ImageUpload = async () => {
     //event.preventDefault();
     let urls = [];
     let counter = -1;
+    let f = 0;
     // this.setState({ imageurls: [] })
     let { files } = this.state;
     // return new Promise((resolve, reject) =>
     // if (files.length > 0) {
+    console.log("inside image upload");
     files.forEach((file, index) => {
       //Upload images to Firebase
+      console.log("going into for");
       storage
         .ref(`images/${file.name}`)
         .put(file)
@@ -195,12 +219,17 @@ class EditProfile extends Component {
                   this.setState({ url: urls });
                   console.log("image Uploaded");
                   //this.handleSubmission();
-                  // this.updateProfile();
+                  alert("Profile Photo Updated!!");
+                  this.updateProfile();
+                  f = 1;
                 }
               });
           }
         );
     });
+    if (f == 0) {
+      this.updateProfile();
+    }
   };
 
   renderError = (err) => {
@@ -230,6 +259,9 @@ class EditProfile extends Component {
   };
 
   render() {
+    if (!this.state.isLoggedIn) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="container edit-profile">
         {/* <form action="/profile" style={{ display: "inline" }}> */}
@@ -262,13 +294,20 @@ class EditProfile extends Component {
             </Col>
             <Col className="col-md-2">
               {/* <a href="profile"> */}
-              <input
+              {/* <input
                 type="submit"
                 className="myButton"
                 name="btnAddMore"
                 value="Update"
-                onClick={() => this.handleSubmission()}
-              />
+                onClick={() => this.handleSubmission(this.state)}
+              /> */}
+              <Button
+                variant="outline-warning"
+                onClick={() => this.handleSubmission(this.state)}
+              >
+                <h4>Update</h4>
+              </Button>
+
               {/* </a> */}
             </Col>
           </Row>
@@ -292,21 +331,21 @@ class EditProfile extends Component {
                 />
               </div> */}
               {/* <Form> */}
-              {/* <div style={{ textAlign: "center" }}> */}
-              {this.renderCurrentPicture(this.state.imagePreviewUrl1)}
+              <div style={{ textAlign: "center" }}>
+                {this.renderCurrentPicture(this.state.imagePreviewUrl1)}
 
-              {this.renderImgPreview(this.state.imagePreviewUrl1)}
+                {this.renderImgPreview(this.state.imagePreviewUrl1)}
 
-              {this.renderClearImgBtn(this.state.imagePreviewUrl1)}
-              {this.renderError(this.state.imageError)}
+                {this.renderClearImgBtn(this.state.imagePreviewUrl1)}
+                {this.renderError(this.state.imageError)}
 
-              <Form.File
-                id="file"
-                style={{ marginLeft: "3em" }}
-                onChange={this.handleImgFiles}
-                accept="image/*"
-              />
-              {/* </div> */}
+                <Form.File
+                  id="file"
+                  style={{ marginLeft: "3em" }}
+                  onChange={this.handleImgFiles}
+                  accept="image/*"
+                />
+              </div>
               {/* </Form> */}
             </Col>
             <Col className="col-md-8 edit-profile-head">

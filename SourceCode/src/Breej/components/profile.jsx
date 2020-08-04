@@ -19,16 +19,25 @@ import {
 } from "reactstrap";
 
 import Alert from "react-bootstrap/Alert";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 class profile_card extends Component {
   constructor(props) {
     super(props);
+
+    var isLoggedIn = true;
+    const userId = Cookies.get("userId");
+    if (userId == null) {
+      isLoggedIn = false;
+    }
+
     this.state = {
       fullName: "",
       email: "",
       bio: "",
       phone: "",
       profession: "",
+      profileImage: "",
+      isLoggedIn,
     };
   }
   getUserDetails = () => {
@@ -55,6 +64,7 @@ class profile_card extends Component {
           this.setState({ phone: resultData[0].phone });
           this.setState({ profession: resultData[0].profession });
           this.setState({ bio: resultData[0].bio });
+          this.setState({ profileImage: resultData[0].profile_image });
         } else {
           throw new Error("Bad response from server");
         }
@@ -68,13 +78,20 @@ class profile_card extends Component {
     this.getUserDetails();
   }
   render() {
+    if (!this.state.isLoggedIn) {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="main-container">
         <div className="div-image text-center">
-          <Img
-            top
+          {/* <Img
             className="image1"
-            src={require("../../Nishant/images/solitary.jpeg")}
+            src={}
+          /> */}
+          <img
+            src={this.state.profileImage}
+            alt="profile pic"
+            className="image1"
           />
         </div>
         <Card className="main-card">
