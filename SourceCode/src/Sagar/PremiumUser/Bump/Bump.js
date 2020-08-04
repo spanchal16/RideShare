@@ -5,8 +5,8 @@ import axios from "axios";
 class Bump extends Component{
 
     bumpEvent=()=>{
-        //let url = "https://eventgoapi.herokuapp.com/bumpTimeStamp/bumpTimeStamp";
-        let url = "http://localhost:3000/bumpTimeStamp/bumpTimeStamp";
+        let url = "https://eventgoapi.herokuapp.com/bumpTimeStamp/bumpTimeStamp";
+        //let url = "http://localhost:3000/bumpTimeStamp/bumpTimeStamp";
         axios.post(url )
             .then(res => {
                 console.log(res);

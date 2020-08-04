@@ -171,8 +171,8 @@ class CreateEvent extends Component {
   };
 
   bumpEvent=()=>{
-    //let url = "https://eventgoapi.herokuapp.com/createevent/bumpTimeStamp/";
-    let url = "http://localhost:8080/createevent/bumpTimeStamp/";
+    let url = "https://eventgoapi.herokuapp.com/createevent/bumpTimeStamp/";
+    //let url = "http://localhost:8080/createevent/bumpTimeStamp/";
     console.log("props.eventid",this.props.eventID)
     axios.put(url + this.props.eventID)
         .then(res => {
