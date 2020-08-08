@@ -56,14 +56,14 @@ After choosing files user clicks on upload document and images URL are stored by
 
 ### Prerequisites
 
-*[Node.js](https://nodejs.org/) - JavaScript runtime built on Chrome's V8 JavaScript engine.
-*[Express](https://expressjs.com/) - Server to connect to the React app
-*[Axios](https://www.npmjs.com/package/axios) - Http interface to work with XMLHttpRequest.
-*[Bootstrap](https://getbootstrap.com/) - An HTML, CSS and JS framework to build responsive web pages.
-*[React Bootstrap](https://www.npmjs.com/package/react-bootstrap) - A frontend framework for React for building responsive web pages.
-*[js-cookie] https://www.npmjs.com/package/js-cookie - A simple, lightweight JavaScript API for handling cookies
-*[react-responsive] https://www.npmjs.com/package/react-responsive - The best supported, easiest to use react media query module.
-*[Firebase] https://firebase.google.com/ - Firebase gives functionality like analytics, databases and messaging.
+* [Node.js](https://nodejs.org/) - JavaScript runtime built on Chrome's V8 JavaScript engine.
+* [Express](https://expressjs.com/) - Server to connect to the React app
+* [Axios](https://www.npmjs.com/package/axios) - Http interface to work with XMLHttpRequest.
+* [Bootstrap](https://getbootstrap.com/) - An HTML, CSS and JS framework to build responsive web pages.
+* [React Bootstrap](https://www.npmjs.com/package/react-bootstrap) - A frontend framework for React for building responsive web pages.
+* [js-cookie] https://www.npmjs.com/package/js-cookie - A simple, lightweight JavaScript API for handling cookies
+* [react-responsive] https://www.npmjs.com/package/react-responsive - The best supported, easiest to use react media query module.
+* [Firebase] https://firebase.google.com/ - Firebase gives functionality like analytics, databases and messaging.
 
 ## Software Installation
 To build this web application, Node.js was used along with Express module and React. Following are the steps for the installation of these modules:
