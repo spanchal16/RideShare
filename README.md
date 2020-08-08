@@ -50,9 +50,11 @@ After choosing files user clicks on upload document and images URL are stored by
 ## Authors
 
 * RajKumar Reddy Gangi(rj675423@dal.ca) 
-* Smit (sm414905@dal.ca) 
+* Smit Panchal (sm414905@dal.ca) 
 * Breej Vania (breej.vania@dal.ca)
-* Jigar (Jigar Makwana)
+* Jigar Makwana  (Jigar Makwana)
+* Nishant Amoli (nishant.amoli@dal.ca)
+* Sagar Moghe (sg286595@dal.ca)
 
 ### Prerequisites
 
