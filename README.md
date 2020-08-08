@@ -1,7 +1,6 @@
-# Assignment 4
+# RideShare
 
-The EventGo web application is a platform to connect various travellers or tourists travelling from a common point of origin to the same destination. Users can post their travelling plans through this application, and interested users can join their trip.
-For the scope of this project, I only include carpooling feature. 
+The RideShare web application is a platform to connect various travellers or tourists travelling from a common point of origin to the same destination. Users can post their travelling plans through this application, and interested users can join their trip. 
 
 * ### Create Event (https://csci5709webgroup20.herokuapp.com/createevent)
 	1) User have to Login to access this screen.
