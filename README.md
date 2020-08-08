@@ -33,15 +33,15 @@ For the scope of this project, I only include carpooling feature.
 	5) Sorting is based on: Event added(date when event is added), From, To , Date Of Journey, Seats, Price and Description.
 	
 * ### Request-A-Ride (https://csci5709webgroup20.herokuapp.com/bookingdetails)
-This feature task is to record the users that are making request to join an event thorugh the find event page. The data displayed are fetched from the api and then set and send over to props for further modification. The user makes changes like how mayy people wants to join and make a request and also send a single time message to organiser. On sumit request this data will e validated and stored in the database via API call made through AXIOS library.
+	This feature task is to record the users that are making request to join an event thorugh the find event page. The data displayed are fetched from the api and then set and send over to props for further modification. The user makes changes like how mayy people wants to join and make a request and also send a single time message to organiser. On sumit request this data will e validated and stored in the database via API call made through AXIOS library.
 
 * ### Verify Identity (https://csci5709webgroup20.herokuapp.com/verifyid)
-This feature task was quite challenging to me and hence I would like to thank my team member RajKumar for helping me. The task was to let the user upload at max two images of some kind of id proof to our database. But as we use MYSQL as back-end database the entire image in MYSQL was hard to manage so we decided to store the image on fire base and store the link to that image firebase URL into database. We created Firebase.js to access its service and upload image to firbase and fetch the URL. Validate that it is indeed an image in one of the following format jpg,jpeg and png and also confirm only 2 images are queued for upload process.
+	This feature task was quite challenging to me and hence I would like to thank my team member RajKumar for helping me. The task was to let the user upload at max two images of some kind of id proof to our database. But as we use MYSQL as back-end database the entire image in MYSQL was hard to manage so we decided to store the image on fire base and store the link to that image firebase URL into database. We created Firebase.js to access its service and upload image to firbase and fetch the URL. Validate that it is indeed an image in one of the following format jpg,jpeg and png and also confirm only 2 images are queued for upload process.
 
 After choosing files user clicks on upload document and images URL are stored by making an PUT request to our API.
 
 * ### Feedback Page (https://csci5709webgroup20.herokuapp.com/feedback)
-By default, the website will appear with a landing page that will contain link feedback at the footer. If the user clicks on the feedback link then it will redirect to another page where the user has to provide the email id and a feedback message. The user will also get validated before hitting the submit button. Once the validated and clicks on the submit button then the user's email id and feedback message will be sent to ridesharecomp@gmail.com. Lastly, the email id and feedback will be stored in the database.
+	By default, the website will appear with a landing page that will contain link feedback at the footer. If the user clicks on the feedback link then it will redirect to another page where the user has to provide the email id and a feedback message. The user will also get validated before hitting the submit button. Once the validated and clicks on the submit button then the user's email id and feedback message will be sent to ridesharecomp@gmail.com. Lastly, the email id and feedback will be stored in the database.
 
 
 * Date Created: 19 07 2020
@@ -49,8 +49,10 @@ By default, the website will appear with a landing page that will contain link f
 
 ## Authors
 
-* RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-* Smit (sm414905@dal.ca) - (Developer)
+* RajKumar Reddy Gangi(rj675423@dal.ca) 
+* Smit (sm414905@dal.ca) 
+* Breej Vania (breej.vania@dal.ca)
+* Jigar (Jigar Makwana)
 
 ### Prerequisites
 
@@ -387,3 +389,9 @@ function sendEmail(e) {
 * React-bootstrap.github.io, 2020. [Online]. Available: https://react-bootstrap.github.io/components/navbar/. [Accessed: 14- Jun- 2020].
 * "react-datepicker", npm, 2020. [Online]. Available: https://www.npmjs.com/package/react-datepicker/v/2.9.6. [Accessed: 14- Jun- 2020].
 * React-bootstrap.github.io, 2020. [Online]. Available: https://react-bootstrap.github.io/components/accordion/. [Accessed: 14- Jun- 2020].
+* H. application, R. Rajan, P. SAI and R. Malviya, "How to send email from my react web application", Stack Overflow, 2020. [Online]. Available: 	https://stackoverflow.com/questions/55795125/how-to-send-email-from-my-react-web-application. [Accessed: 25- Jul- 2020].
+* A2FooterFb.png, listimg.pinclipart , 
+https://listimg.pinclipart.com/picdir/s/2-21918_download-transparent-background-facebook-logo-clipart-facebook-logo.png,
+[July 14, 2020]
+* A2FooterTwitter.png, hiclipart, https://www.hiclipart.com/free-transparent-background-png-clipart-qimav ,[July 14, 2020]
+* A2FooterInsta.png, hiclipart, https://p7.hiclipart.com/preview/462/874/418/5bbf4add2c4b8.jpg [July 14, 2020]
