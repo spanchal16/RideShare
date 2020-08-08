@@ -3,7 +3,7 @@
 The EventGo web application is a platform to connect various travellers or tourists travelling from a common point of origin to the same destination. Users can post their travelling plans through this application, and interested users can join their trip.
 For the scope of this project, I only include carpooling feature. 
 
-* ### Feature 1: Create Event (https://csci5709webgroup20.herokuapp.com/createevent)
+* ### Create Event (https://csci5709webgroup20.herokuapp.com/createevent)
 	1) User have to Login to access this screen.
 	2) This screen consists of two sections, create event form component and history of events component.
 	3) Currently supported events-> car journey.
@@ -16,7 +16,7 @@ For the scope of this project, I only include carpooling feature.
 	10) Users can also delete a particular event by clicking on 'X' on the event from the history of events component.
 
 
-* ### Feature 2: Find Event (https://csci5709webgroup20.herokuapp.com/findevent)
+* ### Find Event (https://csci5709webgroup20.herokuapp.com/findevent)
 	1) User have to Login to access this screen.
 	2) Find event screen consists of two sections, search form component and results component.
 	3) Currently supported events-> car journey.
@@ -25,60 +25,32 @@ For the scope of this project, I only include carpooling feature.
 	6) On click on the results, users are navigated to the 'Booking Details' Screen where users can request for a ride. (					https://csci5709webgroup20.herokuapp.com/bookingdetails)
 	
 
-* ### Feature 3: Search and Sort (https://csci5709webgroup20.herokuapp.com/createevent | https://csci5709webgroup20.herokuapp.com/findevent)
+* ### Search and Sort (https://csci5709webgroup20.herokuapp.com/createevent | https://csci5709webgroup20.herokuapp.com/findevent)
 	1) This feature is available on Create event and Find event screens.
 	2) Users can search and Sort the created events or Found results.
 	3) Records can be searched by: From, TO, Seats, Price and Description. These types are selected from the dropdown.
 	4) Users can provide search string that is corresponding to the type selected from the dropdown.
 	5) Sorting is based on: Event added(date when event is added), From, To , Date Of Journey, Seats, Price and Description.
+	
+* ### Request-A-Ride (https://csci5709webgroup20.herokuapp.com/bookingdetails)
+This feature task is to record the users that are making request to join an event thorugh the find event page. The data displayed are fetched from the api and then set and send over to props for further modification. The user makes changes like how mayy people wants to join and make a request and also send a single time message to organiser. On sumit request this data will e validated and stored in the database via API call made through AXIOS library.
 
-### List of Files
-**Frontend https://github.com/JigarMakwana/CSCI5709_Project_Group_20/blob/master/SourceCode/**
+* ### Verify Identity (https://csci5709webgroup20.herokuapp.com/verifyid)
+This feature task was quite challenging to me and hence I would like to thank my team member RajKumar for helping me. The task was to let the user upload at max two images of some kind of id proof to our database. But as we use MYSQL as back-end database the entire image in MYSQL was hard to manage so we decided to store the image on fire base and store the link to that image firebase URL into database. We created Firebase.js to access its service and upload image to firbase and fetch the URL. Validate that it is indeed an image in one of the following format jpg,jpeg and png and also confirm only 2 images are queued for upload process.
 
-1) **src/Raj/components/notfications/requestsReceived.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-2) **src/Raj/components/notfications/requestMainCard.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-3) **src/Raj/components/notfications/responseMainCard.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-4) **src/Raj/components/notfications/responsesReceived.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-5) **src/Raj/components/notfications/subReqDetails.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-6) **src/Raj/components/createevent.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-7) **src/Raj/components/createeventContainer.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-8) **src/Raj/components/description.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-9) **src/Raj/components/errorpage.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-10) **src/Raj/components/events.css** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-11) **src/Raj/components/findeventContainer.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-12) **src/Raj/components/home.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-13) **src/Raj/components/loader.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-14) **src/Raj/components/login.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-15) **src/Raj/components/loginReg.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-16) **src/Raj/components/navbarHeader.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-17) **src/Raj/components/navbarTemplate.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-18) **src/Raj/components/notfications.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-19) **src/Raj/components/posteventhist.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-20) **src/Raj/components/register.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-21) **src/Raj/components/sortAndSearch.jsx** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
+After choosing files user clicks on upload document and images URL are stored by making an PUT request to our API.
 
-**Backend https://github.com/JigarMakwana/CSCI5709_Project_API_Group20/**
-1) **api/controller/createEventController.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-2) **api/controller/findEventsController.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-3) **api/controller/requestsContoroller.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-4) **api/models/DatabaseConn.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-5) **api/models/createModel.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-6) **api/models/findEventModel.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-7) **api/models/requestsModel.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-8) **api/routes/createEventRouter.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-9) **api/routes/findEventRouter.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-10) **api/routes/requestsRouter.js** - RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
-
-
-I have deviated a little from the initially submitted wireframes; this is due to the finding of better UI components while developing the application and also to provide a better User experience. 
+* ### Feedback Page (https://csci5709webgroup20.herokuapp.com/feedback)
+By default, the website will appear with a landing page that will contain link feedback at the footer. If the user clicks on the feedback link then it will redirect to another page where the user has to provide the email id and a feedback message. The user will also get validated before hitting the submit button. Once the validated and clicks on the submit button then the user's email id and feedback message will be sent to ridesharecomp@gmail.com. Lastly, the email id and feedback will be stored in the database.
 
 
 * Date Created: 19 07 2020
-* Last Modification Date: 22 07 2020
+* Last Modification Date: 07 08 2020
 
 ## Authors
 
 * RajKumar Reddy Gangi(rj675423@dal.ca) - (Developer)
+* Smit (sm414905@dal.ca) - (Developer)
 
 ### Prerequisites
 
@@ -357,7 +329,57 @@ The code above was created by adapting the code in [React bootstrap](https://rea
 - [Why] [React bootstrap](https://react-bootstrap.github.io/components/navbar/) Code was used because to provide Navbar for the application with various links.
 - [How] [React bootstrap](https://react-bootstrap.github.io/components/navbar/) Code was modified by RajKumar
 
+### feedback.jsx
 
+*Lines 58- 62*
+
+```
+    emailjs.sendForm('gmail', 'rideshare', event.target, 'user_SZchUn5ka0898AwI2Yq1S')
+        .then((result) => {
+        }, (error) => {
+            console.log(error.text);
+        });
+
+
+```
+
+The code above was created by adapting the code in [Stackoverflow](https://stackoverflow.com/questions/55795125/how-to-send-email-from-my-react-web-application) as shown below: 
+
+```
+import React from 'react';
+import emailjs from 'emailjs-com';
+
+export default function ContactUs() {
+function sendEmail(e) {
+  emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target, 'YOUR_USER_ID')
+.then((result) => {
+ window.location.reload()
+}, (error) => {
+ console.log(error.text);
+  });
+}
+
+ return (
+    <form className="contact-form" onSubmit={sendEmail}>
+      <input type="hidden" name="contact_number" />
+      <label>Name</label>
+      <input type="text" name="from_name" />
+      <label>Email</label>
+      <input type="email" name="from_email" />
+      <label>Subject</label>
+      <input type="text" name="subject" />
+      <label>Message</label>
+      <textarea name="html_message" />
+      <input type="submit" value="Send" />
+    </form>
+  );
+}
+
+```
+
+- [feedback.jsx]The code in [feedback.jsx] was implemented by Smit Panchal. 
+- [feedback.jsx] The code was used because I want to send users email id and feedback to our official RideShare email address and using emailjs it was much easier and code complexity was less.
+- [feedback.jsx] The code was modified to send the email to RideShare email address.
 
 ## Acknowledgments
 
